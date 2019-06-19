@@ -1,3 +1,11 @@
+Fork Notice
+==========
+
+Aiming to turn codrops awesome work into an easy to use package!
+
+
+
+
 
 BookBlock
 =========
