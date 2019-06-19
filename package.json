@@ -1,0 +1,19 @@
+{
+  "name": "bookblock",
+  "version": "1.0.0",
+  "description": "BookBlock\r =========",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paxperscientiam/BookBlock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paxperscientiam/BookBlock/issues"
+  },
+  "homepage": "https://github.com/paxperscientiam/BookBlock#readme"
+}
