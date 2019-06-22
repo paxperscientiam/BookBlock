@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js demo-1">
+	  <head>
+		    <meta charset="UTF-8" />
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>UN Member flags</title>
+
+        $bundles
+        <script src="js/modernizr.custom.js"></script>
+	  </head>
+	  <body>
+        </div>
+		    <div class="grid-y grid-frame">
+            <div id="header" class="header shrink cell">
+                <h1>This is a header</h1>
+            </div>
+
+            <div id="container" class="cell auto">
+
+                <div id="inner-grid" class="grid-x align-center-middle">
+
+				            <div id="bb-bookblock" class="bb-bookblock shrink cell">
+                        <div class="bb-item shrink cell">
+                            <img src="assets/book/x-0001.png" class="" alt="image02"/>
+					              </div>
+				            </div>
+
+                </div>
+
+            </div>
+            <nav class="cell">
+                <div class="grid-x align-center">
+                    <div class="button-group">
+					              <a id="bb-nav-first" href="#" class="bb-custom-icon bb-custom-icon-first button"></a>
+					              <a id="bb-nav-prev" href="#" class="bb-custom-icon bb-custom-icon-arrow-left button"></a>
+					              <a id="bb-nav-next" href="#" class="bb-custom-icon bb-custom-icon-arrow-right button"></a>
+					              <a id="bb-nav-last" href="#" class="bb-custom-icon bb-custom-icon-last button"></a>
+                    </div>
+                </div>
+			      </nav>
+		    </div>
+		    <script src="js/jquery.min.js"></script>
+		    <script src="js/jquerypp.custom.js"></script>
+		    <script src="js/jquery.bookblock.js"></script>
+		    <script>
+			    var Page = (function() {
+
+				      var config = {
+						      $bookBlock : $( '#bb-bookblock' ),
+						      $navNext : $( '#bb-nav-next' ),
+						      $navPrev : $( '#bb-nav-prev' ),
+						      $navFirst : $( '#bb-nav-first' ),
+						      $navLast : $( '#bb-nav-last' )
+					    },
+					        init = function() {
+						          config.$bookBlock.bookblock( {
+                          circular: true,
+						              speed : 800,
+						              shadowSides : 0.8,
+						              shadowFlip : 0.7
+						          } );
+						          initEvents();
+					        },
+					        initEvents = function() {
+
+						          var $slides = config.$bookBlock.children();
+
+						          // add navigation events
+						          config.$navNext.on( 'click touchstart', function() {
+						              config.$bookBlock.bookblock( 'next' );
+						              return false;
+						          } );
+
+						          config.$navPrev.on( 'click touchstart', function() {
+						              config.$bookBlock.bookblock( 'prev' );
+						              return false;
+						          } );
+
+						          config.$navFirst.on( 'click touchstart', function() {
+						              config.$bookBlock.bookblock( 'first' );
+						              return false;
+						          } );
+
+						          config.$navLast.on( 'click touchstart', function() {
+						              config.$bookBlock.bookblock( 'last' );
+						              return false;
+						          } );
+
+						          // add swipe events
+						          $slides.on( {
+						              'swipeleft' : function( event ) {
+						                  config.$bookBlock.bookblock( 'next' );
+						                  return false;
+						              },
+						              'swiperight' : function( event ) {
+						                  config.$bookBlock.bookblock( 'prev' );
+						                  return false;
+						              }
+						          } );
+
+						          // add keyboard events
+						          $( document ).keydown( function(e) {
+						              var keyCode = e.keyCode || e.which,
+						                  arrow = {
+						                      left : 37,
+						                      up : 38,
+						                      right : 39,
+						                      down : 40
+						                  };
+
+						              switch (keyCode) {
+						                  case arrow.left:
+						                      config.$bookBlock.bookblock( 'prev' );
+						                      break;
+						                  case arrow.right:
+						                      config.$bookBlock.bookblock( 'next' );
+						                      break;
+						              }
+						          } );
+					        };
+
+					    return { init : init };
+
+			    })();
+		    </script>
+		    <script>
+			    Page.init();
+		    </script>
+	  </body>
+</html>

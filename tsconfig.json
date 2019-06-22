@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata":  true,
+        "experimentalDecorators": true,
+        "importHelpers":          true,
+        "inlineSources":          true,
+        "jsx":                    "react",
+        "module":                 "commonjs",
+        "moduleResolution":       "node",
+        "sourceMap":              true,
+        "target":                 "esnext",
+        "skipLibCheck":           true,
+        "types" : ["node", "jQuery", "Modernizr"]
+    },
+    "files": [
+        "src/index.ts"
+    ]
+}

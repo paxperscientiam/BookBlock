@@ -1,0 +1,118 @@
+@font-face {
+	  font-family: 'arrows';
+	  src:url('../fonts/arrows/arrows.eot');
+	  src:url('../fonts/arrows/arrows.eot?#iefix') format('embedded-opentype'),
+		    url('../fonts/arrows/arrows.woff') format('woff'),
+		    url('../fonts/arrows/arrows.ttf') format('truetype'),
+		    url('../fonts/arrows/arrows.svg#arrows') format('svg');
+	  font-weight: normal;
+	  font-style: normal;
+}
+
+#inner-grid {
+    height: 100%;
+}
+
+body {
+    background: wheat;
+}
+
+#container {
+    /*     width: 882px; */
+    position: relative;
+    margin: 0;
+    text-align: center;
+
+}
+.container {
+    display: inline-flex;
+    flex-direction: row;
+    outline: 1px solid red;
+}
+
+.bb-item {
+    width: 100%;
+    height: auto;
+}
+
+/* .bb-item, .bb-item a, .bb-item img { */
+/*     height: 100% !important; */
+/* } */
+
+.bb-item, .bb-page {
+    background-color: #fefefe;
+}
+
+
+.aspect-ratio--16x9 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.aspect-ratio__inner-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#header, #footer {
+    background: blue;
+}
+
+.bb-custom-icon:before {
+	  font-family: 'arrows';
+	  speak: none;
+	  font-style: normal;
+	  font-weight: normal;
+	  font-variant: normal;
+	  text-transform: none;
+	  line-height: 1;
+	  font-size: 20px;
+	  line-height: 30px;
+	  display: block;
+	  -webkit-font-smoothing: antialiased;
+}
+
+.bb-custom-icon-first:before,
+.bb-custom-icon-last:before {
+	  content: "\e002";
+}
+
+.bb-custom-icon-arrow-left:before,
+.bb-custom-icon-arrow-right:before {
+	  content: "\e003";
+}
+
+.bb-custom-icon-arrow-left:before,
+.bb-custom-icon-first:before {
+	  -webkit-transform: rotate(180deg);
+	  transform: rotate(180deg);
+}
+
+
+.paper{
+    margin: 50px auto;
+    background-color: #fff;
+/*     position: relative; */
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.paper:before, .paper:after{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    background-color: #dbdbdb;
+    top: 0;
+    left: 0;
+}
+.paper:before{
+    transform: rotate(2deg);
+}
+.paper::after{
+    transform: rotate(-2deg);
+}
