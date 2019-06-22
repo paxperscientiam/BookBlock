@@ -1,35 +1,35 @@
 {
-  "name": "flags",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "fuse": "ts-node fuse.ts"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/autoprefixer": "^9.5.0",
-    "@types/cssnano": "^4.0.0",
-    "@types/jquery": "^3.3.29",
-    "@types/modernizr": "^3.5.3",
-    "@types/node": "^12.0.8",
-    "autoprefixer": "^9.6.0",
-    "cssnano": "^4.1.10",
-    "fuse-box": "^3.7.1",
-    "fuse-box-typechecker": "^2.12.0",
-    "generate-gitignore": "^0.2.6",
-    "node-sass": "^4.12.0",
-    "postcss": "^7.0.17",
-    "postcss-unprefix": "^2.1.4",
-    "tslib": "^1.10.0",
-    "uglify-es": "^3.3.9"
-  },
-  "dependencies": {
-    "bookblock": "github:paxperscientiam/BookBlock",
-    "foundation": "^4.2.1-1",
-    "jquery": "^3.4.1",
-    "modernizr": "^3.7.1"
-  }
+    "name": "@paxperscientiam/bookblock",
+    "homepage": "https://github.com/paxperscientiam/BookBlock",
+    "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
+    "main": "src/index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "fuse": "ts-node fuse.ts"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/autoprefixer": "^9.5.0",
+        "@types/cssnano": "^4.0.0",
+        "@types/jquery": "^3.3.29",
+        "@types/modernizr": "^3.5.3",
+        "@types/node": "^12.0.8",
+        "autoprefixer": "^9.6.0",
+        "cssnano": "^4.1.10",
+        "fuse-box": "^3.7.1",
+        "fuse-box-typechecker": "^2.12.0",
+        "generate-gitignore": "^0.2.6",
+        "node-sass": "^4.12.0",
+        "postcss": "^7.0.17",
+        "postcss-unprefix": "^2.1.4",
+        "tslib": "^1.10.0",
+        "uglify-es": "^3.3.9"
+    },
+    "dependencies": {
+        "bookblock": "github:paxperscientiam/BookBlock",
+        "jquery": "^3.4.1",
+        "modernizr": "^3.7.1"
+    },
+    "keywords": ["jquery", "book", "interactive"]
 }

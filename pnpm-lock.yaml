@@ -1,6 +1,5 @@
 dependencies:
   bookblock: github.com/paxperscientiam/BookBlock/6b5c0a4d3ba597da3a0d9fb34aa2276ab869f815
-  foundation: 4.2.1-1
   jquery: 3.4.1
   modernizr: 3.7.1
 devDependencies:
@@ -1545,12 +1544,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-vrqULLffYU1Q2tLdJvaCYbONStnfkfimRxXNaGjxMldI0C7JPBC4rB1RyjhfdZ4m1frm8pM9uRPKH3d2knZ8gg==
-  /cssom/0.2.5:
-    dev: false
-    engines:
-      node: '>=0.2.0'
-    resolution:
-      integrity: sha1-JoJwm1kC5yEt9SkRb/eIzVslSJQ=
   /currently-unhandled/0.4.1:
     dependencies:
       array-find-index: 1.0.2
@@ -1601,12 +1594,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
-  /debug/4.1.1:
-    dependencies:
-      ms: 2.1.2
-    dev: false
-    resolution:
-      integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
   /decamelize/1.2.0:
     engines:
       node: '>=0.10.0'
@@ -2304,13 +2291,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
-  /foundation/4.2.1-1:
-    dependencies:
-      stylus: 0.32.1
-      stylus-type-utils: 0.0.3_stylus@0.32.1
-    dev: false
-    resolution:
-      integrity: sha1-Tkl+LZc3UzM0seaDVM2N0DnLxHs=
   /fragment-cache/0.2.1:
     dependencies:
       map-cache: 0.2.2
@@ -4158,10 +4138,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-T7lJRB2rGCVA8f4DW6YOGUel5X4=
-  /mkdirp/0.3.5:
-    dev: false
-    resolution:
-      integrity: sha1-3j5fiWHIjHh+4TaN+EmsRBPsqNc=
   /mkdirp/0.5.1:
     dependencies:
       minimist: 0.0.8
@@ -4189,10 +4165,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
-  /ms/2.1.2:
-    dev: false
-    resolution:
-      integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
   /mustache/2.3.2:
     dev: true
     engines:
@@ -6271,23 +6243,6 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-7GlLk9JwlElY4Y6a/rmbH2MhVlTyVmiJd1PfTCqFaIBEGMYNsrO/v3SeGTdhBThLg4Z+NbOk/qFMwCa+J+3p/g==
-  /stylus-type-utils/0.0.3_stylus@0.32.1:
-    dependencies:
-      stylus: 0.32.1
-    dev: false
-    peerDependencies:
-      stylus: 0.x
-    resolution:
-      integrity: sha1-8EgzRyi7UUTs1ZnGJ1U9tk6gprs=
-  /stylus/0.32.1:
-    dependencies:
-      cssom: 0.2.5
-      debug: 4.1.1
-      mkdirp: 0.3.5
-    dev: false
-    hasBin: true
-    resolution:
-      integrity: sha1-PSgnW9nxgQhfjdD6UqhVlpaXghI=
   /success-symbol/0.1.0:
     dev: true
     engines:
@@ -6959,7 +6914,6 @@ specifiers:
   autoprefixer: ^9.6.0
   bookblock: 'github:paxperscientiam/BookBlock'
   cssnano: ^4.1.10
-  foundation: ^4.2.1-1
   fuse-box: ^3.7.1
   fuse-box-typechecker: ^2.12.0
   generate-gitignore: ^0.2.6
