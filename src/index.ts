@@ -1,17 +1,5 @@
 // tslint:disable:no-console
 
-// tslint:disable-next-line
-declare global  {
-    // tslint:disable-next-line
-    interface Window {
-        jQuery: typeof jQuery
-        $: typeof jQuery
-        Modernizr: ModernizrStatic
-        BookBlock: typeof BookBlock
-//         Page: typeof Page
-    }
-}
-
 import "./scss/main.scss"
 
 import * as $ from "jquery"
