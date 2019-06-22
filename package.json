@@ -7,7 +7,16 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "fuse": "ts-node fuse.ts"
     },
-    "author": "",
+    "author": {
+        "name": "codrops",
+        "url": "https://tympanus.net/codrops/about/"
+    },
+    "contributors": [
+        {
+            "name": "Christopher David Ramos",
+            "url": "https://www.paxperscientiam.com"
+        }
+    ],
     "license": "MIT",
     "devDependencies": {
         "@types/autoprefixer": "^9.5.0",
