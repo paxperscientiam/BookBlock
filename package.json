@@ -5,7 +5,9 @@
     "main": "src/index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "fuse": "ts-node fuse.ts"
+        "start": "ts-node fuse.ts",
+        "build": "ts-node fuse.ts build",
+        "test:ts": "ts-node fuse.ts test:ts"
     },
     "author": {
         "name": "codrops",
