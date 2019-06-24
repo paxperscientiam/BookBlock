@@ -3,8 +3,15 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
+# test #
 
+``` shell
+git clone https://github.com/paxperscientiam/BookBlock
+cd BookBlock
+pnpm i && pnpm start
+```
 
+With the above, `fuse-box` should start a server.
 
 
 BookBlock
