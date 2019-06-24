@@ -75,11 +75,11 @@ class CTX {
 
             cache: true,
 
-            globals: {default : "*"},
+//            globals: {default : "*"},
             plugins: [
                 WebIndexPlugin({
-                    template: "src/index.html",
                     cssPath: "css-resources",
+                    template: "src/index.html",
                 }),
                 [
                     SassPlugin({
