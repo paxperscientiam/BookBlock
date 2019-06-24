@@ -3,7 +3,7 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
-### test
+### Testing 1 2 3
 
 ``` shell
 git clone https://github.com/paxperscientiam/BookBlock
@@ -64,4 +64,42 @@ onEndFlip : function(old, page, isLimit) { return false; },
 // callback before the flip transition
 // page is the current item´s index
 onBeforeFlip : function(page) { return false; }
+```
+
+Usage
+===
+
+### Example (see example for more info)
+
+``` html
+  <div>
+					          <h3>Illustrations by <a href="http://dribbble.com/kevinhowdeshell">Kevin Howdeshell</a></h3>
+					          <div id="bb-bookblock" class="bb-bookblock">
+						            <div class="bb-item">
+							              <a href="#"><img src="images/demo1/1.jpg" alt="image01"/></a>
+						            </div>
+						            <div class="bb-item">
+							              <a href="#"><img src="images/demo1/2.jpg" alt="image02"/></a>
+						            </div>
+					          </div>
+					          <nav class="bb-nav-container">
+						            <a id="bb-nav-first" href="#" class="bb-nav bb-icon bb-icon-first">
+                            First page</a>
+						            <a id="bb-nav-prev" href="#" class="bb-nav bb-icon bb-icon-arrow-left">Previous</a>
+						            <a id="bb-nav-next" href="#" class="bb-nav bb-icon bb-icon-arrow-right">Next</a>
+						            <a id="bb-nav-last" href="#" class="bb-nav bb-icon bb-icon-last">Last page</a>
+					          </nav>
+				        </div>
+
+```
+
+``` js
+          $(function () {
+              const sexy = $( "#bb-bookblock" ).bookBlock({
+                  _dummy: true,
+                  circular: true,
+                  height: "300px",
+                  width: "400px",
+              })
+          });
 ```
