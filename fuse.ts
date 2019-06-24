@@ -1,5 +1,6 @@
 // tslint:disable:no-console
 import * as fs from "fs"
+import * as path from "path"
 
 import dlv from "dlv"
 
@@ -24,7 +25,7 @@ const FB = importJSON("./package.json", "fuse-box")
 
 let APP_NAME = dlv(FB, "bundle.app.name") || "app"
 if (process.env.NODE_ENV === "production") {
-   APP_NAME+=".min"
+    APP_NAME+=".min"
 }
 
 const Autoprefixer = require("autoprefixer")
@@ -45,6 +46,7 @@ function testSync() {
 
 import {
     CSSPlugin,
+    CSSModulesPlugin,
     CSSResourcePlugin,
     FuseBox,
     PostCSSPlugin,
@@ -77,9 +79,13 @@ class CTX {
             plugins: [
                 WebIndexPlugin({
                     template: "src/index.html",
+                    cssPath: "css-resources",
                 }),
                 [
-                    SassPlugin({importer: true}),
+                    SassPlugin({
+                        importer: true,
+                        //                        resources: [{ test: /.*/, file: "resources.scss" }],
+                    }),
                     PostCSSPlugin([
                         Unprefix(),
                         Autoprefixer(),
@@ -89,13 +95,16 @@ class CTX {
                         dist: "dist/css-resources",
                         inline: true,
                     }),
-                    CSSPlugin(),
+                    CSSPlugin({inject: true}),
                 ],
                 this.isProduction && QuantumPlugin({
-                    bakeApiIntoBundle: APP_NAME,
-                    containedAPI: true,
                     css: {
                         path: "css-resources/styles.min.css",
+                        clean: true,
+                    },
+                    cssFiles: {
+                        "default/app**": "css-resources/app.min.css",
+                        "default/bookblock**": "css-resources/bookblock.min.css",
                     },
                     treeshake: true,
                     uglify: true,
@@ -104,13 +113,13 @@ class CTX {
         })
     }
 
-    createBundle(fuse: FuseBox) {
-        const bundle = fuse.bundle(APP_NAME)
+    createBundle(fuse: FuseBox, instructions: string, name: string) {
+        const bundle = fuse.bundle(name)
         if (!this.isProduction) {
             bundle.watch()
             bundle.hmr()
         }
-        bundle.instructions(`> index.ts`)
+        bundle.instructions(instructions)
 
         return bundle
     }
@@ -119,8 +128,9 @@ class CTX {
 ctx(CTX)
 
 task("test", (context: CTX) => {
+    context.isProduction = true
     const fuse = context.getConfig()
-    console.dir(fuse.opts)
+    console.dir(fuse.collectionSource.context.quantumSplitConfig)
 
     //     fuse.dev()
     //     console.log(fuse)
@@ -192,10 +202,9 @@ task("default", ["clean", "copy"], async (context: CTX) => {
         })
     }
 
-    context.createBundle(fuse)
-    if (!context.isProduction) {
-        exec("test:ts")
-    }
+    context.createBundle(fuse, '~ index.ts', "vendor")
+    context.createBundle(fuse, '!> [index.ts]', "bookblock")
+
     await fuse.run()
 })
 

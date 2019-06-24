@@ -1,4 +1,6 @@
 // tslint:disable-next-line
+declare module "*.scss"
+
 declare global  {
     // tslint:disable-next-line
     interface Window {

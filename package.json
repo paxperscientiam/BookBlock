@@ -35,11 +35,12 @@
         "generate-gitignore": "^0.2.6",
         "node-sass": "^4.12.0",
         "postcss": "^7.0.17",
+        "postcss-modules": "^1.4.1",
         "postcss-unprefix": "^2.1.4",
         "serve-handler": "^6.0.2",
         "terser": "^4.0.0",
         "tslib": "^1.10.0",
-        "uglify-es": "^3.3.9"
+        "uglify-js": "^3.6.0"
     },
     "dependencies": {
         "bookblock": "github:paxperscientiam/BookBlock",
@@ -52,15 +53,5 @@
         "jquery",
         "book",
         "interactive"
-    ],
-    "fuse-box": {
-        "config": {
-            "homeDir": "src"
-        },
-        "bundle": {
-            "app": {
-                "name": "bookblock"
-            }
-        }
-    }
+    ]
 }

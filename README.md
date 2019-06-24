@@ -9,6 +9,8 @@ Aiming to turn codrops awesome work into an easy to use package!
 git clone https://github.com/paxperscientiam/BookBlock
 cd BookBlock
 pnpm i && pnpm start
+# or ...
+pnpm i && pnpm run build && pnpm run serve
 ```
 
 With the above, `fuse-box` should start a server.
