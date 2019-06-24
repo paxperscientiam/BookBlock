@@ -1,7 +1,9 @@
 dependencies:
   bookblock: github.com/paxperscientiam/BookBlock/6b5c0a4d3ba597da3a0d9fb34aa2276ab869f815
+  dlv: 1.1.3
   jquery: 3.4.1
   modernizr: 3.7.1
+  moment: 2.24.0
 devDependencies:
   '@types/autoprefixer': 9.5.0
   '@types/cssnano': 4.0.0
@@ -16,6 +18,7 @@ devDependencies:
   node-sass: 4.12.0
   postcss: 7.0.17
   postcss-unprefix: 2.1.4_postcss@7.0.17
+  serve-handler: 6.0.2
   tslib: 1.10.0
   uglify-es: 3.3.9
 lockfileVersion: 5.1
@@ -902,6 +905,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
+  /bytes/3.0.0:
+    dev: true
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
   /bytes/3.1.0:
     dev: true
     engines:
@@ -1335,6 +1344,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
+  /content-disposition/0.5.2:
+    dev: true
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha1-DPaLud318r55YcOoUXjLhdunjLQ=
   /content-disposition/0.5.3:
     dependencies:
       safe-buffer: 5.1.2
@@ -1681,6 +1696,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
+  /dlv/1.1.3:
+    dev: false
+    resolution:
+      integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
   /doctrine/3.0.0:
     dependencies:
       esutils: 2.0.2
@@ -2119,6 +2138,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+  /fast-url-parser/1.1.3:
+    dependencies:
+      punycode: 1.4.1
+    dev: true
+    resolution:
+      integrity: sha1-9K8+qfNNiicc9YrSs3WfQx8LMY0=
   /figures/1.7.0:
     dependencies:
       escape-string-regexp: 1.0.5
@@ -4073,12 +4098,26 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-RjoLrLGZ1H0g4xRyFoMFHw4fAxY=
+  /mime-db/1.33.0:
+    dev: true
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-BHJ/EKruNIqJf/QahvxwQZXKygOQ256myeN/Ew+THcAa5q+PjyTTMMeNQC4DZw5AwfvelsUrA6B67NKMqXDbzQ==
   /mime-db/1.40.0:
     dev: true
     engines:
       node: '>= 0.6'
     resolution:
       integrity: sha512-jYdeOMPy9vnxEqFRRo6ZvTZ8d9oPb+k18PKoYNYUe2stVEBPPwsln/qWzdbmaIvnhZ9v2P+CuecK+fpUfsV2mA==
+  /mime-types/2.1.18:
+    dependencies:
+      mime-db: 1.33.0
+    dev: true
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-lc/aahn+t4/SWV/qcmumYjymLsWfN3ELhpmVuUFjgsORruuZPVSwAQryq+HHGvO/SI2KVX26bx+En+zhM8g8hQ==
   /mime-types/2.1.24:
     dependencies:
       mime-db: 1.40.0
@@ -4157,6 +4196,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-pewTfEGiY5pHRnJNKFALn/nkYpWmEOtZ+iRMzQUjexkOum3X4v+xAZ9AqgXdjnDBh37HNCDP6ieq68NGPYvkTA==
+  /moment/2.24.0:
+    dev: false
+    resolution:
+      integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
   /ms/2.0.0:
     dev: true
     resolution:
@@ -4792,6 +4835,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
+  /path-is-inside/1.0.2:
+    dev: true
+    resolution:
+      integrity: sha1-NlQX3t5EQw0cEa9hAn+s8HS9/FM=
   /path-key/2.0.1:
     dev: false
     engines:
@@ -4806,6 +4853,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /path-to-regexp/2.2.1:
+    dev: true
+    resolution:
+      integrity: sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==
   /path-type/1.1.0:
     dependencies:
       graceful-fs: 4.1.15
@@ -5385,6 +5436,12 @@ packages:
       node: '>= 0.10.0'
     resolution:
       integrity: sha512-TuDE5KxZ0J461RVjrJZCJc+J+zCkTb1MbH9AQUq68sMhOMcy9jLcb3BrZKgp9q9Ncltdg4QVqWrH02W2EFFVYw==
+  /range-parser/1.2.0:
+    dev: true
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
   /range-parser/1.2.1:
     dev: true
     engines:
@@ -5843,6 +5900,19 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yI+XjPJcNuE3V4fT9sAg==
+  /serve-handler/6.0.2:
+    dependencies:
+      bytes: 3.0.0
+      content-disposition: 0.5.2
+      fast-url-parser: 1.1.3
+      mime-types: 2.1.18
+      minimatch: 3.0.4
+      path-is-inside: 1.0.2
+      path-to-regexp: 2.2.1
+      range-parser: 1.2.0
+    dev: true
+    resolution:
+      integrity: sha512-D1zgDpvx9Rgjip6rzY2QBjlZwfr/oiDSg66HipOWkEw1appHn7/mXdVRL6F8+bd1KD117Wch4+4x78OTXQVwDg==
   /serve-static/1.14.1:
     dependencies:
       encodeurl: 1.0.2
@@ -6914,13 +6984,16 @@ specifiers:
   autoprefixer: ^9.6.0
   bookblock: 'github:paxperscientiam/BookBlock'
   cssnano: ^4.1.10
+  dlv: ^1.1.3
   fuse-box: ^3.7.1
   fuse-box-typechecker: ^2.12.0
   generate-gitignore: ^0.2.6
   jquery: ^3.4.1
   modernizr: ^3.7.1
+  moment: ^2.24.0
   node-sass: ^4.12.0
   postcss: ^7.0.17
   postcss-unprefix: ^2.1.4
+  serve-handler: ^6.0.2
   tslib: ^1.10.0
   uglify-es: ^3.3.9

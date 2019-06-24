@@ -1,18 +1,47 @@
 // tslint:disable:no-console
+import * as fs from "fs"
 
-import * as Autoprefixer from "autoprefixer"
-import * as Cssnano from "cssnano"
-import * as Unprefix from "postcss-unprefix"
+import dlv from "dlv"
+
+function importJSON(filePath: string, property?: string) {
+    if (fs.existsSync(filePath)) {
+        let json = fs.readFileSync(filePath, "utf8")
+        // @ts-ignore
+        json = JSON.parse(json)
+        // @ts-ignore
+        if (property != null) {
+            // @ts-ignore
+            return dlv(json, property)
+        }
+        return json
+    }
+    // @ts-ignore
+    return JSON.parse("{}")
+}
+
+const PKG = importJSON("./package.json")
+const FB = importJSON("./package.json", "fuse-box")
+
+let APP_NAME = dlv(FB, "bundle.app.name") || "app"
+if (process.env.NODE_ENV === "production") {
+   APP_NAME+=".min"
+}
+
+const Autoprefixer = require("autoprefixer")
+const Cssnano = require("cssnano")
+const Unprefix = require("postcss-unprefix")
 
 import { TypeChecker } from "fuse-box-typechecker"
 
-const testSync = TypeChecker({
-    basePath: "./",
-    name: "Test Sync",
-    tsConfig: "./tsconfig.json", // optional
-    tsLint: "./tslint.json", // optional
-    // for more option, see ITypeCheckerOptionsInterface in bottom on readme
-})
+function testSync() {
+    return TypeChecker({
+        basePath: "./",
+        name: "Test Sync",
+        tsConfig: "./tsconfig.json", // optional
+        tsLint: "./tslint.json", // optional
+        // for more option, see ITypeCheckerOptionsInterface in bottom on readme
+    })
+}
 
 import {
     CSSPlugin,
@@ -31,16 +60,16 @@ import {
     task,
 } from "fuse-box/sparky"
 
-import * as fs from "fs"
-
 class CTX {
     isProduction: boolean = false
     isTest: boolean = false
 
     getConfig() {
         return FuseBox.init({
-            homeDir: "src",
+            homeDir:  dlv(PKG, "homeDir") || "src",
             output: "dist/$name.js",
+
+            target: "browser@es5",
 
             cache: true,
 
@@ -52,9 +81,9 @@ class CTX {
                 [
                     SassPlugin({importer: true}),
                     PostCSSPlugin([
-                        Unprefix,
-                        Autoprefixer,
-                        Cssnano,
+                        Unprefix(),
+                        Autoprefixer(),
+                        Cssnano(),
                     ]),
                     CSSResourcePlugin({
                         dist: "dist/css-resources",
@@ -63,7 +92,7 @@ class CTX {
                     CSSPlugin(),
                 ],
                 this.isProduction && QuantumPlugin({
-                    bakeApiIntoBundle: "app",
+                    bakeApiIntoBundle: APP_NAME,
                     containedAPI: true,
                     css: {
                         path: "css-resources/styles.min.css",
@@ -76,7 +105,7 @@ class CTX {
     }
 
     createBundle(fuse: FuseBox) {
-        const bundle = fuse.bundle("app")
+        const bundle = fuse.bundle(APP_NAME)
         if (!this.isProduction) {
             bundle.watch()
             bundle.hmr()
@@ -89,25 +118,27 @@ class CTX {
 
 ctx(CTX)
 
-task("test", async (context: CTX) => {
+task("test", (context: CTX) => {
     const fuse = context.getConfig()
-    fuse.dev()
-    console.log(fuse)
-    setInterval(() => {
-        console.log("OMFG")
-        fuse.sendPageReload()
-    }, 1000)
+    console.dir(fuse.opts)
+
+    //     fuse.dev()
+    //     console.log(fuse)
+    //     setInterval(() => {
+    //         console.log("OMFG")
+    //         fuse.sendPageReload()
+    //     }, 1000)
 })
 
 task("copy:js", async () => {
-    await src("./**/*.js", { base: "./src/js" })
+    await src("./**/*.js", { base: "./src/ts" })
         .dest("./dist/js")
         .exec()
 })
 
 task("copy:images", async () => {
-    await src("./**/*.png", { base: "./src/assets" })
-        .dest("./dist/images")
+    await src("./**/*.jpg", { base: "./src/assets" })
+        .dest("./dist/")
         .exec()
 })
 
@@ -169,5 +200,15 @@ task("default", ["clean", "copy"], async (context: CTX) => {
 })
 
 task("test:ts", [], () => {
-    testSync.runWatch("./src")
+    testSync().runWatch("./src")
+})
+
+task("serve", [], async (context: CTX) => {
+    const fuse = FuseBox.init({
+        output: "dist",
+    })
+    fuse.dev({
+        root: "dist",
+    })
+    await fuse.run()
 })

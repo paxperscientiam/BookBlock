@@ -2,8 +2,8 @@
 declare global  {
     // tslint:disable-next-line
     interface Window {
-        jQuery: typeof jQuery
-        $: typeof jQuery
+        jQuery: typeof JQuery
+        $: typeof JQuery
         Modernizr: ModernizrStatic
         BookBlock: typeof BookBlock
     }

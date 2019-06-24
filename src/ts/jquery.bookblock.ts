@@ -17,7 +17,6 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
-
 // global
 const $window = $(window)
 // const Modernizr = window.Modernizr
