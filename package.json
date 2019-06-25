@@ -10,9 +10,9 @@
         "test": "ts-node fuse.ts test",
         "start": "ts-node fuse.ts",
         "build": "NODE_ENV=production ts-node fuse.ts build",
-        "test:ts": "ts-node fuse.ts test:ts",
+        "test:ts": "NODE_ENV=production ts-node fuse.ts test:ts",
         "serve": "ts-node fuse.ts serve",
-        "prepare": "NODE_ENV=production ts-node fuse.ts build && ts-node fuse.ts test:ts"
+        "prepare": "NODE_ENV=production ts-node fuse.ts build && ts-node NODE_ENV=production fuse.ts test:ts"
     },
     "author": {
         "name": "codrops",

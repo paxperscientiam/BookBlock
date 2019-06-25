@@ -75,7 +75,7 @@ class CTX {
 
             cache: true,
 
-//            globals: {default : "*"},
+            //            globals: {default : "*"},
             plugins: [
                 WebIndexPlugin({
                     cssPath: "css-resources",
@@ -99,12 +99,12 @@ class CTX {
                 ],
                 this.isProduction && QuantumPlugin({
                     css: {
-                        path: "css-resources/styles.min.css",
+                        path: "css/styles.min.css",
                         clean: true,
                     },
                     cssFiles: {
-                        "default/app**": "css-resources/app.min.css",
-                        "default/bookblock**": "css-resources/bookblock.min.css",
+                        "default/app**": "css/app.min.css",
+                        "default/bookblock**": "css/bookblock.min.css",
                     },
                     treeshake: true,
                     uglify: true,
@@ -202,14 +202,18 @@ task("default", ["clean", "copy"], async (context: CTX) => {
         })
     }
 
-    context.createBundle(fuse, '~ index.ts', "vendor")
-    context.createBundle(fuse, '!> [index.ts]', "bookblock")
+    context.createBundle(fuse, "~ index.ts", "vendor")
+    context.createBundle(fuse, "!> [index.ts]", "bookblock")
 
     await fuse.run()
 })
 
 task("test:ts", [], () => {
-    testSync().runWatch("./src")
+    if (process.env.NODE_ENV === "production") {
+        testSync().runSync()
+    } else {
+        testSync().runWatch("./src")
+    }
 })
 
 task("serve", [], async (context: CTX) => {
