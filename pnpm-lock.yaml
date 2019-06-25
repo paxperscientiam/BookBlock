@@ -1,9 +1,7 @@
 dependencies:
   bookblock: github.com/paxperscientiam/BookBlock/6b5c0a4d3ba597da3a0d9fb34aa2276ab869f815
-  dlv: 1.1.3
   jquery: 3.4.1
   modernizr: 3.7.1
-  moment: 2.24.0
 devDependencies:
   '@types/autoprefixer': 9.5.0
   '@types/cssnano': 4.0.0
@@ -12,6 +10,7 @@ devDependencies:
   '@types/node': 12.0.8
   autoprefixer: 9.6.0
   cssnano: 4.1.10
+  dlv: 1.1.3
   fuse-box: 3.7.1
   fuse-box-typechecker: 2.12.0
   generate-gitignore: 0.2.6
@@ -1727,7 +1726,7 @@ packages:
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
   /dlv/1.1.3:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
   /doctrine/3.0.0:
@@ -4270,10 +4269,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-pewTfEGiY5pHRnJNKFALn/nkYpWmEOtZ+iRMzQUjexkOum3X4v+xAZ9AqgXdjnDBh37HNCDP6ieq68NGPYvkTA==
-  /moment/2.24.0:
-    dev: false
-    resolution:
-      integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
   /ms/2.0.0:
     dev: true
     resolution:
@@ -7160,7 +7155,6 @@ specifiers:
   generate-gitignore: ^0.2.6
   jquery: ^3.4.1
   modernizr: ^3.7.1
-  moment: ^2.24.0
   node-sass: ^4.12.0
   postcss: ^7.0.17
   postcss-modules: ^1.4.1

@@ -11,7 +11,8 @@
         "start": "ts-node fuse.ts",
         "build": "NODE_ENV=production ts-node fuse.ts build",
         "test:ts": "ts-node fuse.ts test:ts",
-        "serve": "ts-node fuse.ts serve"
+        "serve": "ts-node fuse.ts serve",
+        "prepare": "NODE_ENV=production ts-node fuse.ts build && ts-node fuse.ts test:ts"
     },
     "author": {
         "name": "codrops",
@@ -32,6 +33,7 @@
         "@types/node": "^12.0.8",
         "autoprefixer": "^9.6.0",
         "cssnano": "^4.1.10",
+        "dlv": "^1.1.3",
         "fuse-box": "^3.7.1",
         "fuse-box-typechecker": "^2.12.0",
         "generate-gitignore": "^0.2.6",
@@ -46,15 +48,17 @@
     },
     "dependencies": {
         "bookblock": "github:paxperscientiam/BookBlock",
-        "dlv": "^1.1.3",
         "jquery": "^3.4.1",
-        "modernizr": "^3.7.1",
-        "moment": "^2.24.0"
+        "modernizr": "^3.7.1"
     },
     "keywords": [
         "jquery",
         "book",
         "interactive"
     ],
-    "files": ["readme.md", "src"]
+    "files": [
+        "readme.md",
+        "src",
+        "dist"
+    ]
 }
