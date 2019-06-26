@@ -78,7 +78,7 @@ class CTX {
             //            globals: {default : "*"},
             plugins: [
                 WebIndexPlugin({
-                    cssPath: "css-resources",
+                    cssPath: "css",
                     template: "src/index.html",
                 }),
                 [
