@@ -1,9 +1,9 @@
 {
     "name": "@paxperscientiam/bookblock",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "homepage": "https://github.com/paxperscientiam/BookBlock",
     "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
-    "main": "dist/app.js",
+    "main": "dist/bookblock.js",
     "ts:main": "src/index.ts",
     "types": "src/@types/BookBlock/index.d.ts",
     "scripts": {

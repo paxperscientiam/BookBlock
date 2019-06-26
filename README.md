@@ -3,7 +3,22 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
-### Testing 1 2 3
+## Note
+
+Both `src/jquery.bookblock.ts` and `dist/bookblock.js` are dependency free. The demo uses the file `dist/shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
+
+## Usage
+
+### Javascript project
+If you're not concerned with conflicts, then you could simply use prebuilt files `dist/bookblock.js` and `dist/shims.js` (which contains the aforementioned dependencies).
+
+Alternatively, you could use `dist/bookblock.js`, `src/js/jquerypp.custom.js`, `modernizr.custom.js`, and include your own copy of `jquery`.
+
+### Typescript project
+Stay tuned
+
+
+## Testing 1 2 3
 
 ``` shell
 git clone https://github.com/paxperscientiam/BookBlock

@@ -7,6 +7,17 @@
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
+declare global  {
+    // tslint:disable-next-line
+    interface Window {
+        jQuery: typeof JQuery
+        $: typeof JQuery
+        Modernizr: ModernizrStatic
+        BookBlock: typeof BookBlock
+    }
+}
+
+
 /**
  * jquery.bookblock.js v2.0.1
  * http://www.codrops.com
@@ -19,7 +30,6 @@
  */
 // global
 const $window = $(window)
-// const Modernizr = window.Modernizr
 
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {

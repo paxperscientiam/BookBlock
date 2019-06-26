@@ -68,6 +68,22 @@ class CTX {
 
     getConfig() {
         return FuseBox.init({
+            shim: {
+                modernizr: {
+                    exports: "Modernizr",
+                    source: "src/js/modernizr.custom.js",
+                },
+
+                jquery: {
+                    exports: "$",
+                    source: "node_modules/jquery/dist/jquery.js",
+                },
+
+                jquerypp: {
+                    source: "src/js/jquerypp.custom.js",
+                },
+            },
+
             homeDir:  dlv(PKG, "homeDir") || "src",
             output: "dist/$name.js",
 
@@ -99,13 +115,15 @@ class CTX {
                 ],
                 this.isProduction && QuantumPlugin({
                     css: {
-                        path: "css/styles.min.css",
                         clean: true,
+                        path: "css/styles.min.css",
                     },
                     cssFiles: {
                         "default/app**": "css/app.min.css",
                         "default/bookblock**": "css/bookblock.min.css",
                     },
+                    bakeApiIntoBundle: "bookblock",
+                   // containedAPI: true,
                     treeshake: true,
                     uglify: true,
                 }),
@@ -141,7 +159,7 @@ task("test", (context: CTX) => {
 })
 
 task("copy:js", async () => {
-    await src("./**/*.js", { base: "./src/ts" })
+    await src("./**/*.js", { base: "./src/js" })
         .dest("./dist/js")
         .exec()
 })
@@ -202,8 +220,9 @@ task("default", ["clean", "copy"], async (context: CTX) => {
         })
     }
 
-    context.createBundle(fuse, "~ index.ts", "vendor")
-    context.createBundle(fuse, "!> [index.ts]", "bookblock")
+//    context.createBundle(fuse, "~ index.ts", "vendor")
+
+    context.createBundle(fuse, "> index.ts", "bookblock")
 
     await fuse.run()
 })
