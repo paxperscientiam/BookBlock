@@ -23,9 +23,7 @@ Stay tuned
 ``` shell
 git clone https://github.com/paxperscientiam/BookBlock
 cd BookBlock
-pnpm i && pnpm run build && pnpm run serve
-# or, if you have serve installed
-serve dist
+pnpm i && pnpm start
 ```
 
 With the above, `fuse-box` should start a server.
