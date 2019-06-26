@@ -178,7 +178,7 @@ task("watch", async (context: CTX) => {
     })
 })
 
-task("build", [], async (context: CTX) => {
+task("build", ["test:ts"], async (context: CTX) => {
     context.isProduction = true
     console.log("PRODUCTION BUILD")
     //    const fuse = context.getConfig()
@@ -208,8 +208,9 @@ task("default", ["clean", "copy"], async (context: CTX) => {
     await fuse.run()
 })
 
-task("test:ts", [], () => {
-    if (process.env.NODE_ENV === "production") {
+task("test:ts", [], (context: CTX) => {
+    if (process.env.NODE_ENV === "production" || context.isProduction) {
+        console.log("PRODUCTION TEST")
         testSync().runSync()
     } else {
         testSync().runWatch("./src")

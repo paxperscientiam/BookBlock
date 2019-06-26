@@ -1,6 +1,6 @@
 {
     "name": "@paxperscientiam/bookblock",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "homepage": "https://github.com/paxperscientiam/BookBlock",
     "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
     "main": "dist/app.js",
@@ -12,7 +12,7 @@
         "build": "NODE_ENV=production ts-node fuse.ts build",
         "test:ts": "NODE_ENV=production ts-node fuse.ts test:ts",
         "serve": "ts-node fuse.ts serve",
-        "prepare": "NODE_ENV=production ts-node fuse.ts build && ts-node fuse.ts test:ts"
+        "prepare": "NODE_ENV=production ts-node fuse.ts build"
     },
     "author": {
         "name": "codrops",
@@ -48,8 +48,7 @@
     },
     "dependencies": {
         "bookblock": "github:paxperscientiam/BookBlock",
-        "jquery": "^3.4.1",
-        "modernizr": "^3.7.1"
+        "jquery": "^3.4.1"
     },
     "keywords": [
         "jquery",
