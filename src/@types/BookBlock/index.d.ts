@@ -19,6 +19,7 @@ interface BookBlockPluginSettings {
     direction?: string
     easing?: string
     interval?: number
+    gutter?: number
     nextEl?: string
     orientation?: string
     prevEl?: string

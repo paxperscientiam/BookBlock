@@ -6,7 +6,9 @@
 		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		    <title>UN Member flags</title>
 
-        
+        <link rel="stylesheet" href="css/styles.min.css"/>
+<link rel="stylesheet" href="css/app.min.css"/>
+<link rel="stylesheet" href="css/bookblock.min.css"/>
 
 	  </head>
 	  <body>
@@ -20,7 +22,7 @@
 					          <!-- <h3>Illustrations by <a href="http://dribbble.com/kevinhowdeshell">Kevin Howdeshell</a></h3> -->
 					          <div id="bb-bookblock" class="bb-bookblock">
 						            <div class="bb-item">
-							              <a href="#"><img src="images/demo1/1-portrait.jpg" alt="image01"/></a>
+							              <a href="#"><img data-bbsrc="images/demo1/1.jpg" alt="image01"/></a>
 						            </div>
 						            <!-- <div class="bb-item">
 							               <a href="#"><img src="images/demo1/2.jpg" alt="image02"/></a>
@@ -38,7 +40,8 @@
 			      </div>
 		    </div>
 
-        <script   type="text/javascript" src="/bookblock.js"></script>
+        <script   type="text/javascript" src="/shims.js"></script>
+<script   type="text/javascript" src="/bookblock.js"></script>
 
 		    <script type="text/javascript">
           // Use the plugin once the DOM has been loaded.
@@ -46,8 +49,7 @@
               const sexy = $( "#bb-bookblock" ).bookBlock({
                   _dummy: true,
                   circular: true,
-                  // height: "400px",
-                  // width: "300px",
+                  gutter: 10,
               })
           });
 

@@ -92,6 +92,7 @@ class BookBlock  {
     circular: boolean
     direction: string
     easing: string
+    gutter: number
     interval: number
     isAnimating: boolean
     isAnimation: boolean
@@ -519,10 +520,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         }
 
         // Check if required options are missing.
-       //  if (options.height == null || options.width == null) {
-//             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
-//             return this
-//         }
+        //  if (options.height == null || options.width == null) {
+        //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
+        //             return this
+        //         }
 
         //         this.css({
         //             height: options.height,
@@ -534,8 +535,11 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             instance._initEvents()
         })
 
-        const image = $("img")
+        const $img = $("img")
         const container = $(".bb-bookblock")
+
+        const lazy = document.getElementsByTagName("img")
+        lazy[0].src = lazy[0].getAttribute('data-bbsrc')
 
         // get image ratio
 
@@ -550,7 +554,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             let cssWidth: number
             let cssLeft: number
             function setSizes(imgRatio: number) {
-                let gutterFactor: number = Math.abs(1 - 10 / 100)
+                let gutterFactor: number = Math.abs(1 - options.gutter / 100)
                 const plusOrMinus = Math.random() < 0.5 ? -1 : 1
                 imgRatio += Number.EPSILON * plusOrMinus
 
@@ -572,34 +576,33 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                     cssHeight = screenWidth / imgRatio
                 }
 
-                //   cssHeight = (screenHeight * imgRatio)
-                //                  cssWidth = (screenWidth * imgRatio)
-               // cssLeft = ($(window).width() - cssWidth ) / 2
+                cssHeight *= gutterFactor
+                cssWidth *= gutterFactor
 
                 container.css({
                     height: cssHeight,
                     //     left:  cssLeft,
                     width: cssWidth,
                 })
-                //   image.css({
-                //                     height: `${cssHeight}px`,
-                //                     left:  `${cssLeft}px`,
-                //                     width: `${cssWidth}px`,
-                //                 })
+                $img.css({
+                    height: cssHeight,
+                    //                    left:  `${cssLeft}px`,
+                    width: cssWidth,
+                })
             }
 
             const tmpImage = new Image()
             tmpImage.onload = function() {
                 const imgRatio = tmpImage.width / tmpImage.height
                 setSizes(imgRatio)
-                //   setSizes(tmpImage.width, tmpImage.height)
-                //   setSizes(Number.parseInt(options.width, 10), Number.parseInt(options.height, 10))
             }
-            tmpImage.src = image.attr("src")
+            tmpImage.src = $img.attr("src")
 
         }
 
         $(window).on("resize", _setImage)
+
+        $img.on("load", _setImage)
 
         return this
     },
@@ -608,6 +611,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         options: {
             // does nothing so _dummy
             _dummy: false,
+
+            // the space around the image in percent
+            gutter: 0,
+
             // page to start on
             startPage : 1,
             // vertical or horizontal flip

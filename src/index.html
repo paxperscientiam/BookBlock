@@ -20,7 +20,7 @@
 					          <!-- <h3>Illustrations by <a href="http://dribbble.com/kevinhowdeshell">Kevin Howdeshell</a></h3> -->
 					          <div id="bb-bookblock" class="bb-bookblock">
 						            <div class="bb-item">
-							              <a href="#"><img src="images/demo1/1-portrait.jpg" alt="image01"/></a>
+							              <a href="#"><img data-bbsrc="images/demo1/1.jpg" alt="image01"/></a>
 						            </div>
 						            <!-- <div class="bb-item">
 							               <a href="#"><img src="images/demo1/2.jpg" alt="image02"/></a>
@@ -46,8 +46,7 @@
               const sexy = $( "#bb-bookblock" ).bookBlock({
                   _dummy: true,
                   circular: true,
-                  // height: "400px",
-                  // width: "300px",
+                  gutter: 10,
               })
           });
 
