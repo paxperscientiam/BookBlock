@@ -1,5 +1,6 @@
 dependencies:
   bookblock: github.com/paxperscientiam/BookBlock/6b5c0a4d3ba597da3a0d9fb34aa2276ab869f815
+  css-element-queries: 1.2.0
   jquery: 3.4.1
 devDependencies:
   '@types/autoprefixer': 9.5.0
@@ -1403,6 +1404,10 @@ packages:
       node: '>4'
     resolution:
       integrity: sha512-BcxQSKTSEEQUftYpBVnsH4SF05NTuBokb19/sBt6asXGKZ/6VP7PLG1CBCkFDYOnhXhPh0jMhO6xZ71oYHXHBA==
+  /css-element-queries/1.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-4gaxpioSFueMcp9yj1TJFCLjfooGv38y6ZdwFUS3GuS+9NIVijdeiExXKwSIHoQDADfpgnaYSTzmJs+bV+Hehg==
   /css-modules-loader-core/1.1.0:
     dependencies:
       icss-replace-symbols: 1.1.0
@@ -6822,6 +6827,7 @@ specifiers:
   '@types/node': ^12.0.8
   autoprefixer: ^9.6.0
   bookblock: 'github:paxperscientiam/BookBlock'
+  css-element-queries: ^1.2.0
   cssnano: ^4.1.10
   dlv: ^1.1.3
   fuse-box: ^3.7.1

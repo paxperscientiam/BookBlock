@@ -2,7 +2,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
-import dlv from "dlv"
+import * as dlv from "dlv"
 
 function importJSON(filePath: string, property?: string) {
     if (fs.existsSync(filePath)) {

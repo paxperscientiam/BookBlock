@@ -7,17 +7,6 @@
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
-declare global  {
-    // tslint:disable-next-line
-    interface Window {
-        jQuery: typeof JQuery
-        $: typeof JQuery
-        Modernizr: ModernizrStatic
-        BookBlock: typeof BookBlock
-    }
-}
-
-
 /**
  * jquery.bookblock.js v2.0.1
  * http://www.codrops.com
@@ -405,30 +394,6 @@ class BookBlock  {
                 $side = $("<div class=\"bb-page\"><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + ( dir === "next" ? this.$current.html() : this.$nextItem.html() ) + "</div></div><div class=\"bb-overlay\"></div></div></div></div>").css( "z-index", 102 )
                 break
             case "middle":
-                /*
-                  <div class="bb-page" style="z-index:103">
-                  <div class="bb-front">
-                  <div class="bb-outer">
-                  <div class="bb-content">
-                  <div class="bb-inner">
-                  dir==="next" ? [content of current page] : [content of next page]
-                  </div>
-                  </div>
-                  <div class="bb-flipoverlay"></div>
-                  </div>
-                  </div>
-                  <div class="bb-back">
-                  <div class="bb-outer">
-                  <div class="bb-content">
-                  <div class="bb-inner">
-                  dir==="next" ? [content of next page] : [content of current page]
-                  </div>
-                  </div>
-                  <div class="bb-flipoverlay"></div>
-                  </div>
-                  </div>
-                  </div>
-                */
                 $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">`
                           + (dir === "next" ? this.$current.html() : this.$nextItem.html())
                           + `</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:`
@@ -438,20 +403,6 @@ class BookBlock  {
                           + `</div></div><div class="bb-flipoverlay"></div></div></div></div>`).css( "z-index", 103 )
                 break
             case "right":
-                /*
-                  <div class="bb-page" style="z-index:101">
-                  <div class="bb-front">
-                  <div class="bb-outer">
-                  <div class="bb-content">
-                  <div class="bb-inner">
-                  dir==="next" ? [content of next page] : [content of current page]
-                  </div>
-                  </div>
-                  <div class="bb-overlay"></div>
-                  </div>
-                  </div>
-                  </div>
-                */
                 $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">`
                           + ( dir === "next" ? this.$nextItem.html() : this.$current.html() )
                           + `</div></div><div class="bb-overlay"></div></div></div></div>`).css( "z-index", 101 )
@@ -580,6 +531,44 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
             instance._initEvents()
         })
+
+        const image = $("img")
+
+        const _setImage = function () {
+
+            console.log("image is loaded")
+            //   if (!image.length) {
+            //                     return true;
+            //             }
+            const screenWidth = $(window).width()
+            const screenHeight = $(window).height()
+
+            function setSizes (imageWidth: number, imageHeight: number) {
+                if (imageWidth > screenWidth || imageHeight > screenHeight) {
+                    var ratio = imageWidth / imageHeight > screenWidth / screenHeight ? imageWidth / screenWidth : imageHeight / screenHeight;
+                    imageWidth /= ratio;
+                    imageHeight /= ratio;
+                }
+                const cssHeight = imageHeight
+                const cssWidth = imageWidth
+                const cssLeft = ($(window).width() - cssWidth ) / 2;
+
+                image.css({
+                    'width': cssWidth + 'px',
+                    'height': cssHeight + 'px',
+                    'left':  cssLeft + 'px'
+                })
+            }
+
+            const tmpImage = new Image();
+            tmpImage.src = image.attr("src")
+            tmpImage.onload = function() {
+                console.log("image loaded")
+                setSizes(tmpImage.width, tmpImage.height)
+            }
+        }
+
+        $(window).on("resize", _setImage)
 
         return this
     },

@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
+        "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
-        "esModuleInterop": true,
+        "esModuleInterop": false,
         "emitDecoratorMetadata":  true,
         "experimentalDecorators": true,
         "importHelpers":          true,

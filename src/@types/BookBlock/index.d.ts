@@ -1,13 +1,13 @@
 // tslint:disable-next-line
 declare module "*.scss"
 
+// @ts-ignore
 declare global  {
     // tslint:disable-next-line
     interface Window {
-        jQuery: typeof JQuery
-        $: typeof JQuery
+        jQuery: JQuery
+        $: JQuery
         Modernizr: ModernizrStatic
-        BookBlock: typeof BookBlock
     }
 }
 
