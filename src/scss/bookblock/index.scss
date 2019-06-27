@@ -11,9 +11,15 @@
 
 $background-color_1: rgba(0, 0, 0, 0.7);
 
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
 .bb-bookblock {
-   //  width: 842px;
-//     height: 595px;
+    //  width: 842px;
+    //     height: 595px;
     margin: 0 auto;
     position: relative;
     z-index: 100;
@@ -189,6 +195,11 @@ $background-color_1: rgba(0, 0, 0, 0.7);
     left: 0;
     display: none;
     background: #fff;
+}
+
+.bb-item img {
+    width: 100%;
+    height: 100%;
 }
 
 .bb-nav-container {

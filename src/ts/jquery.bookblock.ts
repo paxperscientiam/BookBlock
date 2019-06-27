@@ -1,3 +1,5 @@
+import { constants } from "fs";
+
 // tslint:disable:variable-name
 // tslint:disable:trailing-comma
 // tslint:disable:prefer-const
@@ -517,15 +519,15 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         }
 
         // Check if required options are missing.
-        if (options.height == null || options.width == null) {
-            console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
-            return this
-        }
+       //  if (options.height == null || options.width == null) {
+//             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
+//             return this
+//         }
 
-        this.css({
-            height: options.height,
-            width: options.width,
-        })
+        //         this.css({
+        //             height: options.height,
+        //             width: options.width,
+        //         })
 
         this.each(() => {
             var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
@@ -533,39 +535,68 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         })
 
         const image = $("img")
+        const container = $(".bb-bookblock")
 
-        const _setImage = function () {
+        // get image ratio
 
-            console.log("image is loaded")
+        const _setImage = () => {
             //   if (!image.length) {
             //                     return true;
             //             }
-            const screenWidth = $(window).width()
-            const screenHeight = $(window).height()
+            const screenWidth: number = $(window).width()
+            const screenHeight: number = $(window).height()
+            const screenRatio = screenWidth / screenHeight as number
+            let cssHeight: number
+            let cssWidth: number
+            let cssLeft: number
+            function setSizes(imgRatio: number) {
+                let gutterFactor: number = Math.abs(1 - 10 / 100)
+                const plusOrMinus = Math.random() < 0.5 ? -1 : 1
+                imgRatio += Number.EPSILON * plusOrMinus
 
-            function setSizes (imageWidth: number, imageHeight: number) {
-                if (imageWidth > screenWidth || imageHeight > screenHeight) {
-                    var ratio = imageWidth / imageHeight > screenWidth / screenHeight ? imageWidth / screenWidth : imageHeight / screenHeight;
-                    imageWidth /= ratio;
-                    imageHeight /= ratio;
+                // options.gutter: number
+                if (imgRatio > 1 && screenRatio > 1) {
+                    // > 1 => width > height
+                    cssHeight = screenHeight
+                    cssWidth = screenHeight * imgRatio
+                } else if (imgRatio > 1 && screenRatio < 1) {
+                    console.log(2)
+                    // < 1 => width < height
+                    cssWidth = screenWidth
+                    cssHeight = screenWidth / imgRatio
+                } else if (imgRatio < 1 && screenRatio > 1) {
+                    cssHeight = screenHeight
+                    cssWidth = screenHeight * imgRatio
+                } else if (imgRatio < 1 && screenRatio < 1) {
+                    cssWidth = screenWidth
+                    cssHeight = screenWidth / imgRatio
                 }
-                const cssHeight = imageHeight
-                const cssWidth = imageWidth
-                const cssLeft = ($(window).width() - cssWidth ) / 2;
 
-                image.css({
-                    'width': cssWidth + 'px',
-                    'height': cssHeight + 'px',
-                    'left':  cssLeft + 'px'
+                //   cssHeight = (screenHeight * imgRatio)
+                //                  cssWidth = (screenWidth * imgRatio)
+               // cssLeft = ($(window).width() - cssWidth ) / 2
+
+                container.css({
+                    height: cssHeight,
+                    //     left:  cssLeft,
+                    width: cssWidth,
                 })
+                //   image.css({
+                //                     height: `${cssHeight}px`,
+                //                     left:  `${cssLeft}px`,
+                //                     width: `${cssWidth}px`,
+                //                 })
             }
 
-            const tmpImage = new Image();
-            tmpImage.src = image.attr("src")
+            const tmpImage = new Image()
             tmpImage.onload = function() {
-                console.log("image loaded")
-                setSizes(tmpImage.width, tmpImage.height)
+                const imgRatio = tmpImage.width / tmpImage.height
+                setSizes(imgRatio)
+                //   setSizes(tmpImage.width, tmpImage.height)
+                //   setSizes(Number.parseInt(options.width, 10), Number.parseInt(options.height, 10))
             }
+            tmpImage.src = image.attr("src")
+
         }
 
         $(window).on("resize", _setImage)
