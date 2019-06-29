@@ -165,7 +165,7 @@ task("copy:js", async () => {
 })
 
 task("copy:images", async () => {
-    await src("./**/*.jpg", { base: "./src/assets" })
+    await src("./**/*.png", { base: "./src/assets" })
         .dest("./dist/")
         .exec()
 })

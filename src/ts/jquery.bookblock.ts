@@ -190,6 +190,30 @@ class BookBlock  {
             $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => { self._action( "prev" ); return false } )
         }
 
+        $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
+            e.preventDefault()
+
+            if (!!this.isAnimating === false) {
+                const left: number = $(e.currentTarget).offset().left
+                const width: number = $(e.currentTarget).width()
+                const midX: number = (width / 2) + left
+
+                if (e.touches) {
+                    if (e.touches[0].screenX < midX) {
+                        self._action("prev")
+                    } else {
+                        self._action("next")
+                    }
+                } else {
+                    if (e.offsetX < width / 2) {
+                        self._action("prev")
+                    } else {
+                        self._action("next")
+                    }
+                }
+            }
+        })
+
         $window.on( "debouncedresize", () => {
             // update width value
             self.elWidth = self.$el.width()
@@ -536,7 +560,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         })
 
         const $img = $("img")
-        const container = $(".bb-bookblock")
+        const $container = $(this)
 
         const lazy = document.getElementsByTagName("img")
         lazy[0].src = lazy[0].getAttribute('data-bbsrc')
@@ -579,7 +603,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 cssHeight *= gutterFactor
                 cssWidth *= gutterFactor
 
-                container.css({
+                $container.css({
                     height: cssHeight,
                     //     left:  cssLeft,
                     width: cssWidth,
