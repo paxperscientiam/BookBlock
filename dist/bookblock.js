@@ -11098,10 +11098,6 @@ $.fn.bookBlock = Object.assign(function (options) {
     //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
     //             return this
     //         }
-    //         this.css({
-    //             height: options.height,
-    //             width: options.width,
-    //         })
     this.each(function () {
         var instance = $.data(_this, "bookblock", new BookBlock(options, _this));
         instance._initEvents();
@@ -11112,7 +11108,9 @@ $.fn.bookBlock = Object.assign(function (options) {
         var path = $(element).data("bbsrc");
         $pathArray.push(path);
     });
+    // attach image paths
     $container.data("bbsrcset", $pathArray);
+    $img.first().attr("src", $img.first().data("bbsrc"));
     var _setImage = function () {
         //   if (!image.length) {
         //                     return true;

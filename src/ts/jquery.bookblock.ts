@@ -567,13 +567,12 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         //             return this
         //         }
 
-
         this.each(() => {
             var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
             instance._initEvents()
         })
 
-        const $img = $("img")
+        const $img = $("img") as JQuery<HTMLImageElement>
         const $container = $(this)
 
         $img.each((index: number, element: HTMLImageElement) => {
@@ -581,7 +580,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             $pathArray.push(path)
         })
 
+        // attach image paths
         $container.data("bbsrcset", $pathArray)
+
+        $img.first().attr("src", $img.first().data("bbsrc"))
 
         const _setImage = () => {
             //   if (!image.length) {
