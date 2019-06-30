@@ -141,6 +141,10 @@ class BookBlock  {
         this.$items = this.$el.children( ".bb-item" ).hide()
         // total items
         this.itemsCount = this.$items.length
+        if ($("#bb-bookblock").data().bbsrcset != null) {
+            this.itemsCount += $("#bb-bookblock").data().bbsrcset.length
+        }
+
         console.log(`startpage is ${this.options.startPage}`)
         // current item´s index
         if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
@@ -176,9 +180,12 @@ class BookBlock  {
     }
 
     _initEvents() {
+        console.log("initialized")
+
         var self = this
 
         if ( this.options.nextEl !== "" ) {
+            console.log("touched a button")
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("next button clicked")
                 self._action( "next" )
@@ -187,11 +194,14 @@ class BookBlock  {
         }
 
         if ( this.options.prevEl !== "" ) {
+            console.log("touched another button")
             $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => { self._action( "prev" ); return false } )
         }
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
-            e.preventDefault()
+            //            e.preventDefault()
+
+            console.log("touched the book")
 
             if (!!this.isAnimating === false) {
                 const left: number = $(e.currentTarget).offset().left
@@ -219,31 +229,43 @@ class BookBlock  {
             self.elWidth = self.$el.width()
         } )
 
-        $( document ).keydown( function(e) {
-            const keyCode = e.keyCode || e.which
-            const arrow = {
-                left : 37,
-                up : 38,
-                right : 39,
-                down : 40
-            }
-            switch (keyCode) {
-                case arrow.left:
-                    self._action( "prev" )
-                    break
-                case arrow.right:
-                    self._action( "next" )
-                    break
+        $( document ).on("keydown.bookblock", (e) => {
+            const keyCode = e.which
+
+            const UP: number = 16
+            const RIGHT: number = 39
+            const LEFT: number = 37
+            const DOWN: number = 40
+
+            if ([UP, RIGHT].indexOf(keyCode) > -1) {
+                e.stopPropagation()
+                e.preventDefault()
+                self._action( "next" )
             }
 
+            if ([DOWN, LEFT].indexOf(keyCode) > -1) {
+                e.stopPropagation()
+                e.preventDefault()
+                self._action( "prev")
+            }
         })
 
     }
 
     _action( dir: string, page?: number ) {
-        this._createPage()
-        this._stopSlideshow()
-        this._navigate( dir, page )
+        const path: string = $("#bb-bookblock").data().bbsrcset[this.current].path
+
+        const $img = $("#bb-bookblock").find("img").eq(this.current) as JQuery<HTMLImageElement>
+
+        $img.attr("src", path)
+
+        $img.on("load", (e) => {
+            console.log(e)
+        })
+
+        //         this._createPage()
+        //         this._stopSlideshow()
+        //         this._navigate( dir, page )
     }
 
     _navigate( dir: string, page?: number ) {
@@ -458,25 +480,28 @@ class BookBlock  {
     }
 
     _createPage() {
-       //  const $bbImg = $("<img/>")
-//             .attr("bbsrc", "images/demo0/dummy-003.png")
 
-//         const $bbLink = $("<a/>")
-//             .attr("href", "#")
+        //  const $bbImg = $("<img/>")
+        //             .attr("bbsrc", "images/demo0/dummy-003.png")
 
-//         const $bbItem = $("<div/>")
-//             .attr("class", "bb-item")
-//             .append($bbLink.append($bbImg))
+        //         const $bbLink = $("<a/>")
+        //             .attr("href", "#")
 
-//         $("#bb-bookblock").append($bbItem)
+        //         const $bbItem = $("<div/>")
+        //             .attr("class", "bb-item")
+        //             .append($bbLink.append($bbImg))
+
+        //         $("#bb-bookblock").append($bbItem)
     }
 
     // public method: flips next
     next() {
+        console.log("next ...")
         this._action( this.options.direction === "ltr" ? "next" : "prev" )
     }
     // public method: flips back
     prev() {
+        console.log("previous ...")
         this._action( this.options.direction === "ltr" ? "prev" : "next" )
     }
     // public method: goes to a specific page
@@ -559,7 +584,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             ...options,
         }
 
-        const $pathArray: string[] = []
+        const $pathArray: Array<{index: number, path: string}> = []
 
         // Check if required options are missing.
         //  if (options.height == null || options.width == null) {
@@ -567,17 +592,13 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         //             return this
         //         }
 
-        this.each(() => {
-            var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
-            instance._initEvents()
-        })
-
-        const $img = $("img") as JQuery<HTMLImageElement>
         const $container = $(this)
+
+        const $img = $container.find("img") as JQuery<HTMLImageElement>
 
         $img.each((index: number, element: HTMLImageElement) => {
             let path: string = $(element).data("bbsrc")
-            $pathArray.push(path)
+            $pathArray.push({ index, path })
         })
 
         // attach image paths
@@ -589,8 +610,8 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             //   if (!image.length) {
             //                     return true;
             //             }
-            const screenWidth: number = $(window).width()
-            const screenHeight: number = $(window).height()
+            const screenWidth: number = $window.width()
+            const screenHeight: number = $window.height()
             const screenRatio = screenWidth / screenHeight as number
             let cssHeight: number
             let cssWidth: number
@@ -637,9 +658,14 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             tmpImage.src = $img.attr("src")
         }
 
-        $(window).on("resize", _setImage)
+        $window.on("resize", _setImage)
 
         $img.on("load", _setImage)
+
+        this.each(() => {
+            var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
+            instance._initEvents()
+        })
 
         return this
     },
