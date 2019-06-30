@@ -52,36 +52,36 @@ Modernizr.addTest("csstransformspreserve3d", () => {
  */
 const $event = $.event
 let $special
-let resizeTimeout
+let resizeTimeout: ReturnType<typeof setTimeout>
 
-$special = $event.special.debouncedresize = {
-    setup() {
-        $( this ).on( "resize", $special.handler )
-    },
-    teardown() {
-        $( this ).off( "resize", $special.handler )
-    },
-    handler( event, execAsap ) {
-        // Save the context
-        var context = this
-        var args = arguments
-        var dispatch = () => {
-            // set correct event type
-            event.type = "debouncedresize"
-            // @ts-ignore
-            $event.dispatch.apply( context, args )
-        }
+    $special = $event.special.debouncedresize = {
+        setup() {
+            $( this ).on( "resize", $special.handler )
+        },
+        teardown() {
+            $( this ).off( "resize", $special.handler )
+        },
+        handler( event, execAsap ) {
+            // Save the context
+            var context = this
+            var args = arguments
+            var dispatch = () => {
+                // set correct event type
+                event.type = "debouncedresize"
+                // @ts-ignore
+                $event.dispatch.apply( context, args )
+            }
 
-        if ( resizeTimeout ) {
-            clearTimeout( resizeTimeout )
-        }
+            if ( resizeTimeout ) {
+                clearTimeout( resizeTimeout )
+            }
 
-        execAsap ?
-            dispatch() :
-            resizeTimeout = setTimeout( dispatch, $special.threshold )
-    },
-    threshold: 150
-}
+            execAsap ?
+                dispatch() :
+                resizeTimeout = setTimeout( dispatch, $special.threshold )
+        },
+        threshold: 150
+    }
 
 class BookBlock  {
     // global settings
@@ -112,7 +112,7 @@ class BookBlock  {
 
     options: BookBlockPluginSettings
 
-    private defaults: BookBlockPluginSettings
+    //    private defaults: BookBlockPluginSettings
 
     private itemsCount: number
     private slideshow: ReturnType<typeof setTimeout>
@@ -241,6 +241,7 @@ class BookBlock  {
     }
 
     _action( dir: string, page?: number ) {
+        this._createPage()
         this._stopSlideshow()
         this._navigate( dir, page )
     }
@@ -455,6 +456,21 @@ class BookBlock  {
             this.options.autoplay = false
         }
     }
+
+    _createPage() {
+       //  const $bbImg = $("<img/>")
+//             .attr("bbsrc", "images/demo0/dummy-003.png")
+
+//         const $bbLink = $("<a/>")
+//             .attr("href", "#")
+
+//         const $bbItem = $("<div/>")
+//             .attr("class", "bb-item")
+//             .append($bbLink.append($bbImg))
+
+//         $("#bb-bookblock").append($bbItem)
+    }
+
     // public method: flips next
     next() {
         this._action( this.options.direction === "ltr" ? "next" : "prev" )
@@ -543,16 +559,14 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             ...options,
         }
 
+        const $pathArray: string[] = []
+
         // Check if required options are missing.
         //  if (options.height == null || options.width == null) {
         //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
         //             return this
         //         }
 
-        //         this.css({
-        //             height: options.height,
-        //             width: options.width,
-        //         })
 
         this.each(() => {
             var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
@@ -562,10 +576,12 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         const $img = $("img")
         const $container = $(this)
 
-        const lazy = document.getElementsByTagName("img")
-        lazy[0].src = lazy[0].getAttribute('data-bbsrc')
+        $img.each((index: number, element: HTMLImageElement) => {
+            let path: string = $(element).data("bbsrc")
+            $pathArray.push(path)
+        })
 
-        // get image ratio
+        $container.data("bbsrcset", $pathArray)
 
         const _setImage = () => {
             //   if (!image.length) {
@@ -576,7 +592,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             const screenRatio = screenWidth / screenHeight as number
             let cssHeight: number
             let cssWidth: number
-            let cssLeft: number
             function setSizes(imgRatio: number) {
                 let gutterFactor: number = Math.abs(1 - options.gutter / 100)
                 const plusOrMinus = Math.random() < 0.5 ? -1 : 1
@@ -588,7 +603,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                     cssHeight = screenHeight
                     cssWidth = screenHeight * imgRatio
                 } else if (imgRatio > 1 && screenRatio < 1) {
-                    console.log(2)
                     // < 1 => width < height
                     cssWidth = screenWidth
                     cssHeight = screenWidth / imgRatio
@@ -605,12 +619,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
                 $container.css({
                     height: cssHeight,
-                    //     left:  cssLeft,
                     width: cssWidth,
                 })
                 $img.css({
                     height: cssHeight,
-                    //                    left:  `${cssLeft}px`,
                     width: cssWidth,
                 })
             }
@@ -621,7 +633,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 setSizes(imgRatio)
             }
             tmpImage.src = $img.attr("src")
-
         }
 
         $(window).on("resize", _setImage)
@@ -674,7 +685,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             onEndFlip(old, page, isLimit: boolean) { return false },
             // callback before the flip transition
             // page is the current item´s index
-            onBeforeFlip(page) { return false },
+            onBeforeFlip(page: HTMLElement) { return false },
 
             // bb-block width in pixels
             width: null,
