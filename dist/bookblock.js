@@ -10683,35 +10683,38 @@ Modernizr.addTest("csstransformspreserve3d", function () {
  * This saved you an hour of work?
  * Send me music http://www.amazon.co.uk/wishlist/HNTU0468LQON
  */
-var $event = $.event;
-var $special;
-var resizeTimeout;
-$special = $event.special.debouncedresize = {
-    setup: function () {
-        $(this).on("resize", $special.handler);
-    },
-    teardown: function () {
-        $(this).off("resize", $special.handler);
-    },
-    handler: function (event, execAsap) {
-        // Save the context
-        var context = this;
-        var args = arguments;
-        var dispatch = function () {
-            // set correct event type
-            event.type = "debouncedresize";
-            // @ts-ignore
-            $event.dispatch.apply(context, args);
-        };
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        execAsap ?
-            dispatch() :
-            resizeTimeout = setTimeout(dispatch, $special.threshold);
-    },
-    threshold: 150
-};
+// const $event = $.event
+// let $special
+// let resizeTimeout: ReturnType<typeof setTimeout>
+//    $special = $event.special.debouncedresize = {
+//         setup() {
+//             console.log("setup")
+//             $( this ).on( "resize", $special.handler )
+//         },
+//         teardown() {
+//             console.log("teardown")
+//             $( this ).off( "resize", $special.handler )
+//         },
+//         handler( event, execAsap ) {
+//             console.log("handler")
+//             // Save the context
+//             var context = this
+//             var args = arguments
+//             var dispatch = () => {
+//                 // set correct event type
+//                 event.type = "debouncedresize"
+//                 // @ts-ignore
+//                 $event.dispatch.apply( context, args )
+//             }
+//             if ( resizeTimeout ) {
+//                 clearTimeout( resizeTimeout )
+//             }
+//             execAsap ?
+//                 dispatch() :
+//                 resizeTimeout = setTimeout( dispatch, $special.threshold )
+//         },
+//         threshold: 150
+//     }
 var BookBlock = /** @class */ (function () {
     function BookBlock(options, element) {
         this.options = options;
@@ -10764,7 +10767,6 @@ var BookBlock = /** @class */ (function () {
         console.log("initialized");
         var self = this;
         if (this.options.nextEl !== "") {
-            console.log("touched a button");
             $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
                 console.log("next button clicked");
                 self._action("next");
@@ -10772,8 +10774,11 @@ var BookBlock = /** @class */ (function () {
             });
         }
         if (this.options.prevEl !== "") {
-            console.log("touched another button");
-            $(this.options.prevEl).on("click.bookblock touchstart.bookblock", function () { self._action("prev"); return false; });
+            $(this.options.prevEl).on("click.bookblock touchstart.bookblock", function () {
+                console.log("prev button clicked");
+                self._action("prev");
+                return false;
+            });
         }
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", function (e) {
             //            e.preventDefault()
@@ -10829,9 +10834,9 @@ var BookBlock = /** @class */ (function () {
         $img.on("load", function (e) {
             console.log(e);
         });
-        //         this._createPage()
-        //         this._stopSlideshow()
-        //         this._navigate( dir, page )
+        this._createPage();
+        this._stopSlideshow();
+        this._navigate(dir, page);
     };
     BookBlock.prototype._navigate = function (dir, page) {
         if (this.isAnimating) {
@@ -11098,6 +11103,10 @@ var logError = function (message) {
 // <3 https://www.smashingmagazine.com/2011/10/essential-jquery-plugin-patterns/
 $.fn.bookBlock = Object.assign(function (options) {
     var _this = this;
+    // guard against double initialization
+    if ($.data(this, "bookblock") != null) {
+        return this;
+    }
     // Here's a best practice for overriding 'defaults'
     // with specified options. Note how, rather than a
     // regular defaults object being passed as the second
@@ -11175,8 +11184,7 @@ $.fn.bookBlock = Object.assign(function (options) {
     $window.on("resize", _setImage);
     $img.on("load", _setImage);
     this.each(function () {
-        var instance = $.data(_this, "bookblock", new BookBlock(options, _this));
-        instance._initEvents();
+        $.data(_this, "bookblock", new BookBlock(options, _this));
     });
     return this;
 }, 

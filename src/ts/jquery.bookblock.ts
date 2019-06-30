@@ -50,38 +50,41 @@ Modernizr.addTest("csstransformspreserve3d", () => {
  * This saved you an hour of work?
  * Send me music http://www.amazon.co.uk/wishlist/HNTU0468LQON
  */
-const $event = $.event
-let $special
-let resizeTimeout: ReturnType<typeof setTimeout>
+// const $event = $.event
+// let $special
+// let resizeTimeout: ReturnType<typeof setTimeout>
 
-    $special = $event.special.debouncedresize = {
-        setup() {
-            $( this ).on( "resize", $special.handler )
-        },
-        teardown() {
-            $( this ).off( "resize", $special.handler )
-        },
-        handler( event, execAsap ) {
-            // Save the context
-            var context = this
-            var args = arguments
-            var dispatch = () => {
-                // set correct event type
-                event.type = "debouncedresize"
-                // @ts-ignore
-                $event.dispatch.apply( context, args )
-            }
+ //    $special = $event.special.debouncedresize = {
+//         setup() {
+//             console.log("setup")
+//             $( this ).on( "resize", $special.handler )
+//         },
+//         teardown() {
+//             console.log("teardown")
+//             $( this ).off( "resize", $special.handler )
+//         },
+//         handler( event, execAsap ) {
+//             console.log("handler")
+//             // Save the context
+//             var context = this
+//             var args = arguments
+//             var dispatch = () => {
+//                 // set correct event type
+//                 event.type = "debouncedresize"
+//                 // @ts-ignore
+//                 $event.dispatch.apply( context, args )
+//             }
 
-            if ( resizeTimeout ) {
-                clearTimeout( resizeTimeout )
-            }
+//             if ( resizeTimeout ) {
+//                 clearTimeout( resizeTimeout )
+//             }
 
-            execAsap ?
-                dispatch() :
-                resizeTimeout = setTimeout( dispatch, $special.threshold )
-        },
-        threshold: 150
-    }
+//             execAsap ?
+//                 dispatch() :
+//                 resizeTimeout = setTimeout( dispatch, $special.threshold )
+//         },
+//         threshold: 150
+//     }
 
 class BookBlock  {
     // global settings
@@ -185,7 +188,6 @@ class BookBlock  {
         var self = this
 
         if ( this.options.nextEl !== "" ) {
-            console.log("touched a button")
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("next button clicked")
                 self._action( "next" )
@@ -194,8 +196,11 @@ class BookBlock  {
         }
 
         if ( this.options.prevEl !== "" ) {
-            console.log("touched another button")
-            $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => { self._action( "prev" ); return false } )
+            $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => {
+                console.log("prev button clicked")
+                self._action( "prev" );
+                return false
+            } )
         }
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
@@ -263,9 +268,9 @@ class BookBlock  {
             console.log(e)
         })
 
-        //         this._createPage()
-        //         this._stopSlideshow()
-        //         this._navigate( dir, page )
+        this._createPage()
+        this._stopSlideshow()
+        this._navigate( dir, page )
     }
 
     _navigate( dir: string, page?: number ) {
@@ -571,6 +576,11 @@ var logError = ( message: string ) => {
 // <3 https://www.smashingmagazine.com/2011/10/essential-jquery-plugin-patterns/
 $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
     function(this: JQuery, options: BookBlockPluginSettings ): JQuery {
+        // guard against double initialization
+        if ($.data( this, "bookblock") != null) {
+            return this
+        }
+
         // Here's a best practice for overriding 'defaults'
         // with specified options. Note how, rather than a
         // regular defaults object being passed as the second
@@ -663,8 +673,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $img.on("load", _setImage)
 
         this.each(() => {
-            var instance = $.data( this, "bookblock", new BookBlock( options, this ) )
-            instance._initEvents()
+            $.data( this, "bookblock", new BookBlock( options, this ) )
         })
 
         return this
