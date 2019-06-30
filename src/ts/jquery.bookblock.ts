@@ -1,5 +1,3 @@
-import { constants } from "fs";
-
 // tslint:disable:variable-name
 // tslint:disable:trailing-comma
 // tslint:disable:prefer-const
@@ -54,7 +52,7 @@ Modernizr.addTest("csstransformspreserve3d", () => {
 // let $special
 // let resizeTimeout: ReturnType<typeof setTimeout>
 
- //    $special = $event.special.debouncedresize = {
+//    $special = $event.special.debouncedresize = {
 //         setup() {
 //             console.log("setup")
 //             $( this ).on( "resize", $special.handler )
@@ -145,7 +143,7 @@ class BookBlock  {
         // total items
         this.itemsCount = this.$items.length
         if ($("#bb-bookblock").data().bbsrcset != null) {
-            this.itemsCount += $("#bb-bookblock").data().bbsrcset.length
+            this.itemsCount = $("#bb-bookblock").data().bbsrcset.length
         }
 
         console.log(`startpage is ${this.options.startPage}`)
@@ -258,19 +256,14 @@ class BookBlock  {
     }
 
     _action( dir: string, page?: number ) {
-        const path: string = $("#bb-bookblock").data().bbsrcset[this.current].path
+        const shit = this
+        console.log(`this current is ${this.current}`)
+        shit._createPage(dir, this.current)
 
-        const $img = $("#bb-bookblock").find("img").eq(this.current) as JQuery<HTMLImageElement>
-
-        $img.attr("src", path)
-
-        $img.on("load", (e) => {
-            console.log(e)
-        })
-
-        this._createPage()
-        this._stopSlideshow()
-        this._navigate( dir, page )
+        setTimeout(() => {
+            shit._stopSlideshow()
+            shit._navigate( dir, page )
+        }, 1000)
     }
 
     _navigate( dir: string, page?: number ) {
@@ -484,19 +477,28 @@ class BookBlock  {
         }
     }
 
-    _createPage() {
+    _createPage(dir: string, index?: number) {
+        const itemsCount = this.itemsCount
+        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+        const mod = (x: number, n: number) => (x % n + n) % n
 
-        //  const $bbImg = $("<img/>")
-        //             .attr("bbsrc", "images/demo0/dummy-003.png")
+        const subIndex: number = (dir === "prev") ? index - 1 : index + 1
+        const modulatedNextIndex: number = mod(subIndex, itemsCount)
 
-        //         const $bbLink = $("<a/>")
-        //             .attr("href", "#")
+        console.log(`next to load is ${modulatedNextIndex}`)
+        let path: string
+        let $img
 
-        //         const $bbItem = $("<div/>")
-        //             .attr("class", "bb-item")
-        //             .append($bbLink.append($bbImg))
+        if (modulatedNextIndex != null) {
+            path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
+            console.log(path)
+            $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
+            $img.on("load", (e) => {
+                console.log("image should be loaded atp")
+            })
 
-        //         $("#bb-bookblock").append($bbItem)
+            $img.attr("src", path)
+        }
     }
 
     // public method: flips next

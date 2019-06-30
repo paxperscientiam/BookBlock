@@ -10634,9 +10634,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
 // tslint:disable:variable-name
 // tslint:disable:trailing-comma
 // tslint:disable:prefer-const
@@ -10645,6 +10642,7 @@ var tslib_1 = require("tslib");
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
+var tslib_1 = require("tslib");
 /**
  * jquery.bookblock.js v2.0.1
  * http://www.codrops.com
@@ -10726,7 +10724,7 @@ var BookBlock = /** @class */ (function () {
         // total items
         this.itemsCount = this.$items.length;
         if ($("#bb-bookblock").data().bbsrcset != null) {
-            this.itemsCount += $("#bb-bookblock").data().bbsrcset.length;
+            this.itemsCount = $("#bb-bookblock").data().bbsrcset.length;
         }
         console.log("startpage is " + this.options.startPage);
         // current item´s index
@@ -10828,15 +10826,13 @@ var BookBlock = /** @class */ (function () {
         });
     };
     BookBlock.prototype._action = function (dir, page) {
-        var path = $("#bb-bookblock").data().bbsrcset[this.current].path;
-        var $img = $("#bb-bookblock").find("img").eq(this.current);
-        $img.attr("src", path);
-        $img.on("load", function (e) {
-            console.log(e);
-        });
-        this._createPage();
-        this._stopSlideshow();
-        this._navigate(dir, page);
+        var shit = this;
+        console.log("this current is " + this.current);
+        shit._createPage(dir, this.current);
+        setTimeout(function () {
+            shit._stopSlideshow();
+            shit._navigate(dir, page);
+        }, 1000);
     };
     BookBlock.prototype._navigate = function (dir, page) {
         if (this.isAnimating) {
@@ -11023,15 +11019,24 @@ var BookBlock = /** @class */ (function () {
             this.options.autoplay = false;
         }
     };
-    BookBlock.prototype._createPage = function () {
-        //  const $bbImg = $("<img/>")
-        //             .attr("bbsrc", "images/demo0/dummy-003.png")
-        //         const $bbLink = $("<a/>")
-        //             .attr("href", "#")
-        //         const $bbItem = $("<div/>")
-        //             .attr("class", "bb-item")
-        //             .append($bbLink.append($bbImg))
-        //         $("#bb-bookblock").append($bbItem)
+    BookBlock.prototype._createPage = function (dir, index) {
+        var itemsCount = this.itemsCount;
+        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+        var mod = function (x, n) { return (x % n + n) % n; };
+        var subIndex = (dir === "prev") ? index - 1 : index + 1;
+        var modulatedNextIndex = mod(subIndex, itemsCount);
+        console.log("next to load is " + modulatedNextIndex);
+        var path;
+        var $img;
+        if (modulatedNextIndex != null) {
+            path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path;
+            console.log(path);
+            $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex);
+            $img.on("load", function (e) {
+                console.log("image should be loaded atp");
+            });
+            $img.attr("src", path);
+        }
     };
     // public method: flips next
     BookBlock.prototype.next = function () {
