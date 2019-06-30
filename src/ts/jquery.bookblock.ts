@@ -196,10 +196,19 @@ class BookBlock  {
         if ( this.options.prevEl !== "" ) {
             $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("prev button clicked")
-                self._action( "prev" );
+                self._action( "prev" )
                 return false
             } )
         }
+
+        $("#bb-bookblock").hover(
+            function() {
+                console.log("hovering yo")
+                $(this).addClass("brighten-20")
+            }, function() {
+                $(this).removeClass("brighten-20")
+            }
+        )
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
             //            e.preventDefault()
@@ -487,13 +496,13 @@ class BookBlock  {
 
         console.log(`next to load is ${modulatedNextIndex}`)
         let path: string
-        let $img
+        let $img: JQuery<HTMLImageElement>
 
         if (modulatedNextIndex != null) {
             path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
             console.log(path)
             $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
-            $img.on("load", (e) => {
+            $img.on("load", () => {
                 console.log("image should be loaded atp")
             })
 
@@ -619,9 +628,9 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $img.first().attr("src", $img.first().data("bbsrc"))
 
         const _setImage = () => {
-            //   if (!image.length) {
-            //                     return true;
-            //             }
+            if (!$img.length) {
+                return true
+            }
             const screenWidth: number = $window.width()
             const screenHeight: number = $window.height()
             const screenRatio = screenWidth / screenHeight as number
@@ -673,6 +682,12 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $window.on("resize", _setImage)
 
         $img.on("load", _setImage)
+
+        //      $img.on("load", () => {
+        //             $(this).css({
+        //                 boxShadow: "0px 9px 8px 2px rgba(50, 50, 50, 0.8)",
+        //             })
+        //         })
 
         this.each(() => {
             $.data( this, "bookblock", new BookBlock( options, this ) )

@@ -52,6 +52,7 @@ import {
     PostCSSPlugin,
     QuantumPlugin,
     SassPlugin,
+    TerserPlugin,
     WebIndexPlugin,
 } from "fuse-box"
 
@@ -113,6 +114,11 @@ class CTX {
                     }),
                     CSSPlugin({inject: true}),
                 ],
+                this.isProduction && TerserPlugin({
+                    compress: {
+                        drop_console: true,
+                    },
+                }),
                 this.isProduction && QuantumPlugin({
                     css: {
                         clean: true,
