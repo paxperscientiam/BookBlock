@@ -69,6 +69,8 @@ class CTX {
 
     getConfig() {
         return FuseBox.init({
+            // will hashing help with AppCache?
+            hash: true,
             shim: {
                 modernizr: {
                     exports: "Modernizr",

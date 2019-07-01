@@ -272,7 +272,7 @@ class BookBlock  {
         setTimeout(() => {
             shit._stopSlideshow()
             shit._navigate( dir, page )
-        }, 1000)
+        }, 10)
     }
 
     _navigate( dir: string, page?: number ) {
@@ -487,6 +487,9 @@ class BookBlock  {
     }
 
     _createPage(dir: string, index?: number) {
+        const $spinner = $("#bb-spinner")
+        $spinner.removeClass("bb-not-loading")
+
         const itemsCount = this.itemsCount
         // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
         const mod = (x: number, n: number) => (x % n + n) % n
@@ -502,7 +505,10 @@ class BookBlock  {
             path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
             console.log(path)
             $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
-            $img.on("load", () => {
+            $img.on("load", (e) => {
+                $spinner.addClass("bb-not-loading")
+                console.log($(e.target)[0])
+                $(e.target).addClass("fadeIn")
                 console.log("image should be loaded atp")
             })
 
@@ -591,7 +597,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         if ($.data( this, "bookblock") != null) {
             return this
         }
-
         // Here's a best practice for overriding 'defaults'
         // with specified options. Note how, rather than a
         // regular defaults object being passed as the second
@@ -612,14 +617,22 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
         //             return this
         //         }
-
         const $container = $(this)
+        const $spinner = $("<div/>")
+            .addClass(["bb-loading-pulse", "bb-not-loading"])
+            .attr("id", "bb-spinner")
+
+        $container.append($spinner)
 
         const $img = $container.find("img") as JQuery<HTMLImageElement>
+
 
         $img.each((index: number, element: HTMLImageElement) => {
             let path: string = $(element).data("bbsrc")
             $pathArray.push({ index, path })
+            //             if (index > 0) {
+           //  $(element).css("background-image", 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAEsAQMAAAAPddOLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVvIeX///9Be5XsAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+MGHQo2IM7SjQUAAAApSURBVHja7cExAQAAAMKg9U9tCy+gAAAAAAAAAAAAAAAAAAAAAAAA4GdLAAAB9wDA9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wNi0yOVQxNDo1NDozMi0wNDowMCWobV0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDYtMjlUMTQ6NTQ6MzItMDQ6MDBU9dXhAAAAAElFTkSuQmCC")')
+// //             }
         })
 
         // attach image paths

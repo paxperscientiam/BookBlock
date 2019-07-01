@@ -188,13 +188,26 @@ body {
     top: 0;
     left: 0;
     display: none;
-    background: #fff;
+    background: #ffccaa;
 }
 
 .bb-item img {
     width: 100%;
     height: 100%;
 }
+
+.bb-bookblock img {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.bb-bookblock .fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+
 
 .bb-nav-container {
 	  width: 100%;
@@ -257,6 +270,79 @@ $colours:
 @each $i in $colours{
 	  .brighten-#{nth($i, 1)} {
 		    filter: brightness(nth($i, 2));
+    }
+}
+
+
+$base-line-height: 24px;
+$white: rgb(255,255,255);
+$off-white: rgba($white, 0.2);
+$spin-duration: 1s;
+$pulse-duration: 750ms;
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    50% {
+        background: $white;
+    }
+}
+
+.bb-loading {
+    left: calc(50% - 1.5rem);
+    top: calc(50% - 1.5rem);
+    position: relative;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    border: .25rem solid $off-white;
+    border-top-color: $white;
+    animation: spin $spin-duration infinite linear;
+    z-index: 10000;
+
+    &.bb-not-loading {
+        display: none;
+    }
+}
+
+.bb-loading-pulse {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: ($base-line-height / 4);
+    height: $base-line-height;
+    background: $off-white;
+    animation: pulse $pulse-duration infinite;
+    animation-delay: ($pulse-duration / 3);
+    z-index: 10000;
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        height: ($base-line-height / 1.5);
+        width: ($base-line-height / 4);
+        background: $off-white;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: pulse $pulse-duration infinite;
+    }
+    &:before {
+        left: -($base-line-height / 2);
+    }
+    &:after {
+        left: ($base-line-height / 2);
+        animation-delay: ($pulse-duration / 1.5);
+    }
+
+    &.bb-not-loading {
+        display: none;
     }
 }
 

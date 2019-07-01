@@ -29,6 +29,8 @@ interface BookBlockPluginSettings {
     speed?: number
     startPage?: number
 
+    $container: JQuery<HTMLElement>
+
     onEndFlip?: (a, b, c: boolean) => boolean
     onBeforeFlip?: (a) => boolean
 
