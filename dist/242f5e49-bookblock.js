@@ -1,7 +1,5 @@
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
-// allowSyntheticDefaultImports
-FuseBox.sdep = true;
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-csstransforms3d-csstransitions-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */
@@ -10634,12 +10632,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
-// tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 var tslib_1 = require("tslib");
@@ -10834,7 +10826,8 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var shit = this;
         console.log("this current is " + this.current);
-        shit._createPage(dir, this.current).then(function (o) {
+        shit._createPage(dir, this.current)
+            .then(function () {
             shit._stopSlideshow();
             shit._navigate(dir, page);
         });
@@ -11039,29 +11032,17 @@ var BookBlock = /** @class */ (function () {
             var $img;
             if (modulatedNextIndex != null) {
                 path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path;
-                //                     console.log(path)
+                console.log(path);
                 $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex);
-                //                     $img.on("load", (e) => {
-                //                         $spinner.addClass("bb-not-loading")
-                //                         console.log($(e.target)[0])
-                //                         $(e.target).addClass("fadeIn")
-                //                         console.log("image should be loaded atp")
-                //                     })
-                //                     $img.attr("src", path)
-                //                 }
-                $.ajax({
-                    url: path,
-                    xhrFields: {
-                        responseType: 'blob'
-                    },
-                    success: function (data) {
-                        var url = window.URL || window.webkitURL;
-                        var src = url.createObjectURL(data);
-                        $("#bb-bookblock").find("img").eq(modulatedNextIndex).attr("src", src);
-                    }
+                $img.on("load", function (e) {
+                    $spinner.addClass("bb-not-loading");
+                    console.log($(e.target)[0]);
+                    $(e.target).addClass("fadeIn");
+                    console.log("image should be loaded atp");
                 });
+                $img.attr("src", path);
             }
-            resolve(true);
+            resolve();
         });
     };
     // public method: flips next

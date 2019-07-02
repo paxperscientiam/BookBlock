@@ -10634,12 +10634,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
-// tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 var tslib_1 = require("tslib");
@@ -10761,7 +10755,6 @@ var BookBlock = /** @class */ (function () {
         }
     }
     BookBlock.prototype._initEvents = function () {
-        var _this = this;
         console.log("initialized");
         var self = this;
         if (this.options.nextEl !== "") {
@@ -10787,27 +10780,27 @@ var BookBlock = /** @class */ (function () {
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", function (e) {
             //            e.preventDefault()
             console.log("touched the book");
-            if (!!_this.isAnimating === false) {
-                var left = $(e.currentTarget).offset().left;
-                var width = $(e.currentTarget).width();
-                var midX = (width / 2) + left;
-                if (e.touches) {
-                    if (e.touches[0].screenX < midX) {
-                        self._action("prev");
-                    }
-                    else {
-                        self._action("next");
-                    }
+            //            if (this.isAnimating === false) {
+            var left = $(e.currentTarget).offset().left;
+            var width = $(e.currentTarget).width();
+            var midX = (width / 2) + left;
+            if (e.touches) {
+                if (e.touches[0].screenX < midX) {
+                    self._action("prev");
                 }
                 else {
-                    if (e.offsetX < width / 2) {
-                        self._action("prev");
-                    }
-                    else {
-                        self._action("next");
-                    }
+                    self._action("next");
                 }
             }
+            else {
+                if (e.offsetX < width / 2) {
+                    self._action("prev");
+                }
+                else {
+                    self._action("next");
+                }
+            }
+            //   }
         });
         $window.on("debouncedresize", function () {
             // update width value
@@ -10834,13 +10827,11 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var shit = this;
         console.log("this current is " + this.current);
-        shit._createPage(dir, this.current).then(function (o) {
-            console.log("HLY FUCKING SHIT");
-        });
-        setTimeout(function () {
+        shit._createPage(dir, this.current)
+            .then(function () {
             shit._stopSlideshow();
             shit._navigate(dir, page);
-        }, 10);
+        });
     };
     BookBlock.prototype._navigate = function (dir, page) {
         if (this.isAnimating) {
@@ -11052,7 +11043,7 @@ var BookBlock = /** @class */ (function () {
                 });
                 $img.attr("src", path);
             }
-            resolve(true);
+            resolve();
         });
     };
     // public method: flips next
@@ -11261,10 +11252,16 @@ $.fn.bookBlock = Object.assign(function (options) {
         // old is the index of the previous item
         // page is the current item´s index
         // isLimit is true if the current page is the last one (or the first one)
-        onEndFlip: function (old, page, isLimit) { return false; },
+        onEndFlip: function (old, page, isLimit) {
+            console.log("Flipped from " + old + " to " + page + ". Limit: " + isLimit);
+            return false;
+        },
         // callback before the flip transition
         // page is the current item´s index
-        onBeforeFlip: function (page) { return false; },
+        onBeforeFlip: function (page) {
+            console.log("Will flip to page " + page);
+            return false;
+        },
         // bb-block width in pixels
         width: null,
         // bb-block height in pixels

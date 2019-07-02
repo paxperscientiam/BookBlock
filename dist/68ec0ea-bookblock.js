@@ -10634,12 +10634,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
-// tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 var tslib_1 = require("tslib");
@@ -10787,7 +10781,7 @@ var BookBlock = /** @class */ (function () {
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", function (e) {
             //            e.preventDefault()
             console.log("touched the book");
-            if (!!_this.isAnimating === false) {
+            if (_this.isAnimating === false) {
                 var left = $(e.currentTarget).offset().left;
                 var width = $(e.currentTarget).width();
                 var midX = (width / 2) + left;
@@ -10834,7 +10828,8 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var shit = this;
         console.log("this current is " + this.current);
-        shit._createPage(dir, this.current).then(function (o) {
+        shit._createPage(dir, this.current)
+            .then(function () {
             shit._stopSlideshow();
             shit._navigate(dir, page);
         });
@@ -11037,30 +11032,19 @@ var BookBlock = /** @class */ (function () {
             console.log("next to load is " + modulatedNextIndex);
             var path;
             var $img;
-            //   if (modulatedNextIndex != null) {
-            //                     path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
-            //                     console.log(path)
-            $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex);
-            //                     $img.on("load", (e) => {
-            //                         $spinner.addClass("bb-not-loading")
-            //                         console.log($(e.target)[0])
-            //                         $(e.target).addClass("fadeIn")
-            //                         console.log("image should be loaded atp")
-            //                     })
-            //                     $img.attr("src", path)
-            //                 }
-            $.ajax({
-                url: 'images/demo-large/dummy-000.png',
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function (data) {
-                    var url = window.URL || window.webkitURL;
-                    var src = url.createObjectURL(data);
-                    $('#result-image').attr("src", src);
-                }
-            });
-            resolve(true);
+            if (modulatedNextIndex != null) {
+                path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path;
+                console.log(path);
+                $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex);
+                $img.on("load", function (e) {
+                    $spinner.addClass("bb-not-loading");
+                    console.log($(e.target)[0]);
+                    $(e.target).addClass("fadeIn");
+                    console.log("image should be loaded atp");
+                });
+                $img.attr("src", path);
+            }
+            resolve();
         });
     };
     // public method: flips next
@@ -11269,10 +11253,16 @@ $.fn.bookBlock = Object.assign(function (options) {
         // old is the index of the previous item
         // page is the current item´s index
         // isLimit is true if the current page is the last one (or the first one)
-        onEndFlip: function (old, page, isLimit) { return false; },
+        onEndFlip: function (old, page, isLimit) {
+            console.log("Flipped from " + old + " to " + page + ". Limit: " + isLimit);
+            return false;
+        },
         // callback before the flip transition
         // page is the current item´s index
-        onBeforeFlip: function (page) { return false; },
+        onBeforeFlip: function (page) {
+            console.log("Will flip to page " + page);
+            return false;
+        },
         // bb-block width in pixels
         width: null,
         // bb-block height in pixels

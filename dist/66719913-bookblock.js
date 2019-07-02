@@ -10634,12 +10634,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
-// tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 var tslib_1 = require("tslib");
@@ -10834,13 +10828,11 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var shit = this;
         console.log("this current is " + this.current);
-        shit._createPage(dir, this.current).then(function (o) {
-            console.log("HLY FUCKING SHIT");
-        });
-        setTimeout(function () {
+        shit._createPage(dir, this.current)
+            .then(function () {
             shit._stopSlideshow();
             shit._navigate(dir, page);
-        }, 10);
+        });
     };
     BookBlock.prototype._navigate = function (dir, page) {
         if (this.isAnimating) {
@@ -11052,6 +11044,7 @@ var BookBlock = /** @class */ (function () {
                 });
                 $img.attr("src", path);
             }
+            resolve();
         });
     };
     // public method: flips next
@@ -11260,7 +11253,10 @@ $.fn.bookBlock = Object.assign(function (options) {
         // old is the index of the previous item
         // page is the current item´s index
         // isLimit is true if the current page is the last one (or the first one)
-        onEndFlip: function (old, page, isLimit) { return false; },
+        onEndFlip: function (old, page, isLimit) {
+            console.log("Flipped from " + old + " to " + page + ". Limit: " + isLimit);
+            return false;
+        },
         // callback before the flip transition
         // page is the current item´s index
         onBeforeFlip: function (page) { return false; },

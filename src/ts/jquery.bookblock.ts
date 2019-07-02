@@ -1,8 +1,3 @@
-// tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
@@ -214,25 +209,25 @@ class BookBlock  {
 
             console.log("touched the book")
 
-            if (!!this.isAnimating === false) {
-                const left: number = $(e.currentTarget).offset().left
-                const width: number = $(e.currentTarget).width()
-                const midX: number = (width / 2) + left
+            //            if (this.isAnimating === false) {
+            const left: number = $(e.currentTarget).offset().left
+            const width: number = $(e.currentTarget).width()
+            const midX: number = (width / 2) + left
 
-                if (e.touches) {
-                    if (e.touches[0].screenX < midX) {
-                        self._action("prev")
-                    } else {
-                        self._action("next")
-                    }
+            if (e.touches) {
+                if (e.touches[0].screenX < midX) {
+                    self._action("prev")
                 } else {
-                    if (e.offsetX < width / 2) {
-                        self._action("prev")
-                    } else {
-                        self._action("next")
-                    }
+                    self._action("next")
+                }
+            } else {
+                if (e.offsetX < width / 2) {
+                    self._action("prev")
+                } else {
+                    self._action("next")
                 }
             }
+            //   }
         })
 
         $window.on( "debouncedresize", () => {
@@ -508,11 +503,12 @@ class BookBlock  {
                         console.log($(e.target)[0])
                         $(e.target).addClass("fadeIn")
                         console.log("image should be loaded atp")
+                        resolve()
+
                     })
 
                     $img.attr("src", path)
                 }
-            resolve()
         })
     }
 
@@ -749,11 +745,16 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             // old is the index of the previous item
             // page is the current item´s index
             // isLimit is true if the current page is the last one (or the first one)
-            onEndFlip(old, page, isLimit: boolean) { return false },
+            onEndFlip(old, page, isLimit: boolean) {
+                console.log(`Flipped from ${old} to ${page}. Limit: ${isLimit}`)
+                return false
+            },
             // callback before the flip transition
             // page is the current item´s index
-            onBeforeFlip(page: HTMLElement) { return false },
-
+            onBeforeFlip(page: HTMLElement) {
+                console.log(`Will flip to page ${page}`)
+                return false
+            },
             // bb-block width in pixels
             width: null,
 

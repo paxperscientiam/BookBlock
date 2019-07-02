@@ -10633,11 +10633,6 @@ require("fuse-box-css")("default/scss/bookblock/index.scss", "@font-face{font-fa
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
 
 // tslint:disable:variable-name
-// tslint:disable:trailing-comma
-// tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-sort-keys
-// tslint:disable:only-arrow-functions
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 var tslib_1 = require("tslib");
@@ -10832,13 +10827,11 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var shit = this;
         console.log("this current is " + this.current);
-        shit._createPage(dir, this.current).then(function (o) {
-            console.log(o);
-        });
-        setTimeout(function () {
+        shit._createPage(dir, this.current)
+            .then(function () {
             shit._stopSlideshow();
             shit._navigate(dir, page);
-        }, 10);
+        });
     };
     BookBlock.prototype._navigate = function (dir, page) {
         if (this.isAnimating) {
@@ -11050,6 +11043,7 @@ var BookBlock = /** @class */ (function () {
                 });
                 $img.attr("src", path);
             }
+            resolve();
         });
     };
     // public method: flips next
