@@ -1,7 +1,6 @@
 // tslint:disable:variable-name
 // tslint:disable:trailing-comma
 // tslint:disable:prefer-const
-// tslint:disable:no-var-keyword
 // tslint:disable:object-literal-sort-keys
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-console
@@ -268,11 +267,10 @@ class BookBlock  {
         const shit = this
         console.log(`this current is ${this.current}`)
         shit._createPage(dir, this.current)
-
-        setTimeout(() => {
-            shit._stopSlideshow()
-            shit._navigate( dir, page )
-        }, 10)
+            .then(() => {
+                shit._stopSlideshow()
+                shit._navigate( dir, page )
+            })
     }
 
     _navigate( dir: string, page?: number ) {
@@ -487,33 +485,35 @@ class BookBlock  {
     }
 
     _createPage(dir: string, index?: number) {
-        const $spinner = $("#bb-spinner")
-        $spinner.removeClass("bb-not-loading")
+        return new Promise((resolve, reject) => {
+            const $spinner = $("#bb-spinner")
+            $spinner.removeClass("bb-not-loading")
 
-        const itemsCount = this.itemsCount
-        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
-        const mod = (x: number, n: number) => (x % n + n) % n
+            const itemsCount = this.itemsCount
+            // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+            const mod = (x: number, n: number) => (x % n + n) % n
 
-        const subIndex: number = (dir === "prev") ? index - 1 : index + 1
-        const modulatedNextIndex: number = mod(subIndex, itemsCount)
+            const subIndex: number = (dir === "prev") ? index - 1 : index + 1
+            const modulatedNextIndex: number = mod(subIndex, itemsCount)
 
-        console.log(`next to load is ${modulatedNextIndex}`)
-        let path: string
-        let $img: JQuery<HTMLImageElement>
+            console.log(`next to load is ${modulatedNextIndex}`)
+            let path: string
+            let $img: JQuery<HTMLImageElement>
+                if (modulatedNextIndex != null) {
+                    path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
+                    console.log(path)
+                    $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
+                    $img.on("load", (e) => {
+                        $spinner.addClass("bb-not-loading")
+                        console.log($(e.target)[0])
+                        $(e.target).addClass("fadeIn")
+                        console.log("image should be loaded atp")
+                    })
 
-        if (modulatedNextIndex != null) {
-            path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
-            console.log(path)
-            $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
-            $img.on("load", (e) => {
-                $spinner.addClass("bb-not-loading")
-                console.log($(e.target)[0])
-                $(e.target).addClass("fadeIn")
-                console.log("image should be loaded atp")
-            })
-
-            $img.attr("src", path)
-        }
+                    $img.attr("src", path)
+                }
+            resolve()
+        })
     }
 
     // public method: flips next
@@ -631,8 +631,8 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             let path: string = $(element).data("bbsrc")
             $pathArray.push({ index, path })
             //             if (index > 0) {
-           //  $(element).css("background-image", 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAEsAQMAAAAPddOLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVvIeX///9Be5XsAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+MGHQo2IM7SjQUAAAApSURBVHja7cExAQAAAMKg9U9tCy+gAAAAAAAAAAAAAAAAAAAAAAAA4GdLAAAB9wDA9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wNi0yOVQxNDo1NDozMi0wNDowMCWobV0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDYtMjlUMTQ6NTQ6MzItMDQ6MDBU9dXhAAAAAElFTkSuQmCC")')
-// //             }
+            //  $(element).css("background-image", 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAEsAQMAAAAPddOLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVvIeX///9Be5XsAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+MGHQo2IM7SjQUAAAApSURBVHja7cExAQAAAMKg9U9tCy+gAAAAAAAAAAAAAAAAAAAAAAAA4GdLAAAB9wDA9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wNi0yOVQxNDo1NDozMi0wNDowMCWobV0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDYtMjlUMTQ6NTQ6MzItMDQ6MDBU9dXhAAAAAElFTkSuQmCC")')
+            // //             }
         })
 
         // attach image paths
