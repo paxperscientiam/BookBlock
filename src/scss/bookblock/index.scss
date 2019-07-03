@@ -197,14 +197,12 @@ body {
 }
 
 .bb-bookblock img {
-    visibility: hidden;
     opacity: 0;
+    transition: opacity 0s linear 0s, opacity 400ms;
 }
 
-.bb-bookblock .fadeIn {
-    visibility: visible;
+.bb-bookblock img.fadeIn {
     opacity: 1;
-    transition: visibility 0s linear 0s, opacity 300ms;
 }
 
 

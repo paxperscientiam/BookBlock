@@ -501,7 +501,8 @@ class BookBlock  {
                     $img.on("load", (e) => {
                         $spinner.addClass("bb-not-loading")
                         console.log($(e.target)[0])
-                        $(e.target).addClass("fadeIn")
+                        //$(e.target).addClass("fadeIn")
+                        $(e.target).fadeIn()
                         console.log("image should be loaded atp")
                         resolve()
 
@@ -684,11 +685,13 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             tmpImage.onload = function() {
                 const imgRatio = tmpImage.width / tmpImage.height
                 setSizes(imgRatio)
+                $img.addClass("fadeIn")
             }
             tmpImage.src = $img.attr("src")
         }
 
         $window.on("resize", _setImage)
+
 
         $img.on("load", _setImage)
 
