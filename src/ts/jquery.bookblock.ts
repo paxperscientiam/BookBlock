@@ -513,6 +513,7 @@ class BookBlock  {
         })
     }
 
+
     // public method: flips next
     next() {
         console.log("next ...")
