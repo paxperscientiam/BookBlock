@@ -29,9 +29,9 @@ interface BookBlockPluginSettings {
     speed?: number
     startPage?: number
 
-    $container: JQuery<HTMLElement>
+    $container: BookBlockPlugin
 
-    onEndFlip?: (a, b, c: boolean) => boolean
+        onEndFlip?: (a, b, c: boolean) => boolean
     onBeforeFlip?: (a) => boolean
 
     width: string
@@ -60,22 +60,37 @@ interface BookBlockPluginGlobalSettings {
 // tslint:disable-next-line
 interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     // these are private
-    // private $el: JQuery
-    // $items: JQuery
-    // $current: JQuery
-    // $nextItem: JQuery
-    // slideshow: ReturnType<typeof setTimeout>
+    private $el: JQuery
+
+    $items: JQuery
+    $current: JQuery
+    $nextItem: JQuery
+    slideshow: ReturnType<typeof setTimeout>
+
+    modulatedNextIndex: number
 
     options: BookBlockPluginSettings
 
-    // PRIVATE METHODS
-    _initEvents(): void
-    _action(dir: string, page?: number): void
-    _navigate( dir: string, page?: number ): void
-    _layoutNoSupport(dir: string): void
-    _layout(dir: string): any
-    _startSlideshow(): void
-    _stopSlideshow(): void
+    dummyGlobal: boolean
+
+    // settings
+    dummy: boolean
+    circular: boolean
+    direction: string
+    easing: string
+    gutter: number
+    interval: number
+    isAnimating: boolean
+    isAnimation: boolean
+    nextEl: string
+    orientation: string
+    prevEl: string
+    shadowFlip: number
+    shadowSides: number
+    shadows: boolean
+    speed: number
+    startPage: number
+    autoplay: boolean
 
     // PUBLIC METHODS
     next(): void
@@ -86,6 +101,16 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     isActive(): boolean
     update(): void
     destroy(): void
+
+    // PRIVATE METHODS
+    private _initEvents(): void
+    private _action(dir: string, page?: number): void
+    private _navigate( dir: string, page?: number ): void
+    private _layoutNoSupport(dir: string): void
+    private _layout(dir: string): any
+    private _startSlideshow(): void
+    private _stopSlideshow(): void
+    private _mod(index: number, count: number): number
 }
 // tslint:disable-next-line
 interface JQuery {

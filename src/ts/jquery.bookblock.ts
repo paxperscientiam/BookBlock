@@ -12,7 +12,7 @@
  * http://www.codrops.com
  */
 // global
-const $window = $(window)
+const $window: JQuery<Window> = $(window)
 
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
@@ -26,7 +26,6 @@ Modernizr.addTest("csstransformspreserve3d", () => {
     Modernizr.testStyles("#modernizr{" + prop + ":" + val + "}", (el, rule) => {
         computedStyle = window.getComputedStyle ? getComputedStyle(el, null).getPropertyValue(prop) : ""
     })
-
     return (computedStyle === val)
 })
 
@@ -58,9 +57,9 @@ Modernizr.addTest("csstransformspreserve3d", () => {
 //         handler( event, execAsap ) {
 //             console.log("handler")
 //             // Save the context
-//             var context = this
-//             var args = arguments
-//             var dispatch = () => {
+//             const context = this
+//             const args = arguments
+//             const dispatch = () => {
 //                 // set correct event type
 //                 event.type = "debouncedresize"
 //                 // @ts-ignore
@@ -78,12 +77,12 @@ Modernizr.addTest("csstransformspreserve3d", () => {
 //         threshold: 150
 //     }
 
-class BookBlock  {
+class BookBlock implements BookBlockPlugin  {
     // global settings
-    _dummyGlobal: boolean
+    dummyGlobal: boolean
 
     // settings
-    _dummy: boolean
+    dummy: boolean
     circular: boolean
     direction: string
     easing: string
@@ -102,12 +101,12 @@ class BookBlock  {
     autoplay: boolean
 
     // optional functions
-    onEndFlip?: (a, b, c: boolean) => boolean
-    onBeforeFlip?: (a) => boolean
+    onEndFlip?: (a: number, b: number, c: boolean) => boolean
+    onBeforeFlip?: (a: number) => boolean
 
     options: BookBlockPluginSettings
 
-    //    private defaults: BookBlockPluginSettings
+    modulatedNextIndex: number
 
     private itemsCount: number
     private slideshow: ReturnType<typeof setTimeout>
@@ -140,7 +139,7 @@ class BookBlock  {
             this.itemsCount = $("#bb-bookblock").data().bbsrcset.length
         }
 
-        console.log(`startpage is ${this.options.startPage}`)
+        console.log(`startpage is ${this.options.startPage}_1`)
         // current item´s index
         if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
             this.current = (this.options.startPage - 1)
@@ -155,10 +154,10 @@ class BookBlock  {
         // get width of this.$el
         // this will be necessary to create the flipping layout
         this.elWidth = this.$el.width()
-        var transEndEventNames = {
-            WebkitTransition: "webkitTransitionEnd",
+        const transEndEventNames = {
             MozTransition: "transitionend",
             OTransition: "oTransitionEnd",
+            WebkitTransition: "webkitTransitionEnd",
             msTransition: "MSTransitionEnd",
             transition: "transitionend",
         }
@@ -174,10 +173,18 @@ class BookBlock  {
         }
     }
 
+    _mod(index: number, count: number): number {
+        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+        return (index % count + count) % count
+    }
+
     _initEvents() {
         console.log("initialized")
+        const self = this
+        const subIndex: number = self.current  // self.options.startPage - 1
+        this.modulatedNextIndex = this._mod(subIndex, this.itemsCount)
 
-        var self = this
+        self._addQueryField("page", (this.modulatedNextIndex).toString())
 
         if ( this.options.nextEl !== "" ) {
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
@@ -201,7 +208,7 @@ class BookBlock  {
                 $(this).addClass("brighten-20")
             }, function() {
                 $(this).removeClass("brighten-20")
-            }
+            },
         )
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
@@ -260,9 +267,11 @@ class BookBlock  {
 
     _action( dir: string, page?: number ) {
         const shit = this
-        console.log(`this current is ${this.current}`)
+        console.log(`this current is ${this.current}_0`)
+
         shit._createPage(dir, this.current)
             .then(() => {
+                shit._addQueryField("page", (this.modulatedNextIndex).toString())
                 shit._stopSlideshow()
                 shit._navigate( dir, page )
             })
@@ -314,108 +323,109 @@ class BookBlock  {
         this.$nextItem.show()
         this.end = false
         this.isAnimating = false
-        var isLimit = dir === "next" && this.current === this.itemsCount - 1 || dir === "prev" && this.current === 0
+        const isLimit = dir === "next" && this.current === this.itemsCount - 1 || dir === "prev" && this.current === 0
         // callback trigger
         this.options.onEndFlip( this.previous, this.current, isLimit )
     }
     // creates the necessary layout for the 3d structure
     _layout(dir: string) {
 
-        var self = this
+        const self = this
         // basic structure: 1 element for the left side.
-        var $s_left = this._addSide( "left", dir )
+        const $sLeft = this._addSide( "left", dir )
         // 1 element for the flipping/middle page
-        var $s_middle = this._addSide( "middle", dir )
+        const $sMiddle = this._addSide( "middle", dir )
         // 1 element for the right side
-        var $s_right = this._addSide( "right", dir )
+        const $sRight = this._addSide( "right", dir )
         // overlays
-        var $o_left = $s_left.find( "div.bb-overlay" )
-        var $o_middle_f = $s_middle.find( "div.bb-flipoverlay:first" )
-        var $o_middle_b = $s_middle.find( "div.bb-flipoverlay:last" )
-        var $o_right = $s_right.find( "div.bb-overlay" )
-        var speed = this.end ? 400 : this.options.speed
+        const $oLeft = $sLeft.find( "div.bb-overlay" )
+        const $oMiddleF = $sMiddle.find( "div.bb-flipoverlay:first" )
+        const $oMiddleB = $sMiddle.find( "div.bb-flipoverlay:last" )
+        const $oRight = $sRight.find( "div.bb-overlay" )
+        const speed = this.end ? 400 : this.options.speed
 
         this.$items.hide()
-        this.$el.prepend( $s_left, $s_middle, $s_right )
+        this.$el.prepend( $sLeft, $sMiddle, $sRight )
 
-        $s_middle.css({
+        $sMiddle.css({
             transitionDuration: speed + "ms",
-            transitionTimingFunction : this.options.easing
+            transitionTimingFunction : this.options.easing,
         }).on( this.transEndEventName, ( event ) => {
             if ( $( event.target ).hasClass( "bb-page" ) ) {
                 self.$el.children( ".bb-page" ).remove()
                 self.$nextItem.show()
                 self.end = false
                 self.isAnimating = false
-                var isLimit = dir === "next" && self.current === self.itemsCount - 1 || dir === "prev" && self.current === 0
+                const isLimit = dir === "next" && self.current === self.itemsCount - 1 || dir === "prev" && self.current === 0
                 // callback trigger
                 self.options.onEndFlip( self.previous, self.current, isLimit )
             }
         })
 
         if ( dir === "prev" ) {
-            $s_middle.addClass( "bb-flip-initial" )
+            $sMiddle.addClass( "bb-flip-initial" )
         }
 
         // overlays
         if (this.options.shadows && !this.end) {
 
-            var o_left_style = (dir === "next") ? {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms"
+            const oLeftStyle = (dir === "next") ? {
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
+            } : {
+                opacity: this.options.shadowSides,
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
+            }
+
+            const oMiddleFStyle = (dir === "next") ? {
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
+            } : {
+                opacity: this.options.shadowFlip,
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
+            }
+
+            const oMiddleBStyle = (dir === "next") ? {
+                opacity: this.options.shadowFlip,
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
             } : {
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
-                opacity: this.options.shadowSides
             }
 
-            var o_middle_f_style = (dir === "next") ? {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear"
-            } : {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
-                opacity: this.options.shadowFlip
-            }
-
-            var o_middle_b_style = (dir === "next") ? {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
-                opacity: this.options.shadowFlip
-            } : {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear"
-            }
-
-            var o_right_style = (dir === "next") ? {
+            const oRightStyle = (dir === "next") ? {
+                opacity: this.options.shadowSides,
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
-                opacity: this.options.shadowSides
+
             } : {
-                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms"
+                transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
             }
 
-            $o_middle_f.css(o_middle_f_style)
-            $o_middle_b.css(o_middle_b_style)
-            $o_left.css(o_left_style)
-            $o_right.css(o_right_style)
+            $oMiddleF.css(oMiddleFStyle)
+            $oMiddleB.css(oMiddleBStyle)
+            $oLeft.css(oLeftStyle)
+            $oRight.css(oRightStyle)
 
         }
 
         setTimeout( () => {
             // first && last pages lift slightly up when we can"t go further
-            $s_middle.addClass( self.end ? "bb-flip-" + dir + "-end" : "bb-flip-" + dir )
+            $sMiddle.addClass( self.end ? "bb-flip-" + dir + "-end" : "bb-flip-" + dir )
 
             // overlays
             if ( self.options.shadows && !self.end ) {
 
-                $o_middle_f.css({
-                    opacity: dir === "next" ? self.options.shadowFlip : 0
+                $oMiddleF.css({
+                    opacity: dir === "next" ? self.options.shadowFlip : 0,
                 })
 
-                $o_middle_b.css({
-                    opacity: dir === "next" ? 0 : self.options.shadowFlip
+                $oMiddleB.css({
+                    opacity: dir === "next" ? 0 : self.options.shadowFlip,
                 })
 
-                $o_left.css({
-                    opacity: dir === "next" ? self.options.shadowSides : 0
+                $oLeft.css({
+                    opacity: dir === "next" ? self.options.shadowSides : 0,
                 })
 
-                $o_right.css({
-                    opacity: dir === "next" ? 0 : self.options.shadowSides
+                $oRight.css({
+                    opacity: dir === "next" ? 0 : self.options.shadowSides,
                 })
 
             }
@@ -423,7 +433,7 @@ class BookBlock  {
     }
     // adds the necessary sides (bb-page) to the layout
     _addSide( side: string, dir: string ) {
-        var $side: JQuery
+        let $side: JQuery
 
         switch (side) {
             case "left":
@@ -463,13 +473,38 @@ class BookBlock  {
     }
 
     _startSlideshow() {
-        var self = this
+        const self = this
         this.slideshow = setTimeout( () => {
             self._navigate( "next" )
             if ( self.options.autoplay ) {
                 self._startSlideshow()
             }
         }, this.options.interval )
+    }
+
+    _addQueryField(key: string, value: string) {
+        const url: URL = new window.URL(window.location.href)
+
+        if (url.searchParams.has(key)) {
+            url.searchParams.set(key, value)
+        } else {
+            url.searchParams.append(key, value)
+        }
+
+        history.pushState({
+            id: "something",
+        },
+                          "",
+                          url.href,
+                         )
+    }
+
+    _getQueryField(key: string) {
+        const url: URL = new window.URL(window.location.href)
+        if (url.searchParams.has(key)) {
+            return url.searchParams.get(key)
+        }
+        return null
     }
 
     _stopSlideshow() {
@@ -486,33 +521,28 @@ class BookBlock  {
 
             const itemsCount = this.itemsCount
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
-            const mod = (x: number, n: number) => (x % n + n) % n
 
             const subIndex: number = (dir === "prev") ? index - 1 : index + 1
-            const modulatedNextIndex: number = mod(subIndex, itemsCount)
+            this.modulatedNextIndex = this._mod(subIndex, itemsCount)
 
-            console.log(`next to load is ${modulatedNextIndex}`)
+            console.log(`next to load is ${this.modulatedNextIndex}_0`)
             let path: string
-            let $img: JQuery<HTMLImageElement>
-                if (modulatedNextIndex != null) {
-                    path = $("#bb-bookblock").data().bbsrcset[modulatedNextIndex].path
-                    console.log(path)
-                    $img = $("#bb-bookblock").find("img").eq(modulatedNextIndex) as JQuery<HTMLImageElement>
-                    $img.on("load", (e) => {
-                        $spinner.addClass("bb-not-loading")
-                        console.log($(e.target)[0])
-                        //$(e.target).addClass("fadeIn")
-                        $(e.target).fadeIn()
-                        console.log("image should be loaded atp")
-                        resolve()
+            let $img: JQuery<HTMLImageElement> = null
+            if (this.modulatedNextIndex != null) {
+                path = $("#bb-bookblock").data().bbsrcset[this.modulatedNextIndex].path
+                $img = $("#bb-bookblock").find("img").eq(this.modulatedNextIndex) as JQuery<HTMLImageElement>
+                $img.on("load", (e) => {
+                    $spinner.addClass("bb-not-loading")
+                    $(e.target).fadeIn()
+                    console.log("image should be loaded atp")
+                    resolve()
 
-                    })
+                })
 
-                    $img.attr("src", path)
-                }
+                $img.attr("src", path)
+            }
         })
     }
-
 
     // public method: flips next
     next() {
@@ -557,7 +587,7 @@ class BookBlock  {
     // public method: dynamically adds new elements
     // call this method after inserting new "bb-item" elements inside the BookBlock
     update() {
-        var $currentItem = this.$items.eq( this.current )
+        const $currentItem = this.$items.eq( this.current )
         this.$items = this.$el.children( ".bb-item" )
         this.itemsCount = this.$items.length
         this.current = $currentItem.index()
@@ -581,7 +611,7 @@ class BookBlock  {
     }
 }
 
-var logError = ( message: string ) => {
+const logError = ( message: string ) => {
     if ( window.console ) {
         window.console.error( message )
     }
@@ -624,9 +654,8 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         const $img = $container.find("img") as JQuery<HTMLImageElement>
 
-
         $img.each((index: number, element: HTMLImageElement) => {
-            let path: string = $(element).data("bbsrc")
+            const path: string = $(element).data("bbsrc")
             $pathArray.push({ index, path })
             //             if (index > 0) {
             //  $(element).css("background-image", 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAEsAQMAAAAPddOLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVvIeX///9Be5XsAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+MGHQo2IM7SjQUAAAApSURBVHja7cExAQAAAMKg9U9tCy+gAAAAAAAAAAAAAAAAAAAAAAAA4GdLAAAB9wDA9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wNi0yOVQxNDo1NDozMi0wNDowMCWobV0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDYtMjlUMTQ6NTQ6MzItMDQ6MDBU9dXhAAAAAElFTkSuQmCC")')
@@ -638,7 +667,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         $img.first().attr("src", $img.first().data("bbsrc"))
 
-        const _setImage = () => {
+        const setImage = () => {
             if (!$img.length) {
                 return true
             }
@@ -648,7 +677,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             let cssHeight: number
             let cssWidth: number
             function setSizes(imgRatio: number) {
-                let gutterFactor: number = Math.abs(1 - options.gutter / 100)
+                const gutterFactor: number = Math.abs(1 - options.gutter / 100)
                 const plusOrMinus = Math.random() < 0.5 ? -1 : 1
                 imgRatio += Number.EPSILON * plusOrMinus
 
@@ -683,7 +712,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             }
 
             const tmpImage = new Image()
-            tmpImage.onload = function() {
+            tmpImage.onload = () => {
                 const imgRatio = tmpImage.width / tmpImage.height
                 setSizes(imgRatio)
                 $img.addClass("fadeIn")
@@ -691,10 +720,9 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             tmpImage.src = $img.attr("src")
         }
 
-        $window.on("resize", _setImage)
+        $window.on("resize", setImage)
 
-
-        $img.on("load", _setImage)
+        $img.on("load", setImage)
 
         //      $img.on("load", () => {
         //             $(this).css({
@@ -717,53 +745,68 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             // the space around the image in percent
             gutter: 0,
 
-            // page to start on
+            // page to start on (1-based)
             startPage : 1,
+
             // vertical or horizontal flip
             orientation : "vertical",
+
             // ltr (left to right) or rtl (right to left)
             direction : "ltr",
+
             // speed for the flip transition in ms
             speed : 1000,
+
             // easing for the flip transition
             easing : "ease-in-out",
+
             // if set to true, both the flipping page and the sides will have an overlay to simulate shadows
             shadows : true,
+
             // opacity value for the "shadow" on both sides (when the flipping page is over it)
             // value : 0.1 - 1
             shadowSides : 0.2,
+
             // opacity value for the "shadow" on the flipping page (while it is flipping)
             // value : 0.1 - 1
             shadowFlip : 0.1,
+
             // if we should show the first item after reaching the end
             circular : false,
+
             // if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´
             nextEl : "#bb-nav-next",
+
             // if we want to specify a selector that triggers the prev() function
             prevEl : "#bb-nav-prev",
+
             // autoplay. If true it overwrites the circular option to true
             autoplay : false,
+
             // time (ms) between page switch, if autoplay is true
             interval : 3000,
+
             // callback after the flip transition
             // old is the index of the previous item
             // page is the current item´s index
             // isLimit is true if the current page is the last one (or the first one)
             onEndFlip(old, page, isLimit: boolean) {
-                console.log(`Flipped from ${old} to ${page}. Limit: ${isLimit}`)
+                console.log(`Flipped from ${old}_0 to ${page}_0. Limit: ${isLimit}`)
                 return false
             },
+
             // callback before the flip transition
             // page is the current item´s index
-            onBeforeFlip(page: HTMLElement) {
-                console.log(`Will flip to page ${page}`)
+            onBeforeFlip(page) {
+                console.log(`Will flip to page ${page}_0`)
                 return false
             },
+
             // bb-block width in pixels
             width: null,
 
             // bb-block height in pixels
             height: null,
-        }
-    }
+        },
+    },
 )

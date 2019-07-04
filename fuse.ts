@@ -211,7 +211,7 @@ task("build", ["test:ts"], async (context: CTX) => {
     await exec("default")
 })
 
-task("default", ["clean", "copy"], async (context: CTX) => {
+task("default", ["clean", "copy", "test:ts"], async (context: CTX) => {
     const fuse = context.getConfig()
     if (!context.isProduction) {
         fuse.dev()
@@ -240,6 +240,7 @@ task("test:ts", [], (context: CTX) => {
         console.log("PRODUCTION TEST")
         testSync().runSync()
     } else {
+        console.log("dev testing")
         testSync().runWatch("./src")
     }
 })

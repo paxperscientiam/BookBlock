@@ -5,7 +5,8 @@
   ],
   "jsRules": {},
   "rules": {
-    "no-var-requires": false,
+      "no-var-requires": false,
+      "no-var-keyword": true,
     "semicolon": [true, "never"],
     "member-access": false
   },
