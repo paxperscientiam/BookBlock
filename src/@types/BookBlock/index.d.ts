@@ -110,7 +110,6 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     private _layout(dir: string): any
     private _startSlideshow(): void
     private _stopSlideshow(): void
-    private _mod(index: number, count: number): number
 }
 // tslint:disable-next-line
 interface JQuery {

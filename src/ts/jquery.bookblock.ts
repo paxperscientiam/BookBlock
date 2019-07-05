@@ -14,6 +14,11 @@
 // global
 const $window: JQuery<Window> = $(window)
 
+const mod = (index: number, count: number) => {
+        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+        return (index % count + count) % count
+}
+
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
     let prop = Modernizr.prefixed("transformStyle")
@@ -173,16 +178,13 @@ class BookBlock implements BookBlockPlugin  {
         }
     }
 
-    _mod(index: number, count: number): number {
-        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
-        return (index % count + count) % count
-    }
-
     _initEvents() {
+        const l = this._getQueryField("page")
+        console.log(`query page is ${l}`)
         console.log("initialized")
         const self = this
         const subIndex: number = self.current  // self.options.startPage - 1
-        this.modulatedNextIndex = this._mod(subIndex, this.itemsCount)
+        this.modulatedNextIndex = mod(subIndex, this.itemsCount)
 
         self._addQueryField("page", (this.modulatedNextIndex).toString())
 
@@ -523,7 +525,7 @@ class BookBlock implements BookBlockPlugin  {
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
 
             const subIndex: number = (dir === "prev") ? index - 1 : index + 1
-            this.modulatedNextIndex = this._mod(subIndex, itemsCount)
+            this.modulatedNextIndex = mod(subIndex, itemsCount)
 
             console.log(`next to load is ${this.modulatedNextIndex}_0`)
             let path: string
@@ -545,7 +547,7 @@ class BookBlock implements BookBlockPlugin  {
     }
 
     // public method: flips next
-    next() {
+    next(): void {
         console.log("next ...")
         this._action( this.options.direction === "ltr" ? "next" : "prev" )
     }
@@ -653,6 +655,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $container.append($spinner)
 
         const $img = $container.find("img") as JQuery<HTMLImageElement>
+        const eqVal = mod(options.startPage - 1, $img.length)
 
         $img.each((index: number, element: HTMLImageElement) => {
             const path: string = $(element).data("bbsrc")
@@ -665,7 +668,8 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         // attach image paths
         $container.data("bbsrcset", $pathArray)
 
-        $img.first().attr("src", $img.first().data("bbsrc"))
+        $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
+        console.log(options.startPage)
 
         const setImage = () => {
             if (!$img.length) {
@@ -717,7 +721,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 setSizes(imgRatio)
                 $img.addClass("fadeIn")
             }
-            tmpImage.src = $img.attr("src")
+
+
+            console.log(`eq is ${eqVal}`)
+            tmpImage.src = $img.eq(eqVal).attr("src")
         }
 
         $window.on("resize", setImage)
