@@ -15,8 +15,8 @@
 const $window: JQuery<Window> = $(window)
 
 const mod = (index: number, count: number) => {
-        // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
-        return (index % count + count) % count
+    // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
+    return (index % count + count) % count
 }
 
 // https://gist.github.com/edankwan/4389601
@@ -214,29 +214,30 @@ class BookBlock implements BookBlockPlugin  {
         )
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
-            //            e.preventDefault()
+            e.preventDefault()
 
             console.log("touched the book")
 
-            //            if (this.isAnimating === false) {
-            const left: number = $(e.currentTarget).offset().left
-            const width: number = $(e.currentTarget).width()
-            const midX: number = (width / 2) + left
+            if (this.isAnimating === false || typeof this.isAnimating === "undefined") {
+                console.log(`is animating: ${this.isAnimating}`)
+                const left: number = $(e.currentTarget).offset().left
+                const width: number = $(e.currentTarget).width()
+                const midX: number = (width / 2) + left
 
-            if (e.touches) {
-                if (e.touches[0].screenX < midX) {
-                    self._action("prev")
+                if (e.touches) {
+                    if (e.touches[0].screenX < midX) {
+                        self._action("prev")
+                    } else {
+                        self._action("next")
+                    }
                 } else {
-                    self._action("next")
-                }
-            } else {
-                if (e.offsetX < width / 2) {
-                    self._action("prev")
-                } else {
-                    self._action("next")
+                    if (e.offsetX < width / 2) {
+                        self._action("prev")
+                    } else {
+                        self._action("next")
+                    }
                 }
             }
-            //   }
         })
 
         $window.on( "debouncedresize", () => {
@@ -245,23 +246,26 @@ class BookBlock implements BookBlockPlugin  {
         } )
 
         $( document ).on("keydown.bookblock", (e) => {
-            const keyCode = e.which
+            e.preventDefault()
+            if (this.isAnimating === false || typeof this.isAnimating === "undefined") {
+                console.log(`is animating: ${this.isAnimating}`)
+                const keyCode = e.which
+                const UP: number = 16
+                const RIGHT: number = 39
+                const LEFT: number = 37
+                const DOWN: number = 40
 
-            const UP: number = 16
-            const RIGHT: number = 39
-            const LEFT: number = 37
-            const DOWN: number = 40
+                if ([UP, RIGHT].indexOf(keyCode) > -1) {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    self._action( "next" )
+                }
 
-            if ([UP, RIGHT].indexOf(keyCode) > -1) {
-                e.stopPropagation()
-                e.preventDefault()
-                self._action( "next" )
-            }
-
-            if ([DOWN, LEFT].indexOf(keyCode) > -1) {
-                e.stopPropagation()
-                e.preventDefault()
-                self._action( "prev")
+                if ([DOWN, LEFT].indexOf(keyCode) > -1) {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    self._action( "prev")
+                }
             }
         })
 
