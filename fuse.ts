@@ -1,6 +1,5 @@
 // tslint:disable:no-console
 import * as fs from "fs"
-import * as path from "path"
 
 import * as dlv from "dlv"
 
@@ -46,7 +45,6 @@ function testSync() {
 
 import {
     CSSPlugin,
-    CSSModulesPlugin,
     CSSResourcePlugin,
     FuseBox,
     PostCSSPlugin,
@@ -54,6 +52,7 @@ import {
     SassPlugin,
     TerserPlugin,
     WebIndexPlugin,
+    CSSModulesPlugin,
 } from "fuse-box"
 
 import {
@@ -70,7 +69,8 @@ class CTX {
     getConfig() {
         return FuseBox.init({
             // will hashing help with AppCache?
-            hash: true,
+            // @ts-ignore
+            hash: this.isProduction,
             shim: {
                 modernizr: {
                     exports: "Modernizr",
@@ -130,8 +130,9 @@ class CTX {
                         "default/app**": "css/app.min.css",
                         "default/bookblock**": "css/bookblock.min.css",
                     },
+
                     bakeApiIntoBundle: "bookblock",
-                   // containedAPI: true,
+                    // containedAPI: true,
                     treeshake: true,
                     uglify: true,
                 }),
@@ -228,7 +229,7 @@ task("default", ["clean", "copy", "test:ts"], async (context: CTX) => {
         })
     }
 
-//    context.createBundle(fuse, "~ index.ts", "vendor")
+    //    context.createBundle(fuse, "~ index.ts", "vendor")
 
     context.createBundle(fuse, "> index.ts", "bookblock")
 

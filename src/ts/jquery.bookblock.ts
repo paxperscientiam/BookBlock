@@ -722,7 +722,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 $img.addClass("fadeIn")
             }
 
-
             console.log(`eq is ${eqVal}`)
             tmpImage.src = $img.eq(eqVal).attr("src")
         }
@@ -730,12 +729,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $window.on("resize", setImage)
 
         $img.on("load", setImage)
-
-        //      $img.on("load", () => {
-        //             $(this).css({
-        //                 boxShadow: "0px 9px 8px 2px rgba(50, 50, 50, 0.8)",
-        //             })
-        //         })
 
         this.each(() => {
             $.data( this, "bookblock", new BookBlock( options, this ) )
