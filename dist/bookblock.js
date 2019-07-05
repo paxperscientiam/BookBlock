@@ -10818,9 +10818,7 @@ var BookBlock = /** @class */ (function () {
             self.elWidth = self.$el.width();
         });
         $(document).on("keydown.bookblock", function (e) {
-            e.preventDefault();
             if (_this.isAnimating === false || typeof _this.isAnimating === "undefined") {
-                console.log("is animating: " + _this.isAnimating);
                 var keyCode = e.which;
                 var UP = 16;
                 var RIGHT = 39;

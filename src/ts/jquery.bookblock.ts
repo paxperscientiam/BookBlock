@@ -246,9 +246,7 @@ class BookBlock implements BookBlockPlugin  {
         } )
 
         $( document ).on("keydown.bookblock", (e) => {
-            e.preventDefault()
             if (this.isAnimating === false || typeof this.isAnimating === "undefined") {
-                console.log(`is animating: ${this.isAnimating}`)
                 const keyCode = e.which
                 const UP: number = 16
                 const RIGHT: number = 39
