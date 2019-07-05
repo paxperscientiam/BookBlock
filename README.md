@@ -3,7 +3,7 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
-## Breaking change (build process)
+## Breaking change in build process [0.1.0]
 
 OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.
 
