@@ -257,6 +257,24 @@ body {
 	  transform: rotate(180deg);
 }
 
+.bb-paper-effect {
+    background: #fff;
+    box-shadow:
+        /* The top layer shadow */
+        0 1px 1px rgba(0,0,0,0.15),
+        /* The second layer */
+        0 10px 0 -5px #eee,
+        /* The second layer shadow */
+        0 10px 1px -4px rgba(0,0,0,0.15),
+        /* The third layer */
+        0 20px 0 -10px #eee,
+        /* The third layer shadow */
+        0 20px 1px -9px rgba(0,0,0,0.15),
+        0 3px 4px 0 rgba(0,0,0,0.14),
+        0 3px 3px -2px rgba(0,0,0,0.12),
+        0 1px 8px 0 rgba(0,0,0,0.20);
+}
+
 $colours:
 	  "10" 110%,
     "20" 120%,

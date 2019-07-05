@@ -104,6 +104,7 @@ class BookBlock implements BookBlockPlugin  {
     speed: number
     startPage: number
     autoplay: boolean
+    effects: BookBlockPluginEffectsSettings
 
     // optional functions
     onEndFlip?: (a: number, b: number, c: boolean) => boolean
@@ -207,9 +208,9 @@ class BookBlock implements BookBlockPlugin  {
         $("#bb-bookblock").hover(
             function() {
                 console.log("hovering yo")
-                $(this).addClass("brighten-20")
+//                $(this).addClass("brighten-20")
             }, function() {
-                $(this).removeClass("brighten-20")
+  //              $(this).removeClass("brighten-20")
             },
         )
 
@@ -650,6 +651,11 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         //             return this
         //         }
         const $container = $(this)
+
+        if (options.effects.paper) {
+            $container.addClass("bb-paper-effect")
+        }
+
         const $spinner = $("<div/>")
             .addClass(["bb-loading-pulse", "bb-not-loading"])
             .attr("id", "bb-spinner")
@@ -809,6 +815,11 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
             // bb-block height in pixels
             height: null,
+
+            //
+            effects: {
+                paper: null,
+            }
         },
     },
 )

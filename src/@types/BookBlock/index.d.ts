@@ -12,6 +12,11 @@ declare global  {
 }
 
 // tslint:disable-next-line
+interface BookBlockPluginEffectsSettings {
+    paper: boolean
+}
+
+// tslint:disable-next-line
 interface BookBlockPluginSettings {
     _dummy: boolean
     autoplay?: boolean
@@ -36,6 +41,8 @@ interface BookBlockPluginSettings {
 
     width: string
     height: string
+
+    effects: BookBlockPluginEffectsSettings
 }
 
 // tslint:disable-next-line
@@ -120,3 +127,9 @@ interface JQuery {
 interface ModernizrStatic {
     csstransformspreserve3d: any
 }
+
+// namespace JSX {
+//     interface IntrinsicElements {
+//         foo: any
+//     }
+// }
