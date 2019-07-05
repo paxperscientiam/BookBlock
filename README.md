@@ -3,6 +3,10 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
+## Breaking change (build process)
+
+OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.
+
 ## Note
 
 Both `src/jquery.bookblock.ts` and `dist/bookblock.js` are dependency free. The demo uses the file `dist/shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.

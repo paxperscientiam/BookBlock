@@ -20,12 +20,6 @@ function importJSON(filePath: string, property?: string) {
 }
 
 const PKG = importJSON("./package.json")
-const FB = importJSON("./package.json", "fuse-box")
-
-let APP_NAME = dlv(FB, "bundle.app.name") || "app"
-if (process.env.NODE_ENV === "production") {
-    APP_NAME+=".min"
-}
 
 const Autoprefixer = require("autoprefixer")
 const Cssnano = require("cssnano")
@@ -52,12 +46,13 @@ import {
     SassPlugin,
     TerserPlugin,
     WebIndexPlugin,
-    CSSModulesPlugin,
 } from "fuse-box"
 
 import {
+    bumpVersion,
     context as ctx,
     exec,
+    npmPublish,
     src,
     task,
 } from "fuse-box/sparky"
@@ -246,7 +241,7 @@ task("test:ts", [], (context: CTX) => {
     }
 })
 
-task("serve", [], async (context: CTX) => {
+task("serve", [], async () => {
     const fuse = FuseBox.init({
         output: "dist",
     })
@@ -254,4 +249,19 @@ task("serve", [], async (context: CTX) => {
         root: "dist",
     })
     await fuse.run()
+})
+
+task("publish:patch", async () => {
+    await bumpVersion("package.json", { type: "patch" })
+    await npmPublish({ path: "." })
+})
+
+task("publish:minor", async () => {
+    await bumpVersion("package.json", { type: "minor" })
+    await npmPublish({ path: "." })
+})
+
+task("publish:major", async () => {
+    await bumpVersion("package.json", { type: "major" })
+    await npmPublish({ path: "." })
 })
