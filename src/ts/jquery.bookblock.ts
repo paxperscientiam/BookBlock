@@ -346,7 +346,11 @@ class BookBlock implements BookBlockPlugin  {
         const $oLeft = $sLeft.find( "div.bb-overlay" )
         const $oMiddleF = $sMiddle.find( "div.bb-flipoverlay:first" )
         const $oMiddleB = $sMiddle.find( "div.bb-flipoverlay:last" )
+
         const $oRight = $sRight.find( "div.bb-overlay" )
+
+        $oRight.addClass("bright")
+
         const speed = this.end ? 400 : this.options.speed
 
         this.$items.hide()
@@ -655,6 +659,8 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         if (options.effects.paper) {
             $container.addClass("bb-paper-effect")
         }
+
+        $container.addClass("bb-dropshadow-effect")
 
         const $spinner = $("<div/>")
             .addClass(["bb-loading-pulse", "bb-not-loading"])
