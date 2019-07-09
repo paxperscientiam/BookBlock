@@ -6,6 +6,7 @@
     "main": "dist/bookblock.js",
     "ts:main": "src/index.ts",
     "types": "src/@types/BookBlock/index.d.ts",
+    "typings": "src/@types/BookBlock/index.d.ts",
     "scripts": {
         "test": "ts-node fuse.ts test",
         "start": "ts-node fuse.ts",
@@ -48,7 +49,6 @@
         "uglify-js": "^3.6.0"
     },
     "dependencies": {
-        "bookblock": "github:paxperscientiam/BookBlock",
         "css-element-queries": "^1.2.0",
         "jquery": "^3.4.1"
     },
@@ -61,8 +61,5 @@
         "readme.md",
         "src",
         "dist"
-    ],
-    "stylelint": {
-        "extends": "stylelint-config-standard"
-    }
+    ]
 }

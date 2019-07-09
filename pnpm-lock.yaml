@@ -1,5 +1,4 @@
 dependencies:
-  bookblock: github.com/paxperscientiam/BookBlock/1dfb3794024bc916c1f842f2892827ef6975addd
   css-element-queries: 1.2.0
   jquery: 3.4.1
 devDependencies:
@@ -6844,13 +6843,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
-  github.com/paxperscientiam/BookBlock/1dfb3794024bc916c1f842f2892827ef6975addd:
-    dev: false
-    name: bookblock
-    resolution:
-      registry: 'https://registry.npmjs.org/'
-      tarball: 'https://codeload.github.com/paxperscientiam/BookBlock/tar.gz/1dfb3794024bc916c1f842f2892827ef6975addd'
-    version: 1.0.0
 specifiers:
   '@types/autoprefixer': ^9.5.0
   '@types/cssnano': ^4.0.0
@@ -6858,7 +6850,6 @@ specifiers:
   '@types/modernizr': ^3.5.3
   '@types/node': ^12.0.8
   autoprefixer: ^9.6.0
-  bookblock: 'github:paxperscientiam/BookBlock'
   css-element-queries: ^1.2.0
   cssnano: ^4.1.10
   dlv: ^1.1.3

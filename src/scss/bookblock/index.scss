@@ -1,12 +1,13 @@
 @font-face {
-	  font-family: 'arrows';
-	  src:url('../fonts/arrows/arrows.eot');
-	  src:url('../fonts/arrows/arrows.eot?#iefix') format('embedded-opentype'),
-		    url('../fonts/arrows/arrows.woff') format('woff'),
-		    url('../fonts/arrows/arrows.ttf') format('truetype'),
-		    url('../fonts/arrows/arrows.svg#arrows') format('svg');
-	  font-weight: normal;
-	  font-style: normal;
+    font-family: 'arrows';
+    src: url('../fonts/arrows/arrows.eot');
+    src:
+        url('../fonts/arrows/arrows.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/arrows/arrows.woff') format('woff'),
+        url('../fonts/arrows/arrows.ttf') format('truetype'),
+        url('../fonts/arrows/arrows.svg#arrows') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 $background-color_1: rgba(0, 0, 0, 0.7);
@@ -23,8 +24,13 @@ body {
     perspective: 1300px;
     backface-visibility: hidden;
 
-    &:before, &:after {
-        content: "";
+    &::after {
+        content: '';
+        position: absolute;
+        border-right: 1px rgba(0, 0, 0, 0.05) solid;
+        height: 100%;
+        width: 100%;
+        transform: translateX(-50%);
     }
 
     &.bb-dropshadow-effect {
@@ -41,7 +47,8 @@ body {
     position: absolute;
     transform-style: preserve-3d;
     transition-property: transform;
-    >div {
+
+    > div {
         position: absolute;
         height: 100%;
         width: 100%;
@@ -62,15 +69,12 @@ body {
     background: #fff;
 }
 
-
-
 .bb-front {
     transform-style: preserve-3d;
     filter: none;
 }
 
 .bb-horizontal {
-
     .bb-page {
         width: 100%;
         height: 50%;
@@ -81,23 +85,29 @@ body {
     .bb-back {
         transform: rotateX(-180deg);
     }
+
     .bb-front {
         .bb-content {
             top: -100%;
         }
     }
+
     .bb-flip-next {
         transform: rotateX(180deg);
     }
+
     .bb-flip-initial {
         transform: rotateX(180deg);
     }
+
     .bb-flip-prev {
         transform: rotateX(0deg);
     }
+
     .bb-flip-next-end {
         transform: rotateX(15deg);
     }
+
     .bb-flip-prev-end {
         transform: rotateX(165deg);
     }
@@ -116,6 +126,7 @@ body {
         left: 50%;
         transform-origin: left center;
     }
+
     .bb-back {
         transform: rotateY(-180deg);
     }
@@ -123,15 +134,19 @@ body {
     .bb-flip-next {
         transform: rotateY(-180deg);
     }
+
     .bb-flip-initial {
         transform: rotateY(-180deg);
     }
+
     .bb-flip-prev {
         transform: rotateY(0deg);
     }
+
     .bb-flip-next-end {
         transform: rotateY(-15deg);
     }
+
     .bb-flip-prev-end {
         transform: rotateY(-165deg);
     }
@@ -148,7 +163,6 @@ body {
     z-index: 999;
 }
 
-
 .bb-inner {
     position: absolute;
     height: 100%;
@@ -161,36 +175,40 @@ body {
 .bb-overlay {
     background-color: $background-color_1;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
 }
+
 .bb-flipoverlay {
     background-color: $background-color_1;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
 }
 
 .bb-bookblock.bb-horizontal {
-    >div.bb-page {
+    > div.bb-page {
         &:first-child {
             transform: rotateX(180deg);
+
             .bb-back {
                 transform: rotateX(180deg);
             }
         }
     }
 }
+
 .bb-bookblock.bb-vertical {
-    >div.bb-page {
+    > div.bb-page {
         &:first-child {
             transform: rotateY(180deg);
+
             .bb-back {
                 transform: rotateY(180deg);
             }
@@ -205,7 +223,7 @@ body {
     top: 0;
     left: 0;
     display: none;
-    background: #ffccaa;
+    background: #fca;
 }
 
 .bb-item img {
@@ -223,23 +241,23 @@ body {
 }
 
 .bb-nav-container {
-	  width: 100%;
-	  height: 30px;
-	  margin: 1em auto 0;
-	  position: relative;
-	  z-index: 0;
-	  text-align: center;
+    width: 100%;
+    height: 30px;
+    margin: 1em auto 0;
+    position: relative;
+    z-index: 0;
+    text-align: center;
 
     a {
         display: inline-block;
-	      width: 30px;
-	      height: 30px;
-	      text-align: center;
-	      border-radius: 2px;
-	      background: #72b890;
-	      color: #fff;
-	      font-size: 0;
-	      margin: 2px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        border-radius: 2px;
+        background: #72b890;
+        color: #fff;
+        font-size: 0;
+        margin: 2px;
 
         &:hover {
             opacity: 0.6;
@@ -247,46 +265,46 @@ body {
     }
 }
 
-.bb-icon:before {
-	 	display: block;
+.bb-icon::before {
+    display: block;
     font-family: 'arrows', sans-serif;
-	  font-size: 20px;
-	  font-style: normal;
-	  font-variant: normal;
-	  font-weight: normal;
-	  line-height: 1;
-	  speak: none;
-	  text-transform: none;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+    text-transform: none;
 }
 
-.bb-icon-first:before,
-.bb-icon-last:before {
-	  content: "\e002";
+.bb-icon-first::before,
+.bb-icon-last::before {
+    content: "\e002";
 }
 
-.bb-icon-arrow-left:before,
-.bb-icon-arrow-right:before {
-	  content: "\e003";
+.bb-icon-arrow-left::before,
+.bb-icon-arrow-right::before {
+    content: "\e003";
 }
 
-.bb-icon-arrow-left:before,
-.bb-icon-first:before {
-	  transform: rotate(180deg);
+.bb-icon-arrow-left::before,
+.bb-icon-first::before {
+    transform: rotate(180deg);
 }
 
 .bb-paper-effect {
     background: #fff;
     box-shadow:
         /* The top layer shadow */
-        0 0.063em 0.063em rgba(0,0,0,0.15),
+        0 0.063em 0.063em rgba(0, 0, 0, 0.15),
         /* The second layer */
         0 0.65em 0 -0.313em #D5D5D5,
         /* The second layer shadow */
-        0 0.625em 0.063em -0.250em rgba(0,0,0,0.15),
+        0 0.625em 0.063em -0.250em rgba(0, 0, 0, 0.15),
         /* The third layer */
         0 1.25em 0 -0.625em #C8C8C8,
         /* The third layer shadow */
-        0 1.25em 0.063em -0.563em rgba(0,0,0,0.15);
+        0 1.25em 0.063em -0.563em rgba(0, 0, 0, 0.15);
 }
 
 // .bb-shadow-effect {
@@ -294,20 +312,19 @@ body {
 // }
 
 $colours:
-	  "10" 110%,
+    "10" 110%,
     "20" 120%,
     "40" 140%,
     "100" 200%;
 
-@each $i in $colours{
-	  .brighten-#{nth($i, 1)} {
-		    filter: brightness(nth($i, 2));
+@each $i in $colours {
+    .brighten-#{nth($i, 1)} {
+        filter: brightness(nth($i, 2));
     }
 }
 
-
 $base-line-height: 24px;
-$white: rgb(255,255,255);
+$white: rgb(255, 255, 255);
 $off-white: rgba($white, 0.2);
 $spin-duration: 1s;
 $pulse-duration: 750ms;
@@ -316,6 +333,7 @@ $pulse-duration: 750ms;
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -334,7 +352,7 @@ $pulse-duration: 750ms;
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
-    border: .25rem solid $off-white;
+    border: 0.25rem solid $off-white;
     border-top-color: $white;
     animation: spin $spin-duration infinite linear;
     z-index: 10000;
@@ -354,7 +372,9 @@ $pulse-duration: 750ms;
     animation: pulse $pulse-duration infinite;
     animation-delay: ($pulse-duration / 3);
     z-index: 10000;
-    &:before, &:after {
+
+    &::before,
+    &::after {
         content: '';
         position: absolute;
         display: block;
@@ -365,10 +385,12 @@ $pulse-duration: 750ms;
         transform: translateY(-50%);
         animation: pulse $pulse-duration infinite;
     }
-    &:before {
+
+    &::before {
         left: -($base-line-height / 2);
     }
-    &:after {
+
+    &::after {
         left: ($base-line-height / 2);
         animation-delay: ($pulse-duration / 1.5);
     }
@@ -383,12 +405,14 @@ $pulse-duration: 750ms;
         width: auto;
         height: auto;
     }
+
     ul.bb-custom-grid {
         li {
             width: auto;
             height: auto;
         }
     }
+
     .bb-item {
         display: block;
         position: relative;
@@ -396,5 +420,5 @@ $pulse-duration: 750ms;
 }
 
 .bright {
-    filter: brightness(0%)
+    filter: brightness(0%);
 }
