@@ -82,7 +82,7 @@ Modernizr.addTest("csstransformspreserve3d", () => {
 //         threshold: 150
 //     }
 
-class BookBlock implements BookBlockPlugin  {
+export class BookBlock implements BookBlockPlugin  {
     // global settings
     dummyGlobal: boolean
 
@@ -205,14 +205,14 @@ class BookBlock implements BookBlockPlugin  {
             } )
         }
 
-        $("#bb-bookblock").hover(
-            function() {
-                console.log("hovering yo")
-//                $(this).addClass("brighten-20")
-            }, function() {
-  //              $(this).removeClass("brighten-20")
-            },
-        )
+//         $("#bb-bookblock").hover(
+//             () => {
+//                 console.log("hovering yo")
+// //                $(this).addClass("brighten-20")
+//             }, () => {
+//   //              $(this).removeClass("brighten-20")
+//             },
+//         )
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
             e.preventDefault()
@@ -674,9 +674,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $img.each((index: number, element: HTMLImageElement) => {
             const path: string = $(element).data("bbsrc")
             $pathArray.push({ index, path })
-            //             if (index > 0) {
-            //  $(element).css("background-image", 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAEsAQMAAAAPddOLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVvIeX///9Be5XsAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+MGHQo2IM7SjQUAAAApSURBVHja7cExAQAAAMKg9U9tCy+gAAAAAAAAAAAAAAAAAAAAAAAA4GdLAAAB9wDA9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wNi0yOVQxNDo1NDozMi0wNDowMCWobV0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDYtMjlUMTQ6NTQ6MzItMDQ6MDBU9dXhAAAAAElFTkSuQmCC")')
-            // //             }
         })
 
         // attach image paths
@@ -825,7 +822,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             //
             effects: {
                 paper: null,
-            }
+            },
         },
     },
 )
