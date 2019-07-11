@@ -2,8 +2,6 @@
 const args = require("minimist")(process.argv.slice(2))
 
 const MODE = args.mode || "development"
-console.log(MODE)
-process.exit()
 
 import * as fs from "fs"
 
@@ -49,6 +47,7 @@ function testSync() {
     return TypeChecker({
         basePath: "./",
         name: "Test Sync",
+        shortenFilenames: true,
         tsConfig: "./tsconfig.json", // optional
         tsLint: "./tslint.json", // optional
         // for more option, see ITypeCheckerOptionsInterface in bottom on readme
@@ -56,6 +55,7 @@ function testSync() {
 }
 
 import {
+    BannerPlugin,
     CSSPlugin,
     CSSResourcePlugin,
     FuseBox,
@@ -109,6 +109,7 @@ class CTX {
 
             //            globals: {default : "*"},
             plugins: [
+                BannerPlugin("// This is my banner. There are many like it, but this one is mine."),
                 WebIndexPlugin({
                     cssPath: "css",
                     template: "src/index.html",
@@ -251,12 +252,18 @@ task("default", ["clean", "copy", "test:ts"], async (context: CTX) => {
 
 task("test:ts", [], async (context: CTX) => {
     console.log(process.env.NODE_ENV)
-    if (process.env.NODE_ENV === "production" || context.isProduction) {
+    if (MODE === "production" || context.isProduction) {
         console.log("PRODUCTION TEST")
-        await testSync().runSync()
+        const errors = testSync().runSync()
+        if (errors > 0) {
+            console.log("Too many errors to publish!!")
+            process.exit()
+        }
     } else {
         console.log("dev testing")
-        await testSync().runWatch("./src")
+        await testSync().runWatch("./src", (errors: number) => {
+            console.log(errors)
+        })
     }
 })
 
@@ -286,8 +293,8 @@ task("publish:major", async () => {
 })
 
 task("document", async (context: CTX) => {
-//    const configuration = context.getConfig()
-//    console.dir(context.getConfig().context.tsConfig)
+    //    const configuration = context.getConfig()
+    //    console.dir(context.getConfig().context.tsConfig)
     //    process.exit()
     console.log(project == null)
     if (project) { // Project may not have converted correctly

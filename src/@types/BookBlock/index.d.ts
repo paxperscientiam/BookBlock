@@ -35,7 +35,7 @@ interface BookBlockPluginSettings {
     speed?: number
     startPage?: number
 
-    $container: BookBlockPlugin
+    //    $container: BookBlockPlugin
 
     onEndFlip?: (a, b, c: boolean) => boolean
     onBeforeFlip?: (a) => boolean

@@ -14,10 +14,7 @@
 // global
 const $window: JQuery<Window> = $(window)
 
-const mod = (index: number, count: number) => {
-    // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
-    return (index % count + count) % count
-}
+import { BookBlockUtil } from "./utils"
 
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
@@ -115,20 +112,20 @@ export class BookBlock implements BookBlockPlugin  {
     $el: JQuery
     modulatedNextIndex: number
 
-    private itemsCount: number
-    private slideshow: ReturnType<typeof setTimeout>
-    private end: boolean
+    itemsCount: number
+    slideshow: ReturnType<typeof setTimeout>
+        end: boolean
 
-    private current: number
-    private previous: number
+    current: number
+    previous: number
 
-    private elWidth: number
-    private transEndEventName: string
-    private support: boolean
+    elWidth: number
+    transEndEventName: string
+    support: boolean
 
-    private $items: JQuery
-    private $current: JQuery
-    private $nextItem: JQuery
+    $items: JQuery
+    $current: JQuery
+    $nextItem: JQuery
 
     constructor(options: BookBlockPluginSettings, element: JQuery) {
         this.options = options
@@ -150,7 +147,7 @@ export class BookBlock implements BookBlockPlugin  {
         if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
             this.current = (this.options.startPage - 1)
         } else {
-            logError("startPage option is out of range")
+            BookBlockUtil.logError("startPage option is out of range")
             this.current = 0
         }
         // previous item´s index
@@ -185,7 +182,7 @@ export class BookBlock implements BookBlockPlugin  {
         console.log("initialized")
         const self = this
         const subIndex: number = self.current  // self.options.startPage - 1
-        this.modulatedNextIndex = mod(subIndex, this.itemsCount)
+        this.modulatedNextIndex = BookBlockUtil.mod(subIndex, this.itemsCount)
 
         self._addQueryField("page", (this.modulatedNextIndex).toString())
 
@@ -205,14 +202,14 @@ export class BookBlock implements BookBlockPlugin  {
             } )
         }
 
-//         $("#bb-bookblock").hover(
-//             () => {
-//                 console.log("hovering yo")
-// //                $(this).addClass("brighten-20")
-//             }, () => {
-//   //              $(this).removeClass("brighten-20")
-//             },
-//         )
+        //         $("#bb-bookblock").hover(
+        //             () => {
+        //                 console.log("hovering yo")
+        // //                $(this).addClass("brighten-20")
+        //             }, () => {
+        //   //              $(this).removeClass("brighten-20")
+        //             },
+        //         )
 
         $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
             e.preventDefault()
@@ -532,7 +529,7 @@ export class BookBlock implements BookBlockPlugin  {
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
 
             const subIndex: number = (dir === "prev") ? index - 1 : index + 1
-            this.modulatedNextIndex = mod(subIndex, itemsCount)
+            this.modulatedNextIndex = BookBlockUtil.mod(subIndex, itemsCount)
 
             console.log(`next to load is ${this.modulatedNextIndex}_0`)
             let path: string
@@ -620,12 +617,6 @@ export class BookBlock implements BookBlockPlugin  {
     }
 }
 
-const logError = ( message: string ) => {
-    if ( window.console ) {
-        window.console.error( message )
-    }
-}
-
 // <3 https://github.com/georgwittberger/jquery-plugin-typescript-example
 // <3 https://www.smashingmagazine.com/2011/10/essential-jquery-plugin-patterns/
 $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
@@ -671,7 +662,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $container.append($spinner)
 
         const $img = $container.find("img") as JQuery<HTMLImageElement>
-        const eqVal = mod(options.startPage - 1, $img.length)
+        const eqVal = BookBlockUtil.mod(options.startPage - 1, $img.length)
 
         $img.each((index: number, element: HTMLImageElement) => {
             const path: string = $(element).data("bbsrc")

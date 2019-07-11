@@ -1,0 +1,248 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@paxperscientiam/bookblock</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@paxperscientiam/bookblock</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @paxperscientiam/bookblock</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="fork-notice">Fork Notice</h1>
+				<p>Aiming to turn codrops awesome work into an easy to use package!</p>
+				<h2 id="breaking-change-in-build-process-0-1-0-">Breaking change in build process [0.1.0]</h2>
+				<p>OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.</p>
+				<h2 id="note">Note</h2>
+				<p>Both <code>src/jquery.bookblock.ts</code> and <code>dist/bookblock.js</code> are dependency free. The demo uses the file <code>dist/shims.js</code>, which includes the necessary dependencies: <code>src/modernizr.custom.js</code>, <code>src/jquerypp.custom.js</code>, and <code>jquery</code>.</p>
+				<h2 id="usage">Usage</h2>
+				<h3 id="javascript-project">Javascript project</h3>
+				<p>If you&#39;re not concerned with conflicts, then you could simply use prebuilt files <code>dist/bookblock.js</code> and <code>dist/shims.js</code> (which contains the aforementioned dependencies).</p>
+				<p>Alternatively, you could use <code>dist/bookblock.js</code>, <code>src/js/jquerypp.custom.js</code>, <code>modernizr.custom.js</code>, and include your own copy of <code>jquery</code>.</p>
+				<h3 id="typescript-project">Typescript project</h3>
+				<p>Stay tuned</p>
+				<h2 id="testing-1-2-3">Testing 1 2 3</h2>
+				<pre><code class="language-shell">git clone https://github.com/paxperscientiam/BookBlock
+cd BookBlock
+pnpm i &amp;&amp; pnpm run start</code></pre>
+				<p>With the above, <code>fuse-box</code> should start a server.</p>
+				<h1 id="bookblock">BookBlock</h1>
+				<p>A jQuery plugin that will create a booklet-like component that let&#39;s you navigate through its items by flipping the pages.</p>
+				<p><a href="http://tympanus.net/codrops/2012/09/03/bookblock-a-content-flip-plugin/">article on Codrops</a></p>
+				<p><a href="http://tympanus.net/Development/BookBlock/">demo</a></p>
+				<p>License: <a href="http://tympanus.net/codrops/licensing/">http://tympanus.net/codrops/licensing/</a></p>
+				<h3 id="bookblock-configuration-options">BookBlock Configuration Options</h3>
+				<pre><code class="language-js"><span class="hljs-comment">// page to start on</span>
+startPage : <span class="hljs-number">1</span>,
+<span class="hljs-comment">// vertical or horizontal flip</span>
+orientation : <span class="hljs-string">'vertical'</span>,
+<span class="hljs-comment">// ltr (left to right) or rtl (right to left)</span>
+direction : <span class="hljs-string">'ltr'</span>,
+<span class="hljs-comment">// speed for the flip transition in ms</span>
+speed : <span class="hljs-number">1000</span>,
+<span class="hljs-comment">// easing for the flip transition</span>
+easing : <span class="hljs-string">'ease-in-out'</span>,
+<span class="hljs-comment">// if set to true, both the flipping page and the sides will have an overlay to simulate shadows</span>
+shadows : <span class="hljs-literal">true</span>,
+<span class="hljs-comment">// opacity value for the "shadow" on both sides (when the flipping page is over it)</span>
+<span class="hljs-comment">// value : 0.1 - 1</span>
+shadowSides : <span class="hljs-number">0.2</span>,
+<span class="hljs-comment">// opacity value for the "shadow" on the flipping page (while it is flipping)</span>
+<span class="hljs-comment">// value : 0.1 - 1</span>
+shadowFlip : <span class="hljs-number">0.1</span>,
+<span class="hljs-comment">// if we should show the first item after reaching the end</span>
+circular : <span class="hljs-literal">false</span>,
+<span class="hljs-comment">// if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´</span>
+nextEl : <span class="hljs-string">''</span>,
+<span class="hljs-comment">// if we want to specify a selector that triggers the prev() function</span>
+prevEl : <span class="hljs-string">''</span>,
+<span class="hljs-comment">// autoplay. If true it overwrites the circular option to true</span>
+autoplay : <span class="hljs-literal">false</span>,
+<span class="hljs-comment">// time (ms) between page switch, if autoplay is true</span>
+interval : <span class="hljs-number">3000</span>,
+<span class="hljs-comment">// callback after the flip transition</span>
+<span class="hljs-comment">// old is the index of the previous item</span>
+<span class="hljs-comment">// page is the current item´s index</span>
+<span class="hljs-comment">// isLimit is true if the current page is the last one (or the first one)</span>
+onEndFlip : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">old, page, isLimit</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+<span class="hljs-comment">// callback before the flip transition</span>
+<span class="hljs-comment">// page is the current item´s index</span>
+onBeforeFlip : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">page</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }</code></pre>
+				<h1 id="usage">Usage</h1>
+				<h3 id="example-see-example-for-more-info-">Example (see example for more info)</h3>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Illustrations by <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://dribbble.com/kevinhowdeshell"</span>&gt;</span>Kevin Howdeshell<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bb-bookblock"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-bookblock"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-item"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/demo1/1.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"image01"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-item"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/demo1/2.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"image02"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-nav-container"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bb-nav-first"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-nav bb-icon bb-icon-first"</span>&gt;</span>
+            First page<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bb-nav-prev"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-nav bb-icon bb-icon-arrow-left"</span>&gt;</span>Previous<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bb-nav-next"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-nav bb-icon bb-icon-arrow-right"</span>&gt;</span>Next<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bb-nav-last"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bb-nav bb-icon bb-icon-last"</span>&gt;</span>Last page<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">const</span> sexy = $( <span class="hljs-string">"#bb-bookblock"</span> ).bookBlock({
+          <span class="hljs-attr">_dummy</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">circular</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">height</span>: <span class="hljs-string">"300px"</span>,
+          <span class="hljs-attr">width</span>: <span class="hljs-string">"400px"</span>,
+      })
+  });
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/bookblock.html" class="tsd-kind-icon">Book<wbr>Block</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/bookblockutil.html" class="tsd-kind-icon">Book<wbr>Block<wbr>Util</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#_window" class="tsd-kind-icon">$window</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

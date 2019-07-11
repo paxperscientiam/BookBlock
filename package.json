@@ -1,71 +1,72 @@
 {
-  "name": "@paxperscientiam/bookblock",
-  "version": "0.1.2",
-  "homepage": "https://github.com/paxperscientiam/BookBlock",
-  "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
-  "main": "dist/bookblock.js",
-  "ts:main": "src/index.ts",
-  "types": "src/@types/BookBlock/index.d.ts",
-  "typings": "src/@types/BookBlock/index.d.ts",
-  "scripts": {
-    "test": "ts-node fuse.ts test",
-    "start": "ts-node fuse.ts",
-    "build": "ts-node fuse.ts build --mode=production",
-    "test:ts": "ts-node fuse.ts test:ts --mode=production",
-    "serve": "ts-node fuse.ts serve",
-    "prepare": "ts-node fuse.ts build --mode=production"
-  },
-  "author": {
-    "name": "codrops",
-    "url": "https://tympanus.net/codrops/about/"
-  },
-  "contributors": [
-    {
-      "name": "Christopher David Ramos",
-      "url": "https://www.paxperscientiam.com"
-    }
-  ],
-  "license": "MIT",
-  "devDependencies": {
-    "@types/autoprefixer": "^9.5.0",
-    "@types/browserslist": "^4.4.0",
-    "@types/cssnano": "^4.0.0",
-    "@types/jquery": "^3.3.29",
-    "@types/modernizr": "^3.5.3",
-    "@types/node": "^12.0.8",
-    "@types/sizzle": "^2.3.2",
-    "autoprefixer": "^9.6.0",
-    "cssnano": "^4.1.10",
-    "dlv": "^1.1.3",
-    "fuse-box": "^3.7.1",
-    "fuse-box-typechecker": "^2.12.0",
-    "generate-gitignore": "^0.2.6",
-    "minimist": "^1.2.0",
-    "node-sass": "^4.12.0",
-    "postcss": "^7.0.17",
-    "postcss-modules": "^1.4.1",
-    "postcss-unprefix": "^2.1.4",
-    "serve-handler": "^6.0.2",
-    "source-map": "^0.7.3",
-    "stylelint-config-standard": "^18.3.0",
-    "terser": "^4.0.0",
-    "tslib": "^1.10.0",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.5.3",
-    "uglify-js": "^3.6.0"
-  },
-  "dependencies": {
-    "css-element-queries": "^1.2.0",
-    "jquery": "^3.4.1"
-  },
-  "keywords": [
-    "jquery",
-    "book",
-    "interactive"
-  ],
-  "files": [
-    "readme.md",
-    "src",
-    "dist"
-  ]
+    "name": "@paxperscientiam/bookblock",
+    "version": "0.1.2",
+    "homepage": "https://github.com/paxperscientiam/BookBlock",
+    "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
+    "main": "dist/bookblock.js",
+    "ts:main": "src/index.ts",
+    "types": "src/@types/BookBlock/index.d.ts",
+    "typings": "src/@types/BookBlock/index.d.ts",
+    "scripts": {
+        "test": "ts-node fuse.ts test",
+        "document": "ts-node fuse.ts document",
+        "start": "ts-node fuse.ts",
+        "build": "ts-node fuse.ts build --mode=production",
+        "test:ts": "ts-node fuse.ts test:ts",
+        "serve": "ts-node fuse.ts serve",
+        "prepare": "ts-node fuse.ts build --mode=production"
+    },
+    "author": {
+        "name": "codrops",
+        "url": "https://tympanus.net/codrops/about/"
+    },
+    "contributors": [
+        {
+            "name": "Christopher David Ramos",
+            "url": "https://www.paxperscientiam.com"
+        }
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@types/autoprefixer": "^9.5.0",
+        "@types/browserslist": "^4.4.0",
+        "@types/cssnano": "^4.0.0",
+        "@types/jquery": "^3.3.29",
+        "@types/modernizr": "^3.5.3",
+        "@types/node": "^12.0.8",
+        "@types/sizzle": "^2.3.2",
+        "autoprefixer": "^9.6.0",
+        "cssnano": "^4.1.10",
+        "dlv": "^1.1.3",
+        "fuse-box": "^3.7.1",
+        "fuse-box-typechecker": "^2.12.0",
+        "generate-gitignore": "^0.2.6",
+        "minimist": "^1.2.0",
+        "node-sass": "^4.12.0",
+        "postcss": "^7.0.17",
+        "postcss-modules": "^1.4.1",
+        "postcss-unprefix": "^2.1.4",
+        "serve-handler": "^6.0.2",
+        "source-map": "^0.7.3",
+        "stylelint-config-standard": "^18.3.0",
+        "terser": "^4.0.0",
+        "tslib": "^1.10.0",
+        "typedoc": "^0.14.2",
+        "typescript": "^3.5.3",
+        "uglify-js": "^3.6.0"
+    },
+    "dependencies": {
+        "css-element-queries": "^1.2.0",
+        "jquery": "^3.4.1"
+    },
+    "keywords": [
+        "jquery",
+        "book",
+        "interactive"
+    ],
+    "files": [
+        "readme.md",
+        "src",
+        "dist"
+    ]
 }
