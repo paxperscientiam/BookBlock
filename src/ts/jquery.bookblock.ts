@@ -112,6 +112,7 @@ export class BookBlock implements BookBlockPlugin  {
 
     options: BookBlockPluginSettings
 
+    $el: JQuery
     modulatedNextIndex: number
 
     private itemsCount: number
@@ -125,7 +126,6 @@ export class BookBlock implements BookBlockPlugin  {
     private transEndEventName: string
     private support: boolean
 
-    private $el: JQuery
     private $items: JQuery
     private $current: JQuery
     private $nextItem: JQuery
@@ -660,7 +660,9 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             $container.addClass("bb-paper-effect")
         }
 
-        $container.addClass("bb-dropshadow-effect")
+        if (options.effects.bordershadow) {
+            $container.addClass("bb-dropshadow-effect")
+        }
 
         const $spinner = $("<div/>")
             .addClass(["bb-loading-pulse", "bb-not-loading"])
@@ -821,6 +823,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
             //
             effects: {
+                bordershadow: null,
                 paper: null,
             },
         },

@@ -3,24 +3,30 @@ dependencies:
   jquery: 3.4.1
 devDependencies:
   '@types/autoprefixer': 9.5.0
+  '@types/browserslist': 4.4.0
   '@types/cssnano': 4.0.0
   '@types/jquery': 3.3.30
   '@types/modernizr': 3.5.3
   '@types/node': 12.0.12
+  '@types/sizzle': 2.3.2
   autoprefixer: 9.6.1
   cssnano: 4.1.10
   dlv: 1.1.3
   fuse-box: 3.7.1
   fuse-box-typechecker: 2.12.0
   generate-gitignore: 0.2.6
+  minimist: 1.2.0
   node-sass: 4.12.0
   postcss: 7.0.17
   postcss-modules: 1.4.1
   postcss-unprefix: 2.1.4_postcss@7.0.17
   serve-handler: 6.0.3
+  source-map: 0.7.3
   stylelint-config-standard: 18.3.0
   terser: 4.1.0
   tslib: 1.10.0
+  typedoc: 0.14.2
+  typescript: 3.5.3
   uglify-js: 3.6.0
 lockfileVersion: 5.1
 packages:
@@ -41,12 +47,53 @@ packages:
     dev: true
     resolution:
       integrity: sha512-BC/2ibKZfPIaBLBNzkitdW1IvvX/LKW6/QXGc4Su/tAJ7mQ3f2CKBuGCCKaqGAnoKwzfuC7G/recpkARwdOwuA==
+  /@types/events/3.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
+  /@types/fs-extra/5.1.0:
+    dependencies:
+      '@types/node': 12.6.2
+    dev: true
+    resolution:
+      integrity: sha512-AInn5+UBFIK9FK5xc9yP5e3TQSPNNgjHByqYcj9g5elVBnDQcQL7PlO1CIRy2gWlbwK7UPYqi7vRvFA44dCmYQ==
+  /@types/glob/7.1.1:
+    dependencies:
+      '@types/events': 3.0.0
+      '@types/minimatch': 3.0.3
+      '@types/node': 12.6.2
+    dev: true
+    resolution:
+      integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
+  /@types/handlebars/4.1.0:
+    dependencies:
+      handlebars: 4.1.2
+    deprecated: 'This is a stub types definition. handlebars provides its own type definitions, so you do not need this installed.'
+    dev: true
+    resolution:
+      integrity: sha512-gq9YweFKNNB1uFK71eRqsd4niVkXrxHugqWFQkeLRJvGjnxsLr16bYtcsG4tOFwmYi0Bax+wCkbf1reUfdl4kA==
+  /@types/highlight.js/9.12.3:
+    dev: true
+    resolution:
+      integrity: sha512-pGF/zvYOACZ/gLGWdQH8zSwteQS1epp68yRcVLJMgUck/MjEn/FBYmPub9pXT8C1e4a8YZfHo1CKyV8q1vKUnQ==
   /@types/jquery/3.3.30:
     dependencies:
       '@types/sizzle': 2.3.2
     dev: true
     resolution:
       integrity: sha512-chB+QbLulamShZAFcTJtl8opZwHFBpDOP6nRLrPGkhC6N1aKWrDXg2Nc71tEg6ny6E8SQpRwbWSi9GdstH5VJA==
+  /@types/lodash/4.14.136:
+    dev: true
+    resolution:
+      integrity: sha512-0GJhzBdvsW2RUccNHOBkabI8HZVdOXmXbXhuKlDEd5Vv12P7oAVGfomGp3Ne21o5D/qu1WmthlNKFaoZJJeErA==
+  /@types/marked/0.4.2:
+    dev: true
+    resolution:
+      integrity: sha512-cDB930/7MbzaGF6U3IwSQp6XBru8xWajF5PV2YZZeV8DyiliTuld11afVztGI9+yJZ29il5E+NpGA6ooV/Cjkg==
+  /@types/minimatch/3.0.3:
+    dev: true
+    resolution:
+      integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
   /@types/modernizr/3.5.3:
     dev: true
     resolution:
@@ -59,10 +106,21 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Uy0PN4R5vgBUXFoJrKryf5aTk3kJ8Rv3PdlHjl6UaX+Cqp1QE0yPQ68MPXGrZOfG7gZVNDIJZYyot0B9ubXUrQ==
+  /@types/node/12.6.2:
+    dev: true
+    resolution:
+      integrity: sha512-gojym4tX0FWeV2gsW4Xmzo5wxGjXGm550oVUII7f7G5o4BV6c7DBdiG1RRQd+y1bvqRyYtPfMK85UM95vsapqQ==
   /@types/q/1.5.2:
     dev: true
     resolution:
       integrity: sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+  /@types/shelljs/0.8.5:
+    dependencies:
+      '@types/glob': 7.1.1
+      '@types/node': 12.6.2
+    dev: true
+    resolution:
+      integrity: sha512-bZgjwIWu9gHCjirKJoOlLzGi5N0QgZ5t7EXEuoqyWCHTuSddURXo3FOBYDyRPNOWzZ6NbkLvZnVkn483Y/tvcQ==
   /@types/sizzle/2.3.2:
     dev: true
     resolution:
@@ -2680,6 +2738,19 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-zumGbZSeCRh1IlI9bGVWX24yvXw=
+  /handlebars/4.1.2:
+    dependencies:
+      neo-async: 2.6.1
+      optimist: 0.6.1
+      source-map: 0.6.1
+    dev: true
+    engines:
+      node: '>=0.4.7'
+    hasBin: true
+    optionalDependencies:
+      uglify-js: 3.6.0
+    resolution:
+      integrity: sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
   /har-schema/2.0.0:
     dev: true
     engines:
@@ -2794,6 +2865,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
+  /highlight.js/9.15.8:
+    dev: true
+    resolution:
+      integrity: sha512-RrapkKQWwE+wKdF73VsOa2RQdIoO3mxwJ4P8mhbI6KYJUraUHRKM5w5zQQKXNk0xNL4UVRdulV9SBJcmzJNzVA==
   /homedir-polyfill/1.0.3:
     dependencies:
       parse-passwd: 1.0.0
@@ -2992,6 +3067,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-vFQkqBQ1fEHmXi6Vf+U2ruqb8fY=
+  /interpret/1.2.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
   /invert-kv/1.0.0:
     dev: true
     engines:
@@ -3780,6 +3861,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+  /lodash/4.17.14:
+    dev: true
+    resolution:
+      integrity: sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
   /log-ok/0.1.1:
     dependencies:
       ansi-green: 0.1.1
@@ -3917,6 +4002,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
+  /marked/0.4.0:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-tMsdNBgOsrUophCAFQl0XPe6Zqk/uy9gnue+jIIKhykO51hxyu6uNx7zBPy0+y/WKYVZZMspV9YeXLNdKk+iYw==
   /matched/1.0.2:
     dependencies:
       arr-union: 3.1.0
@@ -4092,6 +4184,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
+  /minimist/0.0.10:
+    dev: true
+    resolution:
+      integrity: sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
   /minimist/0.0.8:
     dev: true
     resolution:
@@ -4194,6 +4290,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
+  /neo-async/2.6.1:
+    dev: true
+    resolution:
+      integrity: sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
   /next-tick/0.2.2:
     dev: true
     resolution:
@@ -4509,6 +4609,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-BnQoIw/WdEOyeUsiu6UotoZ5YtQ=
+  /optimist/0.6.1:
+    dependencies:
+      minimist: 0.0.10
+      wordwrap: 0.0.3
+    dev: true
+    resolution:
+      integrity: sha1-2j6nRob6IaGaERwybpDrFaAZZoY=
   /option-cache/3.5.0:
     dependencies:
       arr-flatten: 1.1.0
@@ -5191,6 +5298,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+  /progress/2.0.3:
+    dev: true
+    engines:
+      node: '>=0.4.0'
+    resolution:
+      integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
   /project-name/0.2.6:
     dependencies:
       find-pkg: 0.1.2
@@ -5417,6 +5530,14 @@ packages:
     dev: true
     resolution:
       integrity: sha1-XHal/znkgWrywTOhYfQiHWYo7/Q=
+  /rechoir/0.6.2:
+    dependencies:
+      resolve: 1.11.1
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   /redent/1.0.0:
     dependencies:
       indent-string: 2.1.0
@@ -5905,6 +6026,17 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-WQnodLp3EG1zrEFM/sH/yofZcGA=
+  /shelljs/0.8.3:
+    dependencies:
+      glob: 7.1.4
+      interpret: 1.2.0
+      rechoir: 0.6.2
+    dev: true
+    engines:
+      node: '>=4'
+    hasBin: true
+    resolution:
+      integrity: sha512-fc0BKlAWiLpwZljmOvAOTE/gXawtCoNrP5oaY7KIaQbbyHeQVg01pSEuEGvGh3HEdBU4baCD7wQBwADmM/7f7A==
   /shorthash/0.0.2:
     dev: true
     resolution:
@@ -6500,6 +6632,51 @@ packages:
     dev: true
     resolution:
       integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+  /typedoc-default-themes/0.5.0:
+    dev: true
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha1-bcJDPnjti+qOiHo6zeLzF4W9Yic=
+  /typedoc/0.14.2:
+    dependencies:
+      '@types/fs-extra': 5.1.0
+      '@types/handlebars': 4.1.0
+      '@types/highlight.js': 9.12.3
+      '@types/lodash': 4.14.136
+      '@types/marked': 0.4.2
+      '@types/minimatch': 3.0.3
+      '@types/shelljs': 0.8.5
+      fs-extra: 7.0.1
+      handlebars: 4.1.2
+      highlight.js: 9.15.8
+      lodash: 4.17.14
+      marked: 0.4.0
+      minimatch: 3.0.4
+      progress: 2.0.3
+      shelljs: 0.8.3
+      typedoc-default-themes: 0.5.0
+      typescript: 3.2.4
+    dev: true
+    engines:
+      node: '>= 6.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-aEbgJXV8/KqaVhcedT7xG6d2r+mOvB5ep3eIz1KuB5sc4fDYXcepEEMdU7XSqLFO5hVPu0nllHi1QxX2h/QlpQ==
+  /typescript/3.2.4:
+    dev: true
+    engines:
+      node: '>=4.2.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-0RNDbSdEokBeEAkgNbxJ+BLwSManFy9TeXz8uW+48j/xhEXv1ePME60olyzw2XzUqUBNAYFeJadIqAgNqIACwg==
+  /typescript/3.5.3:
+    dev: true
+    engines:
+      node: '>=4.2.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
   /uglify-js/3.6.0:
     dependencies:
       commander: 2.20.0
@@ -6758,6 +6935,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
+  /wordwrap/0.0.3:
+    dev: true
+    engines:
+      node: '>=0.4.0'
+    resolution:
+      integrity: sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
   /wordwrap/1.0.0:
     dev: true
     resolution:
@@ -6845,10 +7028,12 @@ packages:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
 specifiers:
   '@types/autoprefixer': ^9.5.0
+  '@types/browserslist': ^4.4.0
   '@types/cssnano': ^4.0.0
   '@types/jquery': ^3.3.29
   '@types/modernizr': ^3.5.3
   '@types/node': ^12.0.8
+  '@types/sizzle': ^2.3.2
   autoprefixer: ^9.6.0
   css-element-queries: ^1.2.0
   cssnano: ^4.1.10
@@ -6857,12 +7042,16 @@ specifiers:
   fuse-box-typechecker: ^2.12.0
   generate-gitignore: ^0.2.6
   jquery: ^3.4.1
+  minimist: ^1.2.0
   node-sass: ^4.12.0
   postcss: ^7.0.17
   postcss-modules: ^1.4.1
   postcss-unprefix: ^2.1.4
   serve-handler: ^6.0.2
+  source-map: ^0.7.3
   stylelint-config-standard: ^18.3.0
   terser: ^4.0.0
   tslib: ^1.10.0
+  typedoc: ^0.14.2
+  typescript: ^3.5.3
   uglify-js: ^3.6.0

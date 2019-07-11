@@ -1,4 +1,10 @@
 // tslint:disable:no-console
+const args = require("minimist")(process.argv.slice(2))
+
+const MODE = args.mode || "development"
+console.log(MODE)
+process.exit()
+
 import * as fs from "fs"
 
 import * as dlv from "dlv"
@@ -18,6 +24,18 @@ function importJSON(filePath: string, property?: string) {
     // @ts-ignore
     return JSON.parse("{}")
 }
+
+const TypeDoc = require("typedoc")
+
+const app = new TypeDoc.Application({
+    experimentalDecorators: true,
+    logger: "console",
+    mode:   "file",
+    module: "CommonJS",
+    target: "ES5",
+})
+
+const project = app.convert(app.expandInputFiles(["src/ts", "src/@types"]))
 
 const PKG = importJSON("./package.json")
 
@@ -231,13 +249,14 @@ task("default", ["clean", "copy", "test:ts"], async (context: CTX) => {
     await fuse.run()
 })
 
-task("test:ts", [], (context: CTX) => {
+task("test:ts", [], async (context: CTX) => {
+    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === "production" || context.isProduction) {
         console.log("PRODUCTION TEST")
-        testSync().runSync()
+        await testSync().runSync()
     } else {
         console.log("dev testing")
-        testSync().runWatch("./src")
+        await testSync().runWatch("./src")
     }
 })
 
@@ -264,4 +283,16 @@ task("publish:minor", async () => {
 task("publish:major", async () => {
     await bumpVersion("package.json", { type: "major" })
     await npmPublish({ path: "." })
+})
+
+task("document", async (context: CTX) => {
+//    const configuration = context.getConfig()
+//    console.dir(context.getConfig().context.tsConfig)
+    //    process.exit()
+    console.log(project == null)
+    if (project) { // Project may not have converted correctly
+        const outputDir = "docs"
+        // Rendered docs
+        await app.generateDocs(project, outputDir)
+    }
 })

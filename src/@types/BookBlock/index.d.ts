@@ -13,6 +13,7 @@ declare global  {
 
 // tslint:disable-next-line
 interface BookBlockPluginEffectsSettings {
+    bordershadow: boolean
     paper: boolean
 }
 
@@ -36,7 +37,7 @@ interface BookBlockPluginSettings {
 
     $container: BookBlockPlugin
 
-        onEndFlip?: (a, b, c: boolean) => boolean
+    onEndFlip?: (a, b, c: boolean) => boolean
     onBeforeFlip?: (a) => boolean
 
     width: string
@@ -67,7 +68,7 @@ interface BookBlockPluginGlobalSettings {
 // tslint:disable-next-line
 interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     // these are private
-    private $el: JQuery
+    $el: JQuery
 
     $items: JQuery
     $current: JQuery
@@ -110,13 +111,13 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     destroy(): void
 
     // PRIVATE METHODS
-    private _initEvents(): void
-    private _action(dir: string, page?: number): void
-    private _navigate( dir: string, page?: number ): void
-    private _layoutNoSupport(dir: string): void
-    private _layout(dir: string): any
-    private _startSlideshow(): void
-    private _stopSlideshow(): void
+    _initEvents(): void
+    _action(dir: string, page?: number): void
+    _navigate( dir: string, page?: number ): void
+    _layoutNoSupport(dir: string): void
+    _layout(dir: string): any
+    _startSlideshow(): void
+    _stopSlideshow(): void
 }
 // tslint:disable-next-line
 interface JQuery {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js demo-1">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>UN Member flags</title>
+
+    $css
+
+	</head>
+	<body>
+    <header>
+			<!-- <h1>BookBlock: <span>A Content Flip Plugin by <a href="https://github.com/codrops/BookBlock" target="_blank">Codrops</a></span></h1> -->
+      <!-- <p>This fork by @paxperscientiam <a href="https://github.com/paxperscientiam/BookBlock" target="_blank">here</a>. -->
+		</header>
+    <div>
+			<div>
+
+				<div>
+					<!-- <h3>Illustrations by <a href="http://dribbble.com/kevinhowdeshell">Kevin Howdeshell</a></h3> -->
+					<div id="bb-bookblock" class="bb-bookblock">
+						<div class="bb-item">
+							<a href="#"><img data-bbsrc="images/demo0/dummy-000.png" alt="image00"/></a>
+						</div>
+
+            <div class="bb-item">
+							<a href="#"><img data-bbsrc="images/demo0/dummy-001.png" alt="image01"/></a>
+						</div>
+            <div class="bb-item">
+							<a href="#"><img data-bbsrc="images/demo0/dummy-002.png" alt="image02"/></a>
+						</div>
+
+            <div class="bb-item">
+							<a href="#"><img data-bbsrc="images/demo0/dummy-003.png" alt="image03"/></a>
+						</div>
+
+					</div>
+					<!-- <nav class="bb-nav-container">
+						   <a id="bb-nav-first" href="#" class="bb-nav bb-icon bb-icon-first">
+                 First page</a>
+						   <a id="bb-nav-prev" href="#" class="bb-nav bb-icon bb-icon-arrow-left">Previous</a>
+						   <a id="bb-nav-next" href="#" class="bb-nav bb-icon bb-icon-arrow-right">Next</a>
+						   <a id="bb-nav-last" href="#" class="bb-nav bb-icon bb-icon-last">Last page</a>
+					</nav> -->
+				</div>
+
+			</div>
+		</div>
+
+    $bundles
+
+		<script type="text/javascript">
+      // Use the plugin once the DOM has been loaded.
+      $(function () {
+          const sexy = $( "#bb-bookblock" ).bookBlock({
+              _dummy: true,
+              circular: true,
+              gutter: 25,
+              startPage: 4,
+              effects: {
+                  paper: true,
+              },
+              speed: 900,
+          })
+      });
+
+		</script>
+	</body>
+</html>
