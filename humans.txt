@@ -1,1 +1,1 @@
- Some code comes from
+Codrops created the original BookBlock. https://github.com/codrops
