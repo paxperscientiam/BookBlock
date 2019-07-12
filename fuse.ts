@@ -7,6 +7,10 @@ import * as fs from "fs"
 
 import * as dlv from "dlv"
 
+import * as BuildNumberGenerator from "build-number-generator"
+const BUILD_NUMBER = BuildNumberGenerator.generate()
+const BUILD_TIME = BuildNumberGenerator.format(BUILD_NUMBER)
+
 function importJSON(filePath: string, property?: string) {
     if (fs.existsSync(filePath)) {
         let json = fs.readFileSync(filePath, "utf8")
@@ -37,9 +41,21 @@ const project = app.convert(app.expandInputFiles(["src/ts", "src/@types"]))
 
 const PKG = importJSON("./package.json")
 
+const BUILD_VERSION = PKG.version
+
+const bannerStatement =  (isProduction: boolean) => {
+    return `@paxperscientiam/bookblock
+Full version: ${BUILD_VERSION}.${BUILD_NUMBER} ${isProduction ? "PRODUCTION READY" : "NOT FOR CONSUMER USE"}
+
+Product version: ${BUILD_VERSION}
+Builder number: ${BUILD_NUMBER}
+Build time: ${BUILD_TIME}`
+}
+
 const Autoprefixer = require("autoprefixer")
 const Cssnano = require("cssnano")
 const Unprefix = require("postcss-unprefix")
+const Banner = require("postcss-banner")
 
 import { TypeChecker } from "fuse-box-typechecker"
 
@@ -109,7 +125,6 @@ class CTX {
 
             //            globals: {default : "*"},
             plugins: [
-                BannerPlugin("// This is my banner. There are many like it, but this one is mine."),
                 WebIndexPlugin({
                     cssPath: "css",
                     template: "src/index.html",
@@ -123,6 +138,10 @@ class CTX {
                         Unprefix(),
                         Autoprefixer(),
                         Cssnano(),
+                        this.isProduction && Banner({
+                            banner: bannerStatement(this.isProduction),
+                            important: true,
+                        }),
                     ]),
                     CSSResourcePlugin({
                         dist: "dist/css-resources",
@@ -134,8 +153,17 @@ class CTX {
                     compress: {
                         drop_console: true,
                     },
+                    output: {
+                        comments: "some",
+                        preamble: `/*!
+${bannerStatement(this.isProduction)}
+*/`,
+                    },
                 }),
                 this.isProduction && QuantumPlugin({
+                    ensureES5: true,
+                    target: "browser",
+
                     css: {
                         clean: true,
                         path: "css/styles.min.css",
@@ -148,8 +176,10 @@ class CTX {
                     bakeApiIntoBundle: "bookblock",
                     // containedAPI: true,
                     treeshake: true,
+                    // settings come from Terser Plugin
                     uglify: true,
                 }),
+                BannerPlugin(`/*! ${bannerStatement(this.isProduction)} */`),
             ],
         })
     }

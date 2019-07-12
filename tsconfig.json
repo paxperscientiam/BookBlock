@@ -13,7 +13,7 @@
         "module":                 "commonjs",
         "moduleResolution":       "node",
         "sourceMap":              true,
-        "target":                 "esnext",
+        "target":                 "es6",
         "skipLibCheck":           true,
         "types" : ["BookBlock", "node", "jQuery", "Modernizr"],
         "typeRoots": [

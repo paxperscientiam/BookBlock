@@ -1,7 +1,8 @@
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
-/**
+/*!
+ * @paxperscientiam/bookblock
  * jquery.bookblock.js v2.0.1
  * http://www.codrops.com
  *
@@ -11,6 +12,7 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+
 // global
 const $window: JQuery<Window> = $(window)
 
