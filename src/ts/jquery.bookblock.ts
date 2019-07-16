@@ -542,12 +542,12 @@ export class BookBlock implements BookBlockPlugin  {
     // public method: flips next
     next(): void {
         console.log("next ...")
-        this._action( this.options.ltr ? "next" : "prev" )
+        this._action( this.options.ltr && NEXT )
     }
     // public method: flips back
     prev() {
         console.log("previous ...")
-        this._action( this.options.ltr ? "prev" : "next" )
+        this._action( this.options.ltr && PREV )
     }
     // public method: goes to a specific page
     jump( page: number ) {

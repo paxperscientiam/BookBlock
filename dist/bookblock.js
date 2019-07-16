@@ -11076,12 +11076,12 @@ var BookBlock = /** @class */ (function () {
     // public method: flips next
     BookBlock.prototype.next = function () {
         console.log("next ...");
-        this._action(this.options.ltr ? "next" : "prev");
+        this._action(this.options.ltr && constants_1.NEXT);
     };
     // public method: flips back
     BookBlock.prototype.prev = function () {
         console.log("previous ...");
-        this._action(this.options.ltr ? "prev" : "next");
+        this._action(this.options.ltr && constants_1.PREV);
     };
     // public method: goes to a specific page
     BookBlock.prototype.jump = function (page) {
