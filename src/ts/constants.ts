@@ -1,5 +1,8 @@
 export enum CssClasses {
     FADEIN = "bb-fadeIn",
+
+    FLIP_INITIAL = "bb-flip-initial",
+
     DROPSHADOW_EFFECT = "bb-dropshadow-effect",
 
     LOADING_PULSE = "bb-loading-pulse",

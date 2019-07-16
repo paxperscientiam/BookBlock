@@ -10937,7 +10937,7 @@ var BookBlock = /** @class */ (function () {
             }
         });
         if (!dir) {
-            $sMiddle.addClass("bb-flip-initial");
+            $sMiddle.addClass(constants_1.CssClasses.FLIP_INITIAL);
         }
         // overlays
         if (this.options.shadows && !this.end) {
@@ -11064,7 +11064,7 @@ var BookBlock = /** @class */ (function () {
                 path = $("#bb-bookblock").data().bbsrcset[_this.modulatedNextIndex].path;
                 $img = $("#bb-bookblock").find("img").eq(_this.modulatedNextIndex);
                 $img.on("load", function (e) {
-                    $spinner.addClass("bb-not-loading");
+                    $spinner.addClass(constants_1.CssClasses.NOT_LOADING);
                     $(e.target).fadeIn();
                     console.log("image should be loaded atp");
                     resolve();
@@ -11307,6 +11307,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CssClasses;
 (function (CssClasses) {
     CssClasses["FADEIN"] = "bb-fadeIn";
+    CssClasses["FLIP_INITIAL"] = "bb-flip-initial";
     CssClasses["DROPSHADOW_EFFECT"] = "bb-dropshadow-effect";
     CssClasses["LOADING_PULSE"] = "bb-loading-pulse";
     CssClasses["NOT_LOADING"] = "bb-not-loading";

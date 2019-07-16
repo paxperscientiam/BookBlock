@@ -372,7 +372,7 @@ export class BookBlock implements BookBlockPlugin  {
         })
 
         if ( !dir ) {
-            $sMiddle.addClass( "bb-flip-initial" )
+            $sMiddle.addClass( CssClasses.FLIP_INITIAL )
         }
 
         // overlays
@@ -527,7 +527,7 @@ export class BookBlock implements BookBlockPlugin  {
                 path = $("#bb-bookblock").data().bbsrcset[this.modulatedNextIndex].path
                 $img = $("#bb-bookblock").find("img").eq(this.modulatedNextIndex) as JQuery<HTMLImageElement>
                 $img.on("load", (e) => {
-                    $spinner.addClass("bb-not-loading")
+                    $spinner.addClass(CssClasses.NOT_LOADING)
                     $(e.target).fadeIn()
                     console.log("image should be loaded atp")
                     resolve()
