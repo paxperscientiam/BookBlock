@@ -89,12 +89,12 @@ export class BookBlock implements BookBlockPlugin  {
     // settings
     dummy: boolean
     circular: boolean
-    direction: string
     easing: string
     gutter: number
     interval: number
     isAnimating: boolean
     isAnimation: boolean
+    ltr: boolean // left to right movement instread of rtl
     nextEl: string
     orientation: string
     prevEl: string
@@ -297,14 +297,14 @@ export class BookBlock implements BookBlockPlugin  {
 
         if ( page !== undefined ) {
             this.current = page
-        } else if ( dir === "next" && this.options.direction === "ltr" || dir === "prev" && this.options.direction === "rtl" ) {
+        } else if ( dir === "next" && this.options.ltr || dir === "prev" && !this.options.ltr ) {
             if ( !this.options.circular && this.current === this.itemsCount - 1 ) {
                 this.end = true
             } else {
                 this.previous = this.current
                 this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0
             }
-        } else if ( dir === "prev" && this.options.direction === "ltr" || dir === "next" && this.options.direction === "rtl" ) {
+        } else if ( dir === "prev" && this.options.ltr || dir === "next" && !this.options.ltr ) {
             if ( !this.options.circular && this.current === 0 ) {
                 this.end = true
             } else {
@@ -541,12 +541,12 @@ export class BookBlock implements BookBlockPlugin  {
     // public method: flips next
     next(): void {
         console.log("next ...")
-        this._action( this.options.direction === "ltr" ? "next" : "prev" )
+        this._action( this.options.ltr ? "next" : "prev" )
     }
     // public method: flips back
     prev() {
         console.log("previous ...")
-        this._action( this.options.direction === "ltr" ? "prev" : "next" )
+        this._action( this.options.ltr ? "prev" : "next" )
     }
     // public method: goes to a specific page
     jump( page: number ) {
@@ -558,7 +558,7 @@ export class BookBlock implements BookBlockPlugin  {
         }
 
         let dir: string
-        if ( this.options.direction === "ltr" ) {
+        if ( this.options.ltr ) {
             dir = page > this.current ? "next" : "prev"
         } else {
             dir = page > this.current ? "prev" : "next"
@@ -744,7 +744,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             orientation : "vertical",
 
             // ltr (left to right) or rtl (right to left)
-            direction : "ltr",
+            ltr: false,
 
             // speed for the flip transition in ms
             speed : 1000,

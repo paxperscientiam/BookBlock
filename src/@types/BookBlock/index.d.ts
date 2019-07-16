@@ -22,10 +22,10 @@ interface BookBlockPluginSettings {
     _dummy: boolean
     autoplay?: boolean
     circular?: boolean
-    direction?: string
     easing?: string
     interval?: number
     gutter?: number
+    ltr?: boolean
     nextEl?: string
     orientation?: string
     prevEl?: string

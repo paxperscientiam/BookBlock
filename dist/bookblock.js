@@ -10869,7 +10869,7 @@ var BookBlock = /** @class */ (function () {
         if (page !== undefined) {
             this.current = page;
         }
-        else if (dir === "next" && this.options.direction === "ltr" || dir === "prev" && this.options.direction === "rtl") {
+        else if (dir === "next" && this.options.ltr || dir === "prev" && !this.options.ltr) {
             if (!this.options.circular && this.current === this.itemsCount - 1) {
                 this.end = true;
             }
@@ -10878,7 +10878,7 @@ var BookBlock = /** @class */ (function () {
                 this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0;
             }
         }
-        else if (dir === "prev" && this.options.direction === "ltr" || dir === "next" && this.options.direction === "rtl") {
+        else if (dir === "prev" && this.options.ltr || dir === "next" && !this.options.ltr) {
             if (!this.options.circular && this.current === 0) {
                 this.end = true;
             }
@@ -11075,12 +11075,12 @@ var BookBlock = /** @class */ (function () {
     // public method: flips next
     BookBlock.prototype.next = function () {
         console.log("next ...");
-        this._action(this.options.direction === "ltr" ? "next" : "prev");
+        this._action(this.options.ltr ? "next" : "prev");
     };
     // public method: flips back
     BookBlock.prototype.prev = function () {
         console.log("previous ...");
-        this._action(this.options.direction === "ltr" ? "prev" : "next");
+        this._action(this.options.ltr ? "prev" : "next");
     };
     // public method: goes to a specific page
     BookBlock.prototype.jump = function (page) {
@@ -11089,7 +11089,7 @@ var BookBlock = /** @class */ (function () {
             return false;
         }
         var dir;
-        if (this.options.direction === "ltr") {
+        if (this.options.ltr) {
             dir = page > this.current ? "next" : "prev";
         }
         else {
@@ -11249,7 +11249,7 @@ $.fn.bookBlock = Object.assign(function (options) {
         // vertical or horizontal flip
         orientation: "vertical",
         // ltr (left to right) or rtl (right to left)
-        direction: "ltr",
+        ltr: false,
         // speed for the flip transition in ms
         speed: 1000,
         // easing for the flip transition
