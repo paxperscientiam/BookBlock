@@ -84,7 +84,6 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     // settings
     dummy: boolean
     circular: boolean
-    direction: string
     easing: string
     gutter: number
     interval: number
@@ -112,10 +111,10 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
 
     // PRIVATE METHODS
     _initEvents(): void
-    _action(dir: string, page?: number): void
-    _navigate( dir: string, page?: number ): void
-    _layoutNoSupport(dir: string): void
-    _layout(dir: string): any
+    _action(dir: boolean, page?: number): void
+    _navigate( dir: boolean, page?: number ): void
+    _layoutNoSupport(dir: boolean): void
+    _layout(dir: boolean): any
     _startSlideshow(): void
     _stopSlideshow(): void
 }

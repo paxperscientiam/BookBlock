@@ -16,7 +16,7 @@
 // global
 const $window: JQuery<Window> = $(window)
 
-import { CssClasses, CssIds } from "./constants"
+import { CssClasses, CssIds, NEXT, PREV } from "./constants"
 import { BookBlockUtil } from "./utils"
 
 // https://gist.github.com/edankwan/4389601
@@ -192,7 +192,7 @@ export class BookBlock implements BookBlockPlugin  {
         if ( this.options.nextEl !== "" ) {
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("next button clicked")
-                self._action( "next" )
+                self._action( NEXT )
                 return false
             } )
         }
@@ -200,7 +200,7 @@ export class BookBlock implements BookBlockPlugin  {
         if ( this.options.prevEl !== "" ) {
             $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("prev button clicked")
-                self._action( "prev" )
+                self._action( PREV )
                 return false
             } )
         }
@@ -227,15 +227,15 @@ export class BookBlock implements BookBlockPlugin  {
 
                 if (e.touches) {
                     if (e.touches[0].screenX < midX) {
-                        self._action("prev")
+                        self._action(PREV)
                     } else {
-                        self._action("next")
+                        self._action(NEXT)
                     }
                 } else {
                     if (e.offsetX < width / 2) {
-                        self._action("prev")
+                        self._action(PREV)
                     } else {
-                        self._action("next")
+                        self._action(NEXT)
                     }
                 }
             }
@@ -257,20 +257,20 @@ export class BookBlock implements BookBlockPlugin  {
                 if ([UP, RIGHT].indexOf(keyCode) > -1) {
                     e.stopPropagation()
                     e.preventDefault()
-                    self._action( "next" )
+                    self._action( NEXT )
                 }
 
                 if ([DOWN, LEFT].indexOf(keyCode) > -1) {
                     e.stopPropagation()
                     e.preventDefault()
-                    self._action( "prev")
+                    self._action( PREV)
                 }
             }
         })
 
     }
 
-    _action( dir: string, page?: number ) {
+    _action( dir: boolean, page?: number ) {
         const shit = this
         console.log(`this current is ${this.current}_0`)
 
@@ -282,7 +282,7 @@ export class BookBlock implements BookBlockPlugin  {
             })
     }
 
-    _navigate( dir: string, page?: number ) {
+    _navigate( dir: boolean, page?: number ) {
 
         if ( this.isAnimating ) {
             return false
@@ -297,14 +297,14 @@ export class BookBlock implements BookBlockPlugin  {
 
         if ( page !== undefined ) {
             this.current = page
-        } else if ( dir === "next" && this.options.ltr || dir === "prev" && !this.options.ltr ) {
+        } else if ( dir && this.options.ltr || !dir && !this.options.ltr ) {
             if ( !this.options.circular && this.current === this.itemsCount - 1 ) {
                 this.end = true
             } else {
                 this.previous = this.current
                 this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0
             }
-        } else if ( dir === "prev" && this.options.ltr || dir === "next" && !this.options.ltr ) {
+        } else if ( !dir && this.options.ltr || dir && !this.options.ltr ) {
             if ( !this.options.circular && this.current === 0 ) {
                 this.end = true
             } else {
@@ -323,17 +323,17 @@ export class BookBlock implements BookBlockPlugin  {
 
     }
 
-    _layoutNoSupport(dir: string) {
+    _layoutNoSupport(dir: boolean) {
         this.$items.hide()
         this.$nextItem.show()
         this.end = false
         this.isAnimating = false
-        const isLimit = dir === "next" && this.current === this.itemsCount - 1 || dir === "prev" && this.current === 0
+        const isLimit = true && this.current === this.itemsCount - 1 || !dir && this.current === 0
         // callback trigger
         this.options.onEndFlip( this.previous, this.current, isLimit )
     }
     // creates the necessary layout for the 3d structure
-    _layout(dir: string) {
+    _layout(dir: boolean) {
 
         const self = this
         // basic structure: 1 element for the left side.
@@ -365,41 +365,41 @@ export class BookBlock implements BookBlockPlugin  {
                 self.$nextItem.show()
                 self.end = false
                 self.isAnimating = false
-                const isLimit = dir === "next" && self.current === self.itemsCount - 1 || dir === "prev" && self.current === 0
+                const isLimit = true && self.current === self.itemsCount - 1 || !dir && self.current === 0
                 // callback trigger
                 self.options.onEndFlip( self.previous, self.current, isLimit )
             }
         })
 
-        if ( dir === "prev" ) {
+        if ( !dir ) {
             $sMiddle.addClass( "bb-flip-initial" )
         }
 
         // overlays
         if (this.options.shadows && !this.end) {
 
-            const oLeftStyle = (dir === "next") ? {
+            const oLeftStyle = (dir) ? {
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
             } : {
                 opacity: this.options.shadowSides,
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
             }
 
-            const oMiddleFStyle = (dir === "next") ? {
+            const oMiddleFStyle = (dir) ? {
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
             } : {
                 opacity: this.options.shadowFlip,
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
             }
 
-            const oMiddleBStyle = (dir === "next") ? {
+            const oMiddleBStyle = (dir) ? {
                 opacity: this.options.shadowFlip,
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear" + " " + this.options.speed / 2 + "ms",
             } : {
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
             }
 
-            const oRightStyle = (dir === "next") ? {
+            const oRightStyle = (dir) ? {
                 opacity: this.options.shadowSides,
                 transition: "opacity " + this.options.speed / 2 + "ms " + "linear",
 
@@ -415,49 +415,50 @@ export class BookBlock implements BookBlockPlugin  {
         }
 
         setTimeout( () => {
+            const classprefx: string = dir ? "next" : "prev"
             // first && last pages lift slightly up when we can"t go further
-            $sMiddle.addClass( self.end ? "bb-flip-" + dir + "-end" : "bb-flip-" + dir )
+            $sMiddle.addClass( self.end ? "bb-flip-" + classprefx + "-end" : "bb-flip-" + classprefx )
 
             // overlays
             if ( self.options.shadows && !self.end ) {
 
                 $oMiddleF.css({
-                    opacity: dir === "next" ? self.options.shadowFlip : 0,
+                    opacity: true ? self.options.shadowFlip : 0,
                 })
 
                 $oMiddleB.css({
-                    opacity: dir === "next" ? 0 : self.options.shadowFlip,
+                    opacity: true ? 0 : self.options.shadowFlip,
                 })
 
                 $oLeft.css({
-                    opacity: dir === "next" ? self.options.shadowSides : 0,
+                    opacity: true ? self.options.shadowSides : 0,
                 })
 
                 $oRight.css({
-                    opacity: dir === "next" ? 0 : self.options.shadowSides,
+                    opacity: true ? 0 : self.options.shadowSides,
                 })
 
             }
         }, 25 )
     }
     // adds the necessary sides (bb-page) to the layout
-    _addSide( side: string, dir: string ) {
+    _addSide( side: string, dir: boolean ) {
         let $side: JQuery
         let html: string
 
         switch (side) {
             case "left":
-                html = ( dir === "next" ? this.$current.html() : this.$nextItem.html() ) as string
+                html = ( dir ? this.$current.html() : this.$nextItem.html() ) as string
                 $side = $(`<div class="bb-page"><div class="bb-back"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-overlay"></div></div></div></div>`)
                     .css( "z-index", 102 )
                 break
             case "middle":
-                html = (dir === "next" ? this.$current.html() : this.$nextItem.html())
-                const html2 = ( dir === "next" ? this.$nextItem.html() : this.$current.html() )
+                html = ( dir ? this.$current.html() : this.$nextItem.html())
+                const html2 = ( dir ? this.$nextItem.html() : this.$current.html() )
                 $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:${this.elWidth}px"><div class="bb-inner">${html2}</div></div><div class="bb-flipoverlay"></div></div></div></div>`).css( "z-index", 103 )
                 break
             case "right":
-                html = ( dir === "next" ? this.$nextItem.html() : this.$current.html() )
+                html = ( dir ? this.$nextItem.html() : this.$current.html() )
                 $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-overlay"></div></div></div></div>`)
                     .css( "z-index", 101 )
                 break
@@ -469,7 +470,7 @@ export class BookBlock implements BookBlockPlugin  {
     _startSlideshow() {
         const self = this
         this.slideshow = setTimeout( () => {
-            self._navigate( "next" )
+            self._navigate( NEXT )
             if ( self.options.autoplay ) {
                 self._startSlideshow()
             }
@@ -508,7 +509,7 @@ export class BookBlock implements BookBlockPlugin  {
         }
     }
 
-    _createPage(dir: string, index?: number) {
+    _createPage(dir: boolean, index?: number) {
         return new Promise((resolve, reject) => {
             const $spinner = $("#bb-spinner")
             $spinner.removeClass("bb-not-loading")
@@ -516,7 +517,7 @@ export class BookBlock implements BookBlockPlugin  {
             const itemsCount = this.itemsCount
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
 
-            const subIndex: number = (dir === "prev") ? index - 1 : index + 1
+            const subIndex: number = !dir ? index - 1 : index + 1
             this.modulatedNextIndex = BookBlockUtil.mod(subIndex, itemsCount)
 
             console.log(`next to load is ${this.modulatedNextIndex}_0`)
@@ -557,11 +558,11 @@ export class BookBlock implements BookBlockPlugin  {
             return false
         }
 
-        let dir: string
+        let dir: boolean
         if ( this.options.ltr ) {
-            dir = page > this.current ? "next" : "prev"
+            dir = page > this.current ? true : false
         } else {
-            dir = page > this.current ? "prev" : "next"
+            dir = page > this.current ? false : true
         }
         this._action( dir, page )
 

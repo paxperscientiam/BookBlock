@@ -12,3 +12,6 @@ export enum CssClasses {
 export enum CssIds {
     SPINNER = "bb-spinner",
 }
+
+export const NEXT: boolean = true
+export const PREV: boolean = false
