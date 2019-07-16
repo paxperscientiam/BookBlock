@@ -10992,23 +10992,22 @@ var BookBlock = /** @class */ (function () {
     // adds the necessary sides (bb-page) to the layout
     BookBlock.prototype._addSide = function (side, dir) {
         var $side;
+        var html;
         switch (side) {
             case "left":
-                $side = $("<div class=\"bb-page\"><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + (dir === "next" ? this.$current.html() : this.$nextItem.html()) + "</div></div><div class=\"bb-overlay\"></div></div></div></div>").css("z-index", 102);
+                html = (dir === "next" ? this.$current.html() : this.$nextItem.html());
+                $side = $("<div class=\"bb-page\"><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + html + "</div></div><div class=\"bb-overlay\"></div></div></div></div>")
+                    .css("z-index", 102);
                 break;
             case "middle":
-                $side = $("<div class=\"bb-page\"><div class=\"bb-front\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">"
-                    + (dir === "next" ? this.$current.html() : this.$nextItem.html())
-                    + "</div></div><div class=\"bb-flipoverlay\"></div></div></div><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\" style=\"width:"
-                    + this.elWidth
-                    + "px\"><div class=\"bb-inner\">"
-                    + (dir === "next" ? this.$nextItem.html() : this.$current.html())
-                    + "</div></div><div class=\"bb-flipoverlay\"></div></div></div></div>").css("z-index", 103);
+                html = (dir === "next" ? this.$current.html() : this.$nextItem.html());
+                var html2 = (dir === "next" ? this.$nextItem.html() : this.$current.html());
+                $side = $("<div class=\"bb-page\"><div class=\"bb-front\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + html + "</div></div><div class=\"bb-flipoverlay\"></div></div></div><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\" style=\"width:" + this.elWidth + "px\"><div class=\"bb-inner\">" + html2 + "</div></div><div class=\"bb-flipoverlay\"></div></div></div></div>").css("z-index", 103);
                 break;
             case "right":
-                $side = $("<div class=\"bb-page\"><div class=\"bb-front\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">"
-                    + (dir === "next" ? this.$nextItem.html() : this.$current.html())
-                    + "</div></div><div class=\"bb-overlay\"></div></div></div></div>").css("z-index", 101);
+                html = (dir === "next" ? this.$nextItem.html() : this.$current.html());
+                $side = $("<div class=\"bb-page\"><div class=\"bb-front\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + html + "</div></div><div class=\"bb-overlay\"></div></div></div></div>")
+                    .css("z-index", 101);
                 break;
         }
         return $side;
