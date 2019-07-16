@@ -91,6 +91,10 @@ import {
     task,
 } from "fuse-box/sparky"
 
+function aggregatePostCSSPlugins(plugins: any[]) {
+    return plugins.filter((plugin) => plugin !== false)
+}
+
 class CTX {
     isProduction: boolean = false
     isTest: boolean = false
@@ -134,15 +138,16 @@ class CTX {
                         importer: true,
                         //                        resources: [{ test: /.*/, file: "resources.scss" }],
                     }),
-                    PostCSSPlugin([
-                        Unprefix(),
-                        Autoprefixer(),
-                        Cssnano(),
-                        this.isProduction && Banner({
-                            banner: bannerStatement(this.isProduction),
-                            important: true,
-                        }),
-                    ]),
+                    PostCSSPlugin(aggregatePostCSSPlugins(
+                        [
+                            Unprefix(),
+                            Autoprefixer(),
+                            Cssnano(),
+                            this.isProduction && Banner({
+                                banner: bannerStatement(this.isProduction),
+                                important: true,
+                            }),
+                        ])),
                     CSSResourcePlugin({
                         dist: "dist/css-resources",
                         inline: true,
