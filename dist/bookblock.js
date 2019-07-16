@@ -10658,6 +10658,7 @@ var tslib_1 = require("tslib");
  */
 // global
 var $window = $(window);
+var constants_1 = require("./constants");
 var utils_1 = require("./utils");
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", function () {
@@ -10724,7 +10725,7 @@ var BookBlock = /** @class */ (function () {
         // orientation class
         this.$el.addClass("bb-" + this.options.orientation);
         // items
-        this.$items = this.$el.children(".bb-item").hide();
+        this.$items = this.$el.children(constants_1.CssClasses._ITEM).hide();
         // total items
         this.itemsCount = this.$items.length;
         if ($("#bb-bookblock").data().bbsrcset != null) {
@@ -11112,7 +11113,7 @@ var BookBlock = /** @class */ (function () {
     // call this method after inserting new "bb-item" elements inside the BookBlock
     BookBlock.prototype.update = function () {
         var $currentItem = this.$items.eq(this.current);
-        this.$items = this.$el.children(".bb-item");
+        this.$items = this.$el.children(constants_1.CssClasses._ITEM);
         this.itemsCount = this.$items.length;
         this.current = $currentItem.index();
     };
@@ -11158,14 +11159,14 @@ $.fn.bookBlock = Object.assign(function (options) {
     //         }
     var $container = $(this);
     if (options.effects.paper) {
-        $container.addClass("bb-paper-effect");
+        $container.addClass(constants_1.CssClasses.PAPER_EFFECT);
     }
     if (options.effects.bordershadow) {
-        $container.addClass("bb-dropshadow-effect");
+        $container.addClass(constants_1.CssClasses.DROPSHADOW_EFFECT);
     }
     var $spinner = $("<div/>")
-        .addClass(["bb-loading-pulse", "bb-not-loading"])
-        .attr("id", "bb-spinner");
+        .addClass([constants_1.CssClasses.LOADING_PULSE, constants_1.CssClasses.NOT_LOADING])
+        .attr("id", constants_1.CssIds.SPINNER);
     $container.append($spinner);
     var $img = $container.find("img");
     var eqVal = utils_1.BookBlockUtil.mod(options.startPage - 1, $img.length);
@@ -11224,7 +11225,7 @@ $.fn.bookBlock = Object.assign(function (options) {
         tmpImage.onload = function () {
             var imgRatio = tmpImage.width / tmpImage.height;
             setSizes(imgRatio);
-            $img.addClass("bb-fadeIn");
+            $img.addClass(constants_1.CssClasses.FADEIN);
         };
         console.log("eq is " + eqVal);
         tmpImage.src = $img.eq(eqVal).attr("src");
@@ -11296,6 +11297,25 @@ $.fn.bookBlock = Object.assign(function (options) {
         },
     },
 });
+
+});
+___scope___.file("ts/constants.js", function(exports, require, module, __filename, __dirname){
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var CssClasses;
+(function (CssClasses) {
+    CssClasses["FADEIN"] = "bb-fadeIn";
+    CssClasses["DROPSHADOW_EFFECT"] = "bb-dropshadow-effect";
+    CssClasses["LOADING_PULSE"] = "bb-loading-pulse";
+    CssClasses["NOT_LOADING"] = "bb-not-loading";
+    CssClasses["PAPER_EFFECT"] = "bb-paper-effect";
+    CssClasses["_ITEM"] = ".bb-item";
+})(CssClasses = exports.CssClasses || (exports.CssClasses = {}));
+var CssIds;
+(function (CssIds) {
+    CssIds["SPINNER"] = "bb-spinner";
+})(CssIds = exports.CssIds || (exports.CssIds = {}));
 
 });
 ___scope___.file("ts/utils.js", function(exports, require, module, __filename, __dirname){

@@ -16,6 +16,7 @@
 // global
 const $window: JQuery<Window> = $(window)
 
+import { CssClasses, CssIds } from "./constants"
 import { BookBlockUtil } from "./utils"
 
 // https://gist.github.com/edankwan/4389601
@@ -135,9 +136,9 @@ export class BookBlock implements BookBlockPlugin  {
         this.$el = $( element )
 
         // orientation class
-        this.$el.addClass( "bb-" + this.options.orientation )
+        this.$el.addClass( `bb-${this.options.orientation}` )
         // items
-        this.$items = this.$el.children( ".bb-item" ).hide()
+        this.$items = this.$el.children(CssClasses._ITEM).hide()
         // total items
         this.itemsCount = this.$items.length
         if ($("#bb-bookblock").data().bbsrcset != null) {
@@ -581,7 +582,7 @@ export class BookBlock implements BookBlockPlugin  {
     // call this method after inserting new "bb-item" elements inside the BookBlock
     update() {
         const $currentItem = this.$items.eq( this.current )
-        this.$items = this.$el.children( ".bb-item" )
+        this.$items = this.$el.children( CssClasses._ITEM )
         this.itemsCount = this.$items.length
         this.current = $currentItem.index()
     }
@@ -635,16 +636,16 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         const $container = $(this)
 
         if (options.effects.paper) {
-            $container.addClass("bb-paper-effect")
+            $container.addClass(CssClasses.PAPER_EFFECT)
         }
 
         if (options.effects.bordershadow) {
-            $container.addClass("bb-dropshadow-effect")
+            $container.addClass(CssClasses.DROPSHADOW_EFFECT)
         }
 
         const $spinner = $("<div/>")
-            .addClass(["bb-loading-pulse", "bb-not-loading"])
-            .attr("id", "bb-spinner")
+            .addClass([CssClasses.LOADING_PULSE, CssClasses.NOT_LOADING])
+            .attr("id", CssIds.SPINNER)
 
         $container.append($spinner)
 
@@ -710,7 +711,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             tmpImage.onload = () => {
                 const imgRatio = tmpImage.width / tmpImage.height
                 setSizes(imgRatio)
-                $img.addClass("bb-fadeIn")
+                $img.addClass(CssClasses.FADEIN)
             }
 
             console.log(`eq is ${eqVal}`)
