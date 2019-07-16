@@ -445,6 +445,7 @@ export class BookBlock implements BookBlockPlugin  {
 
         switch (side) {
             case "left":
+
                 $side = $("<div class=\"bb-page\"><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + ( dir === "next" ? this.$current.html() : this.$nextItem.html() ) + "</div></div><div class=\"bb-overlay\"></div></div></div></div>").css( "z-index", 102 )
                 break
             case "middle":
@@ -711,7 +712,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             tmpImage.onload = () => {
                 const imgRatio = tmpImage.width / tmpImage.height
                 setSizes(imgRatio)
-                $img.addClass("fadeIn")
+                $img.addClass("bb-fadeIn")
             }
 
             console.log(`eq is ${eqVal}`)
