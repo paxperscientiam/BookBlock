@@ -11080,12 +11080,12 @@ var BookBlock = /** @class */ (function () {
     // public method: flips next
     BookBlock.prototype.next = function () {
         console.log("next ...");
-        this._action(this.options.ltr && constants_1.NEXT);
+        this._action(this.options.ltr);
     };
     // public method: flips back
     BookBlock.prototype.prev = function () {
         console.log("previous ...");
-        this._action(this.options.ltr && constants_1.PREV);
+        this._action(!this.options.ltr);
     };
     // public method: goes to a specific page
     BookBlock.prototype.jump = function (page) {
@@ -11254,7 +11254,7 @@ $.fn.bookBlock = Object.assign(function (options) {
         // vertical or horizontal flip
         orientation: "vertical",
         // ltr (left to right) or rtl (right to left)
-        ltr: false,
+        ltr: true,
         // speed for the flip transition in ms
         speed: 1000,
         // easing for the flip transition

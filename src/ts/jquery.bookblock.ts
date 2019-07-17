@@ -548,12 +548,12 @@ export class BookBlock implements BookBlockPlugin  {
     // public method: flips next
     next(): void {
         console.log("next ...")
-        this._action( this.options.ltr && NEXT )
+        this._action( this.options.ltr )
     }
     // public method: flips back
     prev() {
         console.log("previous ...")
-        this._action( this.options.ltr && PREV )
+        this._action( !this.options.ltr )
     }
     // public method: goes to a specific page
     jump( page: number ) {
@@ -751,7 +751,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             orientation : "vertical",
 
             // ltr (left to right) or rtl (right to left)
-            ltr: false,
+            ltr: true,
 
             // speed for the flip transition in ms
             speed : 1000,
