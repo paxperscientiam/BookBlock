@@ -141,8 +141,8 @@ export class BookBlock implements BookBlockPlugin  {
         this.$items = this.$el.children(CssClasses._ITEM).hide()
         // total items
         this.itemsCount = this.$items.length
-        if ($("#bb-bookblock").data().bbsrcset != null) {
-            this.itemsCount = $("#bb-bookblock").data().bbsrcset.length
+        if (this.$el.data().bbsrcset != null) {
+            this.itemsCount = this.$el.data().bbsrcset.length
         }
 
         console.log(`startpage is ${this.options.startPage}_1`)
@@ -214,7 +214,7 @@ export class BookBlock implements BookBlockPlugin  {
         //             },
         //         )
 
-        $("#bb-bookblock").on("click.bookblock touchstart.bookblock", (e) => {
+        this.$el.on("click.bookblock touchstart.bookblock", (e) => {
             e.preventDefault()
 
             console.log("touched the book")
@@ -524,8 +524,8 @@ export class BookBlock implements BookBlockPlugin  {
             let path: string
             let $img: JQuery<HTMLImageElement> = null
             if (this.modulatedNextIndex != null) {
-                path = $("#bb-bookblock").data().bbsrcset[this.modulatedNextIndex].path
-                $img = $("#bb-bookblock").find("img").eq(this.modulatedNextIndex) as JQuery<HTMLImageElement>
+                path = this.$el.data().bbsrcset[this.modulatedNextIndex].path
+                $img = this.$el.find("img").eq(this.modulatedNextIndex) as JQuery<HTMLImageElement>
                 $img.on("load", (e) => {
                     $spinner.addClass(CssClasses.NOT_LOADING)
                     $(e.target).fadeIn()

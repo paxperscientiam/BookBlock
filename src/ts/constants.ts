@@ -1,6 +1,10 @@
 export enum CssClasses {
     FADEIN = "bb-fadeIn",
 
+    FLIP_NEXT_END = "bb-flip-next-end",
+
+    FLIP_NEXT = "bb-flip-next",
+
     FLIP_INITIAL = "bb-flip-initial",
 
     DROPSHADOW_EFFECT = "bb-dropshadow-effect",
@@ -9,6 +13,7 @@ export enum CssClasses {
     NOT_LOADING = "bb-not-loading",
 
     PAPER_EFFECT = "bb-paper-effect",
+
     _ITEM = ".bb-item",
 }
 

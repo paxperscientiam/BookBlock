@@ -10728,8 +10728,8 @@ var BookBlock = /** @class */ (function () {
         this.$items = this.$el.children(constants_1.CssClasses._ITEM).hide();
         // total items
         this.itemsCount = this.$items.length;
-        if ($("#bb-bookblock").data().bbsrcset != null) {
-            this.itemsCount = $("#bb-bookblock").data().bbsrcset.length;
+        if (this.$el.data().bbsrcset != null) {
+            this.itemsCount = this.$el.data().bbsrcset.length;
         }
         console.log("startpage is " + this.options.startPage + "_1");
         // current item´s index
@@ -10796,7 +10796,7 @@ var BookBlock = /** @class */ (function () {
         //   //              $(this).removeClass("brighten-20")
         //             },
         //         )
-        $("#bb-bookblock").on("click.bookblock touchstart.bookblock", function (e) {
+        this.$el.on("click.bookblock touchstart.bookblock", function (e) {
             e.preventDefault();
             console.log("touched the book");
             if (_this.isAnimating === false || typeof _this.isAnimating === "undefined") {
@@ -11061,8 +11061,8 @@ var BookBlock = /** @class */ (function () {
             var path;
             var $img = null;
             if (_this.modulatedNextIndex != null) {
-                path = $("#bb-bookblock").data().bbsrcset[_this.modulatedNextIndex].path;
-                $img = $("#bb-bookblock").find("img").eq(_this.modulatedNextIndex);
+                path = _this.$el.data().bbsrcset[_this.modulatedNextIndex].path;
+                $img = _this.$el.find("img").eq(_this.modulatedNextIndex);
                 $img.on("load", function (e) {
                     $spinner.addClass(constants_1.CssClasses.NOT_LOADING);
                     $(e.target).fadeIn();
@@ -11307,6 +11307,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CssClasses;
 (function (CssClasses) {
     CssClasses["FADEIN"] = "bb-fadeIn";
+    CssClasses["FLIP_NEXT_END"] = "bb-flip-next-end";
+    CssClasses["FLIP_NEXT"] = "bb-flip-next";
     CssClasses["FLIP_INITIAL"] = "bb-flip-initial";
     CssClasses["DROPSHADOW_EFFECT"] = "bb-dropshadow-effect";
     CssClasses["LOADING_PULSE"] = "bb-loading-pulse";
