@@ -205,14 +205,13 @@ export class BookBlock implements BookBlockPlugin  {
             } )
         }
 
-        //         $("#bb-bookblock").hover(
-        //             () => {
-        //                 console.log("hovering yo")
-        // //                $(this).addClass("brighten-20")
-        //             }, () => {
-        //   //              $(this).removeClass("brighten-20")
-        //             },
-        //         )
+        this.$el.hover(
+            () => {
+                console.log("hovering yo")
+            }, () => {
+                //              $(this).removeClass("brighten-20")
+            },
+        )
 
         this.$el.on("click.bookblock touchstart.bookblock", (e) => {
             e.preventDefault()
@@ -360,8 +359,8 @@ export class BookBlock implements BookBlockPlugin  {
             transitionDuration: speed + "ms",
             transitionTimingFunction : this.options.easing,
         }).on( this.transEndEventName, ( event ) => {
-            if ( $( event.target ).hasClass( "bb-page" ) ) {
-                self.$el.children( ".bb-page" ).remove()
+            if ( $( event.target ).hasClass( CssClasses.PAGE ) ) {
+                self.$el.children( CssClasses._PAGE ).remove()
                 self.$nextItem.show()
                 self.end = false
                 self.isAnimating = false
@@ -449,8 +448,12 @@ export class BookBlock implements BookBlockPlugin  {
         switch (side) {
             case "left":
                 html = ( dir ? this.$current.html() : this.$nextItem.html() ) as string
-                $side = $(`<div class="bb-page"><div class="bb-back"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-overlay"></div></div></div></div>`)
-                    .css( "z-index", 102 )
+                $side = $("<div/>").addClass(CssClasses.PAGE)
+                    .append($("<div/>").addClass(CssClasses.BACK)
+                            .append($("<div/>").addClass(CssClasses.OUTER)
+                                    .append($("<div/>").addClass(CssClasses.CONTENT)
+                                            .append($("<div/>").addClass(CssClasses.INNER).append(html)))
+                                    .append($("<div/>").addClass(CssClasses.OVERLAY)))).css( "z-index", 102 )
                 break
             case "middle":
                 html = ( dir ? this.$current.html() : this.$nextItem.html())
@@ -459,8 +462,13 @@ export class BookBlock implements BookBlockPlugin  {
                 break
             case "right":
                 html = ( dir ? this.$nextItem.html() : this.$current.html() )
-                $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-overlay"></div></div></div></div>`)
-                    .css( "z-index", 101 )
+
+                $side = $("<div/>").addClass(CssClasses.PAGE)
+                    .append($("<div/>").addClass(CssClasses.FRONT)
+                            .append($("<div/>").addClass(CssClasses.OUTER)
+                                    .append($("<div/>").addClass(CssClasses.CONTENT)
+                                            .append($("<div/>").addClass(CssClasses.INNER).append(html)))
+                                    .append($("<div/>").addClass(CssClasses.OVERLAY)))).css( "z-index", 101 )
                 break
         }
 
@@ -511,8 +519,8 @@ export class BookBlock implements BookBlockPlugin  {
 
     _createPage(dir: boolean, index?: number) {
         return new Promise((resolve, reject) => {
-            const $spinner = $("#bb-spinner")
-            $spinner.removeClass("bb-not-loading")
+            const $spinner = $(CssIds._SPINNER)
+            $spinner.removeClass(CssClasses.NOT_LOADING)
 
             const itemsCount = this.itemsCount
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e

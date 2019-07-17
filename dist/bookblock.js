@@ -10788,14 +10788,11 @@ var BookBlock = /** @class */ (function () {
                 return false;
             });
         }
-        //         $("#bb-bookblock").hover(
-        //             () => {
-        //                 console.log("hovering yo")
-        // //                $(this).addClass("brighten-20")
-        //             }, () => {
-        //   //              $(this).removeClass("brighten-20")
-        //             },
-        //         )
+        this.$el.hover(function () {
+            console.log("hovering yo");
+        }, function () {
+            //              $(this).removeClass("brighten-20")
+        });
         this.$el.on("click.bookblock touchstart.bookblock", function (e) {
             e.preventDefault();
             console.log("touched the book");
@@ -10926,8 +10923,8 @@ var BookBlock = /** @class */ (function () {
             transitionDuration: speed + "ms",
             transitionTimingFunction: this.options.easing,
         }).on(this.transEndEventName, function (event) {
-            if ($(event.target).hasClass("bb-page")) {
-                self.$el.children(".bb-page").remove();
+            if ($(event.target).hasClass(constants_1.CssClasses.PAGE)) {
+                self.$el.children(constants_1.CssClasses._PAGE).remove();
                 self.$nextItem.show();
                 self.end = false;
                 self.isAnimating = false;
@@ -10998,8 +10995,12 @@ var BookBlock = /** @class */ (function () {
         switch (side) {
             case "left":
                 html = (dir ? this.$current.html() : this.$nextItem.html());
-                $side = $("<div class=\"bb-page\"><div class=\"bb-back\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + html + "</div></div><div class=\"bb-overlay\"></div></div></div></div>")
-                    .css("z-index", 102);
+                $side = $("<div/>").addClass(constants_1.CssClasses.PAGE)
+                    .append($("<div/>").addClass(constants_1.CssClasses.BACK)
+                    .append($("<div/>").addClass(constants_1.CssClasses.OUTER)
+                    .append($("<div/>").addClass(constants_1.CssClasses.CONTENT)
+                    .append($("<div/>").addClass(constants_1.CssClasses.INNER).append(html)))
+                    .append($("<div/>").addClass(constants_1.CssClasses.OVERLAY)))).css("z-index", 102);
                 break;
             case "middle":
                 html = (dir ? this.$current.html() : this.$nextItem.html());
@@ -11008,8 +11009,12 @@ var BookBlock = /** @class */ (function () {
                 break;
             case "right":
                 html = (dir ? this.$nextItem.html() : this.$current.html());
-                $side = $("<div class=\"bb-page\"><div class=\"bb-front\"><div class=\"bb-outer\"><div class=\"bb-content\"><div class=\"bb-inner\">" + html + "</div></div><div class=\"bb-overlay\"></div></div></div></div>")
-                    .css("z-index", 101);
+                $side = $("<div/>").addClass(constants_1.CssClasses.PAGE)
+                    .append($("<div/>").addClass(constants_1.CssClasses.FRONT)
+                    .append($("<div/>").addClass(constants_1.CssClasses.OUTER)
+                    .append($("<div/>").addClass(constants_1.CssClasses.CONTENT)
+                    .append($("<div/>").addClass(constants_1.CssClasses.INNER).append(html)))
+                    .append($("<div/>").addClass(constants_1.CssClasses.OVERLAY)))).css("z-index", 101);
                 break;
         }
         return $side;
@@ -11051,8 +11056,8 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._createPage = function (dir, index) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var $spinner = $("#bb-spinner");
-            $spinner.removeClass("bb-not-loading");
+            var $spinner = $(constants_1.CssIds._SPINNER);
+            $spinner.removeClass(constants_1.CssClasses.NOT_LOADING);
             var itemsCount = _this.itemsCount;
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
             var subIndex = !dir ? index - 1 : index + 1;
@@ -11306,19 +11311,28 @@ ___scope___.file("ts/constants.js", function(exports, require, module, __filenam
 Object.defineProperty(exports, "__esModule", { value: true });
 var CssClasses;
 (function (CssClasses) {
+    CssClasses["CONTENT"] = "bb-content";
     CssClasses["FADEIN"] = "bb-fadeIn";
     CssClasses["FLIP_NEXT_END"] = "bb-flip-next-end";
     CssClasses["FLIP_NEXT"] = "bb-flip-next";
     CssClasses["FLIP_INITIAL"] = "bb-flip-initial";
+    CssClasses["FRONT"] = "bb-front";
+    CssClasses["BACK"] = "bb-back";
+    CssClasses["OUTER"] = "bb-outer";
+    CssClasses["INNER"] = "bb-inner";
     CssClasses["DROPSHADOW_EFFECT"] = "bb-dropshadow-effect";
     CssClasses["LOADING_PULSE"] = "bb-loading-pulse";
     CssClasses["NOT_LOADING"] = "bb-not-loading";
+    CssClasses["OVERLAY"] = "bb-overlay";
     CssClasses["PAPER_EFFECT"] = "bb-paper-effect";
+    CssClasses["PAGE"] = "bb-page";
+    CssClasses["_PAGE"] = ".bb-page";
     CssClasses["_ITEM"] = ".bb-item";
 })(CssClasses = exports.CssClasses || (exports.CssClasses = {}));
 var CssIds;
 (function (CssIds) {
     CssIds["SPINNER"] = "bb-spinner";
+    CssIds["_SPINNER"] = "#bb-spinner";
 })(CssIds = exports.CssIds || (exports.CssIds = {}));
 exports.NEXT = true;
 exports.PREV = false;
