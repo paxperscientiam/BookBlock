@@ -346,9 +346,7 @@ export class BookBlock implements BookBlockPlugin  {
         const $oMiddleF = $sMiddle.find( "div.bb-flipoverlay:first" )
         const $oMiddleB = $sMiddle.find( "div.bb-flipoverlay:last" )
 
-        const $oRight = $sRight.find( "div.bb-overlay" )
-
-        $oRight.addClass("bright")
+        const $oRight = $sRight.find( CssClasses._OVERLAY )
 
         const speed = this.end ? 400 : this.options.speed
 

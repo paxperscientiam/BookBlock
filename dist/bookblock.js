@@ -10914,8 +10914,7 @@ var BookBlock = /** @class */ (function () {
         var $oLeft = $sLeft.find("div.bb-overlay");
         var $oMiddleF = $sMiddle.find("div.bb-flipoverlay:first");
         var $oMiddleB = $sMiddle.find("div.bb-flipoverlay:last");
-        var $oRight = $sRight.find("div.bb-overlay");
-        $oRight.addClass("bright");
+        var $oRight = $sRight.find(constants_1.CssClasses._OVERLAY);
         var speed = this.end ? 400 : this.options.speed;
         this.$items.hide();
         this.$el.prepend($sLeft, $sMiddle, $sRight);
@@ -11324,6 +11323,7 @@ var CssClasses;
     CssClasses["LOADING_PULSE"] = "bb-loading-pulse";
     CssClasses["NOT_LOADING"] = "bb-not-loading";
     CssClasses["OVERLAY"] = "bb-overlay";
+    CssClasses["_OVERLAY"] = ".bb-overlay";
     CssClasses["PAPER_EFFECT"] = "bb-paper-effect";
     CssClasses["PAGE"] = "bb-page";
     CssClasses["_PAGE"] = ".bb-page";

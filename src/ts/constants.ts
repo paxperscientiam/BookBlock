@@ -23,6 +23,7 @@ export enum CssClasses {
     NOT_LOADING = "bb-not-loading",
 
     OVERLAY = "bb-overlay",
+    _OVERLAY = ".bb-overlay",
 
     PAPER_EFFECT = "bb-paper-effect",
 
