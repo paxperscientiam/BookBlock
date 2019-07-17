@@ -11036,7 +11036,7 @@ var BookBlock = /** @class */ (function () {
             url.searchParams.append(key, value);
         }
         history.pushState({
-            id: "something",
+            id: "booblockhistory",
         }, "", url.href);
     };
     BookBlock.prototype._getQueryField = function (key) {

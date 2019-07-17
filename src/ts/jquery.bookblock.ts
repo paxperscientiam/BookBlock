@@ -493,7 +493,7 @@ export class BookBlock implements BookBlockPlugin  {
         }
 
         history.pushState({
-            id: "something",
+            id: "booblockhistory",
         },
                           "",
                           url.href,
