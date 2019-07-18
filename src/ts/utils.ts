@@ -20,4 +20,13 @@ export class BookBlockUtil {
             window.console.error( message )
         }
     }
+
+    static getQueryField(key: string) {
+        const url: URL = new window.URL(window.location.href)
+        if (url.searchParams.has(key)) {
+            return url.searchParams.get(key)
+        }
+        return null
+    }
+
 }

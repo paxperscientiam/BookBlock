@@ -11173,6 +11173,10 @@ $.fn.bookBlock = Object.assign(function (options) {
     $container.append($spinner);
     var $img = $container.find("img");
     var eqVal = utils_1.BookBlockUtil.mod(options.startPage - 1, $img.length);
+    var initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
+    if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
+        eqVal = Number.parseInt(initialQSPageValue, 10) - 1;
+    }
     $img.each(function (index, element) {
         var path = $(element).data("bbsrc");
         $pathArray.push({ index: index, path: path });
@@ -11359,6 +11363,13 @@ var BookBlockUtil = /** @class */ (function () {
         if (window.console) {
             window.console.error(message);
         }
+    };
+    BookBlockUtil.getQueryField = function (key) {
+        var url = new window.URL(window.location.href);
+        if (url.searchParams.has(key)) {
+            return url.searchParams.get(key);
+        }
+        return null;
     };
     return BookBlockUtil;
 }());

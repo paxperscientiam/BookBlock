@@ -654,7 +654,13 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $container.append($spinner)
 
         const $img = $container.find("img") as JQuery<HTMLImageElement>
-        const eqVal = BookBlockUtil.mod(options.startPage - 1, $img.length)
+        let eqVal = BookBlockUtil.mod(options.startPage - 1, $img.length)
+
+        const initialQSPageValue = BookBlockUtil.getQueryField("page")
+
+        if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
+            eqVal = Number.parseInt(initialQSPageValue, 10) - 1
+        }
 
         $img.each((index: number, element: HTMLImageElement) => {
             const path: string = $(element).data("bbsrc")
