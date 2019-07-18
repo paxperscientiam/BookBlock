@@ -186,7 +186,9 @@ export class BookBlock implements BookBlockPlugin  {
         const subIndex: number = self.current  // self.options.startPage - 1
         this.modulatedNextIndex = BookBlockUtil.mod(subIndex, this.itemsCount)
 
-        self._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+        if (self.options.history) {
+            this._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+        }
 
         if ( this.options.nextEl !== "" ) {
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
@@ -272,7 +274,9 @@ export class BookBlock implements BookBlockPlugin  {
 
         shit._createPage(dir, this.current)
             .then(() => {
-                shit._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+                if (shit.options.history) {
+                    shit._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+                }
                 shit._stopSlideshow()
                 shit._navigate( dir, page )
             })
@@ -656,7 +660,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         const $img = $container.find("img") as JQuery<HTMLImageElement>
         let eqVal = BookBlockUtil.mod(options.startPage - 1, $img.length)
 
-        const initialQSPageValue = BookBlockUtil.getQueryField("page")
+        let initialQSPageValue: string
+        if (options.history) {
+            initialQSPageValue = BookBlockUtil.getQueryField("page")
+        }
 
         if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
             eqVal = Number.parseInt(initialQSPageValue, 10) - 1
@@ -813,6 +820,9 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 bordershadow: null,
                 paper: null,
             },
+
+            // history
+            history: false,
         },
     },
 )

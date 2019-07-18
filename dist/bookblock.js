@@ -10772,7 +10772,9 @@ var BookBlock = /** @class */ (function () {
         var self = this;
         var subIndex = self.current; // self.options.startPage - 1
         this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, this.itemsCount);
-        self._addQueryField("page", (this.modulatedNextIndex + 1).toString());
+        if (self.options.history) {
+            this._addQueryField("page", (this.modulatedNextIndex + 1).toString());
+        }
         if (this.options.nextEl !== "") {
             $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
                 console.log("next button clicked");
@@ -10847,7 +10849,9 @@ var BookBlock = /** @class */ (function () {
         console.log("this current is " + this.current + "_0");
         shit._createPage(dir, this.current)
             .then(function () {
-            shit._addQueryField("page", (_this.modulatedNextIndex + 1).toString());
+            if (shit.options.history) {
+                shit._addQueryField("page", (_this.modulatedNextIndex + 1).toString());
+            }
             shit._stopSlideshow();
             shit._navigate(dir, page);
         });
@@ -11173,7 +11177,10 @@ $.fn.bookBlock = Object.assign(function (options) {
     $container.append($spinner);
     var $img = $container.find("img");
     var eqVal = utils_1.BookBlockUtil.mod(options.startPage - 1, $img.length);
-    var initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
+    var initialQSPageValue;
+    if (options.history) {
+        initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
+    }
     if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
         eqVal = Number.parseInt(initialQSPageValue, 10) - 1;
     }
@@ -11300,6 +11307,8 @@ $.fn.bookBlock = Object.assign(function (options) {
             bordershadow: null,
             paper: null,
         },
+        // history
+        history: false,
     },
 });
 

@@ -35,6 +35,8 @@ interface BookBlockPluginSettings {
     speed?: number
     startPage?: number
 
+    history?: boolean
+
     //    $container: BookBlockPlugin
 
     onEndFlip?: (a, b, c: boolean) => boolean
@@ -98,6 +100,8 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     speed: number
     startPage: number
     autoplay: boolean
+
+    history: boolean
 
     // PUBLIC METHODS
     next(): void
