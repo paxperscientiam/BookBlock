@@ -181,13 +181,12 @@ export class BookBlock implements BookBlockPlugin  {
 
     _initEvents() {
         const l = this._getQueryField("page")
-        console.log(`query page is ${l}`)
         console.log("initialized")
         const self = this
         const subIndex: number = self.current  // self.options.startPage - 1
         this.modulatedNextIndex = BookBlockUtil.mod(subIndex, this.itemsCount)
 
-        self._addQueryField("page", (this.modulatedNextIndex).toString())
+        self._addQueryField("page", (this.modulatedNextIndex + 1).toString())
 
         if ( this.options.nextEl !== "" ) {
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
@@ -215,8 +214,6 @@ export class BookBlock implements BookBlockPlugin  {
 
         this.$el.on("click.bookblock touchstart.bookblock", (e) => {
             e.preventDefault()
-
-            console.log("touched the book")
 
             if (this.isAnimating === false || typeof this.isAnimating === "undefined") {
                 console.log(`is animating: ${this.isAnimating}`)
@@ -668,7 +665,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         $container.data("bbsrcset", $pathArray)
 
         $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
-        console.log(options.startPage)
 
         const setImage = () => {
             if (!$img.length) {
@@ -721,7 +717,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 $img.addClass(CssClasses.FADEIN)
             }
 
-            console.log(`eq is ${eqVal}`)
             tmpImage.src = $img.eq(eqVal).attr("src")
         }
 

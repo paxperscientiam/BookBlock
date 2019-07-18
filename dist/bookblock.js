@@ -10768,12 +10768,11 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._initEvents = function () {
         var _this = this;
         var l = this._getQueryField("page");
-        console.log("query page is " + l);
         console.log("initialized");
         var self = this;
         var subIndex = self.current; // self.options.startPage - 1
         this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, this.itemsCount);
-        self._addQueryField("page", (this.modulatedNextIndex).toString());
+        self._addQueryField("page", (this.modulatedNextIndex + 1).toString());
         if (this.options.nextEl !== "") {
             $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
                 console.log("next button clicked");
@@ -10795,7 +10794,6 @@ var BookBlock = /** @class */ (function () {
         });
         this.$el.on("click.bookblock touchstart.bookblock", function (e) {
             e.preventDefault();
-            console.log("touched the book");
             if (_this.isAnimating === false || typeof _this.isAnimating === "undefined") {
                 console.log("is animating: " + _this.isAnimating);
                 var left = $(e.currentTarget).offset().left;
@@ -11182,7 +11180,6 @@ $.fn.bookBlock = Object.assign(function (options) {
     // attach image paths
     $container.data("bbsrcset", $pathArray);
     $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
-    console.log(options.startPage);
     var setImage = function () {
         if (!$img.length) {
             return true;
@@ -11232,7 +11229,6 @@ $.fn.bookBlock = Object.assign(function (options) {
             setSizes(imgRatio);
             $img.addClass(constants_1.CssClasses.FADEIN);
         };
-        console.log("eq is " + eqVal);
         tmpImage.src = $img.eq(eqVal).attr("src");
     };
     $window.on("resize", setImage);
