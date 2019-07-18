@@ -1,9 +1,9 @@
 /*! @paxperscientiam/bookblock
-Full version: 0.1.3.190716523 NOT FOR CONSUMER USE
+Full version: 0.1.3.190718313 NOT FOR CONSUMER USE
 
 Product version: 0.1.3
-Builder number: 190716523
-Build time: Tue Jul 16 2019 17:26 */
+Builder number: 190718313
+Build time: Thu Jul 18 2019 10:26 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
 // allowSyntheticDefaultImports
@@ -10849,7 +10849,7 @@ var BookBlock = /** @class */ (function () {
         console.log("this current is " + this.current + "_0");
         shit._createPage(dir, this.current)
             .then(function () {
-            shit._addQueryField("page", (_this.modulatedNextIndex).toString());
+            shit._addQueryField("page", (_this.modulatedNextIndex + 1).toString());
             shit._stopSlideshow();
             shit._navigate(dir, page);
         });
@@ -11061,7 +11061,7 @@ var BookBlock = /** @class */ (function () {
             // magic formula by https://dev.to/maurobringolf/a-neat-trick-to-compute-modulo-of-negative-numbers-111e
             var subIndex = !dir ? index - 1 : index + 1;
             _this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, itemsCount);
-            console.log("next to load is " + _this.modulatedNextIndex + "_0");
+            console.log("next to load is " + _this.modulatedNextIndex + "_0," + utils_1.BookBlockUtil.mod(index, itemsCount) + "_0 ");
             var path;
             var $img = null;
             if (_this.modulatedNextIndex != null) {

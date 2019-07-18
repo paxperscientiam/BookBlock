@@ -275,7 +275,7 @@ export class BookBlock implements BookBlockPlugin  {
 
         shit._createPage(dir, this.current)
             .then(() => {
-                shit._addQueryField("page", (this.modulatedNextIndex).toString())
+                shit._addQueryField("page", (this.modulatedNextIndex + 1).toString())
                 shit._stopSlideshow()
                 shit._navigate( dir, page )
             })
@@ -525,8 +525,8 @@ export class BookBlock implements BookBlockPlugin  {
 
             const subIndex: number = !dir ? index - 1 : index + 1
             this.modulatedNextIndex = BookBlockUtil.mod(subIndex, itemsCount)
+            console.log(`next to load is ${this.modulatedNextIndex}_0,${BookBlockUtil.mod(index, itemsCount)}_0 `)
 
-            console.log(`next to load is ${this.modulatedNextIndex}_0`)
             let path: string
             let $img: JQuery<HTMLImageElement> = null
             if (this.modulatedNextIndex != null) {
