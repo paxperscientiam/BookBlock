@@ -3,6 +3,12 @@ Fork Notice
 
 Aiming to turn codrops awesome work into an easy to use package!
 
+
+## Newest feature is support for History API [0.2.0]
+
+Plugin now accepts the boolean option `history` (default value is `false`). Enabling this will add a queryField to the current URI and allow you to bookmark any page of your BookBlock book.
+
+
 ## Breaking change in build process [0.1.0]
 
 OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.
@@ -25,7 +31,7 @@ It'll depend on your build tool somewhat, but here is what I do with `FuseBox`
 import "@paxperscientiam/bookblock"
 ```
 
-Again, you can either use the prebuild `*-shims.js` or import `jquerypp.custom.js` and `modernizr.custom.js`.
+Again, you can either use the prebuild `*-shims.js`, or import `jquerypp.custom.js` and `modernizr.custom.js`.
 
 ## Testing 1 2 3
 
