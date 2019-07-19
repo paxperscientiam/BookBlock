@@ -10743,15 +10743,17 @@ var BookBlock = /** @class */ (function () {
         // previous item´s index
         this.previous = -1;
         // show first item
-        var startIndex = this.current;
+        this.startIndex = this.current;
         if (this.options.history) {
             var initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
-            if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
-                startIndex = utils_1.BookBlockUtil.mod(Number.parseInt(initialQSPageValue, 10) - 1, this.itemsCount);
-                console.log("startIndex from construct is " + startIndex);
+            var initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10);
+            if (Number.isInteger(initialQSPageNumberValue)) {
+                this.startIndex = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, this.itemsCount);
+                // i think this is correct
+                console.log("this.startIndex from construct is " + this.startIndex);
             }
         }
-        this.$current = this.$items.eq(startIndex).show();
+        this.$current = this.$items.eq(this.startIndex).show();
         // get width of this.$el
         // this will be necessary to create the flipping layout
         this.elWidth = this.$el.width();
@@ -10779,13 +10781,6 @@ var BookBlock = /** @class */ (function () {
         var self = this;
         var subIndex = self.current; // self.options.startPage - 1
         this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, this.itemsCount);
-        // let initialQSPageValue: string
-        // if (self.options.history) {
-        // initialQSPageValue = BookBlockUtil.getQueryField("page")
-        // if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
-        // }
-        // this._addQueryField("page", (this.modulatedNextIndex + 1).toString())
-        //  }
         if (this.options.nextEl !== "") {
             $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
                 console.log("next button clicked");
@@ -11197,11 +11192,16 @@ $.fn.bookBlock = Object.assign(function (options) {
                 initialQSPageNumberValue = 1;
                 utils_1.BookBlockUtil.addQueryField("page", (utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length) + 1).toString());
             }
-            if (initialQSPageNumberValue > $img.length) {
+            else if (initialQSPageNumberValue > $img.length) {
+                console.log("initialQSPageNumberValue is " + initialQSPageNumberValue);
                 initialQSPageNumberValue = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length);
+                console.log("initialQSPageNumberValue is " + initialQSPageNumberValue);
                 utils_1.BookBlockUtil.addQueryField("page", (initialQSPageNumberValue + 1).toString());
+                eqVal = initialQSPageNumberValue;
             }
-            eqVal = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length);
+            else {
+                eqVal = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length);
+            }
         }
     }
     $img.each(function (index, element) {
@@ -11210,6 +11210,7 @@ $.fn.bookBlock = Object.assign(function (options) {
     });
     // attach image paths
     $container.data("bbsrcset", $pathArray);
+    console.log("eqVal is " + eqVal);
     $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
     var setImage = function () {
         if (!$img.length) {

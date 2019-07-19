@@ -130,6 +130,8 @@ export class BookBlock implements BookBlockPlugin  {
     $current: JQuery
     $nextItem: JQuery
 
+    startIndex: number
+
     constructor(options: BookBlockPluginSettings, element: JQuery) {
         this.options = options
 
@@ -156,16 +158,18 @@ export class BookBlock implements BookBlockPlugin  {
         // previous item´s index
         this.previous = -1
         // show first item
-        let startIndex = this.current
+        this.startIndex = this.current
         if (this.options.history) {
             const initialQSPageValue = BookBlockUtil.getQueryField("page")
-            if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
-                startIndex = BookBlockUtil.mod(Number.parseInt(initialQSPageValue, 10) - 1, this.itemsCount)
-                console.log(`startIndex from construct is ${startIndex}`)
+            const initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10)
+            if (Number.isInteger(initialQSPageNumberValue)) {
+                this.startIndex = BookBlockUtil.mod(initialQSPageNumberValue - 1, this.itemsCount)
+                // i think this is correct
+                console.log(`this.startIndex from construct is ${this.startIndex}`)
             }
         }
 
-        this.$current = this.$items.eq( startIndex ).show()
+        this.$current = this.$items.eq( this.startIndex ).show()
         // get width of this.$el
         // this will be necessary to create the flipping layout
         this.elWidth = this.$el.width()
@@ -193,15 +197,6 @@ export class BookBlock implements BookBlockPlugin  {
         const self = this
         const subIndex: number = self.current  // self.options.startPage - 1
         this.modulatedNextIndex = BookBlockUtil.mod(subIndex, this.itemsCount)
-        // let initialQSPageValue: string
-        // if (self.options.history) {
-            // initialQSPageValue = BookBlockUtil.getQueryField("page")
-            // if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
-
-            // }
-            // this._addQueryField("page", (this.modulatedNextIndex + 1).toString())
-      //  }
-
         if ( this.options.nextEl !== "" ) {
             $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
                 console.log("next button clicked")
@@ -680,12 +675,15 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 if (initialQSPageNumberValue === 0 || initialQSPageNumberValue < 0) {
                     initialQSPageNumberValue = 1
                     BookBlockUtil.addQueryField("page", (BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length) + 1).toString())
-                }
-                if (initialQSPageNumberValue > $img.length) {
+                } else if (initialQSPageNumberValue > $img.length) {
+                    console.log(`initialQSPageNumberValue is ${initialQSPageNumberValue}`)
                     initialQSPageNumberValue = BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length)
+                    console.log(`initialQSPageNumberValue is ${initialQSPageNumberValue}`)
                     BookBlockUtil.addQueryField("page", (initialQSPageNumberValue + 1).toString())
+                    eqVal = initialQSPageNumberValue
+                } else {
+                    eqVal = BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length)
                 }
-                eqVal = BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length)
             }
         }
 
@@ -696,7 +694,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         // attach image paths
         $container.data("bbsrcset", $pathArray)
-
+        console.log(`eqVal is ${eqVal}`)
         $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
 
         const setImage = () => {
