@@ -126,6 +126,8 @@ export class BookBlock implements BookBlockPlugin  {
     transEndEventName: string
     support: boolean
 
+    history: boolean
+
     $items: JQuery
     $current: JQuery
     $nextItem: JQuery
@@ -282,7 +284,7 @@ export class BookBlock implements BookBlockPlugin  {
         shit._createPage(dir, this.current)
             .then(() => {
                 if (shit.options.history) {
-                    shit._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+                    BookBlockUtil.addQueryField("page", (this.modulatedNextIndex + 1).toString())
                 }
                 shit._stopSlideshow()
                 shit._navigate( dir, page )
