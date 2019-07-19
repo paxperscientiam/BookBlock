@@ -29,4 +29,22 @@ export class BookBlockUtil {
         return null
     }
 
+    static addQueryField(key: string, value: string) {
+        const url: URL = new window.URL(window.location.href)
+
+        if (url.searchParams.has(key)) {
+            url.searchParams.set(key, value)
+        } else {
+            url.searchParams.append(key, value)
+        }
+
+        history.pushState({
+            id: "booblockhistory",
+        },
+                          "",
+                          url.href,
+                         )
+    }
+
+
 }

@@ -10743,7 +10743,15 @@ var BookBlock = /** @class */ (function () {
         // previous item´s index
         this.previous = -1;
         // show first item
-        this.$current = this.$items.eq(this.current).show();
+        var startIndex = this.current;
+        if (this.options.history) {
+            var initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
+            if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
+                startIndex = utils_1.BookBlockUtil.mod(Number.parseInt(initialQSPageValue, 10) - 1, this.itemsCount);
+                console.log("startIndex from construct is " + startIndex);
+            }
+        }
+        this.$current = this.$items.eq(startIndex).show();
         // get width of this.$el
         // this will be necessary to create the flipping layout
         this.elWidth = this.$el.width();
@@ -10767,14 +10775,17 @@ var BookBlock = /** @class */ (function () {
     }
     BookBlock.prototype._initEvents = function () {
         var _this = this;
-        var l = this._getQueryField("page");
         console.log("initialized");
         var self = this;
         var subIndex = self.current; // self.options.startPage - 1
         this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, this.itemsCount);
-        if (self.options.history) {
-            this._addQueryField("page", (this.modulatedNextIndex + 1).toString());
-        }
+        // let initialQSPageValue: string
+        // if (self.options.history) {
+        // initialQSPageValue = BookBlockUtil.getQueryField("page")
+        // if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
+        // }
+        // this._addQueryField("page", (this.modulatedNextIndex + 1).toString())
+        //  }
         if (this.options.nextEl !== "") {
             $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
                 console.log("next button clicked");
@@ -11180,9 +11191,18 @@ $.fn.bookBlock = Object.assign(function (options) {
     var initialQSPageValue;
     if (options.history) {
         initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
-    }
-    if (Number.isInteger(Number.parseInt(initialQSPageValue, 10))) {
-        eqVal = Number.parseInt(initialQSPageValue, 10) - 1;
+        var initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10);
+        if (Number.isInteger(initialQSPageNumberValue)) {
+            if (initialQSPageNumberValue === 0 || initialQSPageNumberValue < 0) {
+                initialQSPageNumberValue = 1;
+                utils_1.BookBlockUtil.addQueryField("page", (utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length) + 1).toString());
+            }
+            if (initialQSPageNumberValue > $img.length) {
+                initialQSPageNumberValue = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length);
+                utils_1.BookBlockUtil.addQueryField("page", (initialQSPageNumberValue + 1).toString());
+            }
+            eqVal = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length);
+        }
     }
     $img.each(function (index, element) {
         var path = $(element).data("bbsrc");
@@ -11379,6 +11399,18 @@ var BookBlockUtil = /** @class */ (function () {
             return url.searchParams.get(key);
         }
         return null;
+    };
+    BookBlockUtil.addQueryField = function (key, value) {
+        var url = new window.URL(window.location.href);
+        if (url.searchParams.has(key)) {
+            url.searchParams.set(key, value);
+        }
+        else {
+            url.searchParams.append(key, value);
+        }
+        history.pushState({
+            id: "booblockhistory",
+        }, "", url.href);
     };
     return BookBlockUtil;
 }());
