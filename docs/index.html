@@ -66,16 +66,20 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="fork-notice">Fork Notice</h1>
 				<p>Aiming to turn codrops awesome work into an easy to use package!</p>
+				<h2 id="newest-feature-is-support-for-history-api-0-2-0-">Newest feature is support for History API [0.2.0]</h2>
+				<p>Plugin now accepts the boolean option <code>history</code> (default value is <code>false</code>). Enabling this will add a queryField to the current URI and allow you to bookmark any page of your BookBlock book.</p>
 				<h2 id="breaking-change-in-build-process-0-1-0-">Breaking change in build process [0.1.0]</h2>
 				<p>OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.</p>
 				<h2 id="note">Note</h2>
-				<p>Both <code>src/jquery.bookblock.ts</code> and <code>dist/bookblock.js</code> are dependency free. The demo uses the file <code>dist/shims.js</code>, which includes the necessary dependencies: <code>src/modernizr.custom.js</code>, <code>src/jquerypp.custom.js</code>, and <code>jquery</code>.</p>
+				<p>The production file <code>dist/*-bookblock.js</code> is the <code>BookBlock</code> code. The demo uses the file <code>dist/*-shims.js</code>, which includes the necessary dependencies: <code>src/modernizr.custom.js</code>, <code>src/jquerypp.custom.js</code>, and <code>jquery</code>.</p>
 				<h2 id="usage">Usage</h2>
 				<h3 id="javascript-project">Javascript project</h3>
-				<p>If you&#39;re not concerned with conflicts, then you could simply use prebuilt files <code>dist/bookblock.js</code> and <code>dist/shims.js</code> (which contains the aforementioned dependencies).</p>
-				<p>Alternatively, you could use <code>dist/bookblock.js</code>, <code>src/js/jquerypp.custom.js</code>, <code>modernizr.custom.js</code>, and include your own copy of <code>jquery</code>.</p>
+				<p>If you&#39;re not concerned with conflicts, then you could simply use prebuilt files <code>dist/*-bookblock.js</code> and <code>dist/*-shims.js</code> (which contains the aforementioned dependencies).</p>
+				<p>Alternatively, you could use <code>dist/*-bookblock.js</code>, <code>src/js/jquerypp.custom.js</code>, <code>src/js/modernizr.custom.js</code>, and include your own copy of <code>jquery</code>.</p>
 				<h3 id="typescript-project">Typescript project</h3>
-				<p>Stay tuned</p>
+				<p>It&#39;ll depend on your build tool somewhat, but here is what I do with <code>FuseBox</code></p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> <span class="hljs-string">"@paxperscientiam/bookblock"</span></code></pre>
+				<p>Again, you can either use the prebuild <code>*-shims.js</code>, or import <code>jquerypp.custom.js</code> and <code>modernizr.custom.js</code>.</p>
 				<h2 id="testing-1-2-3">Testing 1 2 3</h2>
 				<pre><code class="language-shell">git clone https://github.com/paxperscientiam/BookBlock
 cd BookBlock
@@ -165,6 +169,12 @@ onBeforeFlip : <span class="hljs-function"><span class="hljs-keyword">function</
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/cssclasses.html" class="tsd-kind-icon">Css<wbr>Classes</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/cssids.html" class="tsd-kind-icon">Css<wbr>Ids</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/bookblock.html" class="tsd-kind-icon">Book<wbr>Block</a>
 					</li>
@@ -173,6 +183,12 @@ onBeforeFlip : <span class="hljs-function"><span class="hljs-keyword">function</
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#_window" class="tsd-kind-icon">$window</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#next" class="tsd-kind-icon">NEXT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#prev" class="tsd-kind-icon">PREV</a>
 					</li>
 				</ul>
 			</nav>

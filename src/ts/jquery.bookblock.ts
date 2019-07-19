@@ -19,6 +19,8 @@ const $window: JQuery<Window> = $(window)
 import { CssClasses, CssIds, NEXT, PREV } from "./constants"
 import { BookBlockUtil } from "./utils"
 
+import { Notify } from "./notify"
+
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
     let prop = Modernizr.prefixed("transformStyle")
@@ -217,7 +219,7 @@ export class BookBlock implements BookBlockPlugin  {
 
         this.$el.hover(
             () => {
-                console.log("hovering yo")
+              //  Notify.diplay()
             }, () => {
                 //              $(this).removeClass("brighten-20")
             },
@@ -650,9 +652,12 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             let initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10)
             if (Number.isInteger(initialQSPageNumberValue)) {
                 if (initialQSPageNumberValue === 0 || initialQSPageNumberValue < 0) {
+                    Notify.diplay(`Only 1 through ${$img.length} are valid page selections!`)
                     initialQSPageNumberValue = 1
                     BookBlockUtil.addQueryField("page", (BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length) + 1).toString())
                 } else if (initialQSPageNumberValue > $img.length) {
+                    Notify.diplay(`Requested page '${initialQSPageValue}' does not exist! Last page is ${$img.length}`)
+
                     console.log(`initialQSPageNumberValue is ${initialQSPageNumberValue}`)
                     initialQSPageNumberValue = BookBlockUtil.mod(initialQSPageNumberValue - 1, $img.length)
                     console.log(`initialQSPageNumberValue is ${initialQSPageNumberValue}`)
