@@ -491,31 +491,6 @@ export class BookBlock implements BookBlockPlugin  {
         }, this.options.interval )
     }
 
-    _addQueryField(key: string, value: string) {
-        const url: URL = new window.URL(window.location.href)
-
-        if (url.searchParams.has(key)) {
-            url.searchParams.set(key, value)
-        } else {
-            url.searchParams.append(key, value)
-        }
-
-        history.pushState({
-            id: "booblockhistory",
-        },
-                          "",
-                          url.href,
-                         )
-    }
-
-    _getQueryField(key: string) {
-        const url: URL = new window.URL(window.location.href)
-        if (url.searchParams.has(key)) {
-            return url.searchParams.get(key)
-        }
-        return null
-    }
-
     _stopSlideshow() {
         if ( this.options.autoplay ) {
             clearTimeout( this.slideshow )

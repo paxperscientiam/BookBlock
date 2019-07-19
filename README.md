@@ -9,7 +9,7 @@ OK, so now the dist folder filenames are hashed. Please adjust your build proces
 
 ## Note
 
-Both `src/jquery.bookblock.ts` and `dist/bookblock.js` are dependency free. The demo uses the file `dist/shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
+Both `src/jquery.bookblock.ts` and `dist/*-bookblock.js` are dependency free. The demo uses the file `dist/*-shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
 
 ## Usage
 

@@ -45,6 +45,4 @@ export class BookBlockUtil {
                           url.href,
                          )
     }
-
-
 }
