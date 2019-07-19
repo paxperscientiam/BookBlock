@@ -1,0 +1,5 @@
+webworker or appcache
+
+fix page jump
+dev shouldnt have to worry about nav elements cuz they could be attached automatically
+fix loading bug when starting with a page other than number 1

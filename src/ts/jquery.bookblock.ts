@@ -151,14 +151,8 @@ export class BookBlock implements BookBlockPlugin  {
             this.itemsCount = this.$el.data().bbsrcset.length
         }
 
-        console.log(`startpage is ${this.options.startPage}_1`)
         // current item´s index
-        if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
-            this.current = (this.options.startPage - 1)
-        } else {
-            BookBlockUtil.logError("startPage option is out of range")
-            this.current = 0
-        }
+
         // previous item´s index
         this.previous = -1
         // show first item
@@ -166,13 +160,23 @@ export class BookBlock implements BookBlockPlugin  {
         if (this.options.history) {
             const initialQSPageValue = BookBlockUtil.getQueryField("page")
             const initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10)
+            console.log(`initialQSPageNumberValue is ${initialQSPageNumberValue}`)
             if (Number.isInteger(initialQSPageNumberValue)) {
                 this.startIndex = BookBlockUtil.mod(initialQSPageNumberValue - 1, this.itemsCount)
                 // i think this is correct
                 console.log(`this.startIndex from construct is ${this.startIndex}`)
+            } else {
+                this.startIndex = 0
             }
+            this.current = this.startIndex
+        } else if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
+            this.current = (this.options.startPage - 1)
+        } else {
+            BookBlockUtil.logError("startPage option is out of range")
         }
+        this.startIndex = 0
 
+        console.log(`this.startIndex is ${this.startIndex}`)
         this.$current = this.$items.eq( this.startIndex ).show()
         // get width of this.$el
         // this will be necessary to create the flipping layout
@@ -219,7 +223,7 @@ export class BookBlock implements BookBlockPlugin  {
 
         this.$el.hover(
             () => {
-              //  Notify.diplay()
+                //  Notify.diplay()
             }, () => {
                 //              $(this).removeClass("brighten-20")
             },
@@ -281,8 +285,6 @@ export class BookBlock implements BookBlockPlugin  {
 
     _action( dir: boolean, page?: number ) {
         const shit = this
-        console.log(`this current is ${this.current}_0`)
-
         shit._createPage(dir, this.current)
             .then(() => {
                 if (shit.options.history) {

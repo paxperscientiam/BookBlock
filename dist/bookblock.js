@@ -1,13 +1,11 @@
 /*! @paxperscientiam/bookblock
-Full version: 0.2.0.190719349 NOT FOR CONSUMER USE
+Full version: 0.2.0.190719583 NOT FOR CONSUMER USE
 
 Product version: 0.2.0
-Builder number: 190719349
-Build time: Fri Jul 19 2019 11:38 */
+Builder number: 190719583
+Build time: Fri Jul 19 2019 19:26 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
-// allowSyntheticDefaultImports
-FuseBox.sdep = true;
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-csstransforms3d-csstransitions-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */
@@ -10732,15 +10730,7 @@ var BookBlock = /** @class */ (function () {
         if (this.$el.data().bbsrcset != null) {
             this.itemsCount = this.$el.data().bbsrcset.length;
         }
-        console.log("startpage is " + this.options.startPage + "_1");
         // current item´s index
-        if ((this.options.startPage > 0) && (this.options.startPage <= this.itemsCount)) {
-            this.current = (this.options.startPage - 1);
-        }
-        else {
-            utils_1.BookBlockUtil.logError("startPage option is out of range");
-            this.current = 0;
-        }
         // previous item´s index
         this.previous = -1;
         // show first item
@@ -10748,12 +10738,25 @@ var BookBlock = /** @class */ (function () {
         if (this.options.history) {
             var initialQSPageValue = utils_1.BookBlockUtil.getQueryField("page");
             var initialQSPageNumberValue = Number.parseInt(initialQSPageValue, 10);
+            console.log("initialQSPageNumberValue is " + initialQSPageNumberValue);
             if (Number.isInteger(initialQSPageNumberValue)) {
                 this.startIndex = utils_1.BookBlockUtil.mod(initialQSPageNumberValue - 1, this.itemsCount);
                 // i think this is correct
                 console.log("this.startIndex from construct is " + this.startIndex);
             }
+            else {
+                this.startIndex = 0;
+            }
+            this.current = this.startIndex;
         }
+        else if ((this.options.startPage > 0) && (this.options.startPage <= this.itemsCount)) {
+            this.current = (this.options.startPage - 1);
+        }
+        else {
+            utils_1.BookBlockUtil.logError("startPage option is out of range");
+        }
+        this.startIndex = 0;
+        console.log("this.startIndex is " + this.startIndex);
         this.$current = this.$items.eq(this.startIndex).show();
         // get width of this.$el
         // this will be necessary to create the flipping layout
@@ -10853,7 +10856,6 @@ var BookBlock = /** @class */ (function () {
     BookBlock.prototype._action = function (dir, page) {
         var _this = this;
         var shit = this;
-        console.log("this current is " + this.current + "_0");
         shit._createPage(dir, this.current)
             .then(function () {
             if (shit.options.history) {
