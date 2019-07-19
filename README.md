@@ -9,18 +9,23 @@ OK, so now the dist folder filenames are hashed. Please adjust your build proces
 
 ## Note
 
-Both `src/jquery.bookblock.ts` and `dist/*-bookblock.js` are dependency free. The demo uses the file `dist/*-shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
+The production file `dist/*-bookblock.js` is the `BookBlock` code. The demo uses the file `dist/*-shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
 
 ## Usage
 
 ### Javascript project
-If you're not concerned with conflicts, then you could simply use prebuilt files `dist/bookblock.js` and `dist/shims.js` (which contains the aforementioned dependencies).
+If you're not concerned with conflicts, then you could simply use prebuilt files `dist/*-bookblock.js` and `dist/*-shims.js` (which contains the aforementioned dependencies).
 
-Alternatively, you could use `dist/bookblock.js`, `src/js/jquerypp.custom.js`, `modernizr.custom.js`, and include your own copy of `jquery`.
+Alternatively, you could use `dist/*-bookblock.js`, `src/js/jquerypp.custom.js`, `src/js/modernizr.custom.js`, and include your own copy of `jquery`.
 
 ### Typescript project
-Stay tuned
+It'll depend on your build tool somewhat, but here is what I do with `FuseBox`
 
+``` typescript
+import "@paxperscientiam/bookblock"
+```
+
+Again, you can either use the prebuild `*-shims.js` or import `jquerypp.custom.js` and `modernizr.custom.js`.
 
 ## Testing 1 2 3
 
