@@ -6,6 +6,8 @@ Builder number: 190719606
 Build time: Fri Jul 19 2019 20:12 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
+// allowSyntheticDefaultImports
+FuseBox.sdep = true;
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-csstransforms3d-csstransitions-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */

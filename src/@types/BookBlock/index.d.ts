@@ -34,18 +34,13 @@ interface BookBlockPluginSettings {
     shadows?: boolean
     speed?: number
     startPage?: number
-
+    width: string
+    height: string
     history?: boolean
-
-    //    $container: BookBlockPlugin
+    effects: BookBlockPluginEffectsSettings
 
     onEndFlip?: (a, b, c: boolean) => boolean
     onBeforeFlip?: (a) => boolean
-
-    width: string
-    height: string
-
-    effects: BookBlockPluginEffectsSettings
 }
 
 // tslint:disable-next-line

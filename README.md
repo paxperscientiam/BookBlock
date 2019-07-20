@@ -1,23 +1,42 @@
 Fork Notice
 ==========
 
-Aiming to turn codrops awesome work into an easy to use package!
+Aiming to turn codrops awesome work into an easy to use package! Really, their work never ceases to amaze me. Check them out here: https://tympanus.net/codrops/
+
+BookBlock
+=========
+
+A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.
+
+[article on Codrops](http://tympanus.net/codrops/2012/09/03/bookblock-a-content-flip-plugin/)
+
+[original demo](http://tympanus.net/Development/BookBlock/)
+
+Stay tuned for new demo ...
+
+While I've made some improvements, they're not at the same quality level.
+* Images will now load "on demand". So, you're book could be a thousand images and you'll no longer have to worry about being able to load them all at once.
+* History API now has basic support.
+* Images and container will resize on window resize.
 
 
-## Newest feature is support for History API [0.2.0]
 
-Plugin now accepts the boolean option `history` (default value is `false`). Enabling this will add a queryField to the current URI and allow you to bookmark any page of your BookBlock book.
+License: http://tympanus.net/codrops/licensing/
 
 
-## Breaking change in build process [0.1.0]
+Usage
+=====
 
-OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.
+### Testing
 
-## Note
+``` shell
+git clone https://github.com/paxperscientiam/BookBlock
+cd BookBlock
+pnpm i && pnpm run start
+```
 
-The production file `dist/*-bookblock.js` is the `BookBlock` code. The demo uses the file `dist/*-shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
+With the above, `fuse-box` should start a server.
 
-## Usage
 
 ### Javascript project
 If you're not concerned with conflicts, then you could simply use prebuilt files `dist/*-bookblock.js` and `dist/*-shims.js` (which contains the aforementioned dependencies).
@@ -33,27 +52,6 @@ import "@paxperscientiam/bookblock"
 
 Again, you can either use the prebuild `*-shims.js`, or import `jquerypp.custom.js` and `modernizr.custom.js`.
 
-## Testing 1 2 3
-
-``` shell
-git clone https://github.com/paxperscientiam/BookBlock
-cd BookBlock
-pnpm i && pnpm run start
-```
-
-With the above, `fuse-box` should start a server.
-
-
-BookBlock
-=========
-
-A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.
-
-[article on Codrops](http://tympanus.net/codrops/2012/09/03/bookblock-a-content-flip-plugin/)
-
-[demo](http://tympanus.net/Development/BookBlock/)
-
-License: http://tympanus.net/codrops/licensing/
 
 ### BookBlock Configuration Options
 
@@ -96,7 +94,7 @@ onEndFlip : function(old, page, isLimit) { return false; },
 onBeforeFlip : function(page) { return false; }
 ```
 
-Usage
+Usage examples
 ===
 
 ### Example (see example for more info)
@@ -123,11 +121,24 @@ Usage
 <script>
   $(function () {
       const sexy = $( "#bb-bookblock" ).bookBlock({
-          _dummy: true,
           circular: true,
-          height: "300px",
-          width: "400px",
       })
   });
 </script>
 ```
+
+Notes
+=====
+
+## Newest feature is support for History API [0.2.0]
+
+Plugin now accepts the boolean option `history` (default value is `false`). Enabling this will add a queryField to the current URI and allow you to bookmark any page of your BookBlock book.
+
+
+## Breaking change in build process [0.1.0]
+
+OK, so now the dist folder filenames are hashed. Please adjust your build process accordingly.
+
+## Note
+
+The production file `dist/*-bookblock.js` is the `BookBlock` code. The demo uses the file `dist/*-shims.js`, which includes the necessary dependencies: `src/modernizr.custom.js`, `src/jquerypp.custom.js`, and `jquery`.
