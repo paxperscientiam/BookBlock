@@ -276,6 +276,8 @@ body {
     line-height: 1;
     speak: none;
     text-transform: none;
+    position: relative;
+    top: 50%;
 }
 
 .bb-icon-first::before,
@@ -290,8 +292,23 @@ body {
 
 .bb-icon-arrow-left::before,
 .bb-icon-first::before {
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateY(50%);
 }
+
+.bb-icon-last::before,
+.bb-icon-arrow-right::before {
+    transform: translateY(-50%);
+}
+
+// .bb-icon-arrow-left::before,
+// .bb-icon-first::before {
+//     transform: rotate(180deg) translateY(50%);
+// }
+
+// .bb-icon-first::before,
+// .bb-icon-last::before {
+//     transform: translateY(50%);
+// }
 
 .bb-paper-effect {
     background: #fff;
