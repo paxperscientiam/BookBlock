@@ -45,14 +45,8 @@ interface BookBlockPluginSettings {
     // ltr (left to right) or rtl (right to left)
     ltr?: boolean // true
 
-    // if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´
-    nextEl?: string // "#bb-nav-next"
-
     // vertical or horizontal flip
     orientation?: string
-
-    // if we want to specify a selector that triggers the prev() function
-    prevEl?: string // "#bb-nav-prev"
 
     shadowFlip?: number
 

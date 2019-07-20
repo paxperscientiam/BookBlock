@@ -97,9 +97,7 @@ export class BookBlock implements BookBlockPlugin  {
     isAnimating: boolean
     isAnimation: boolean
     ltr: boolean // left to right movement instread of rtl
-    nextEl: string
     orientation: string
-    prevEl: string
     shadowFlip: number
     shadowSides: number
     shadows: boolean
@@ -135,6 +133,9 @@ export class BookBlock implements BookBlockPlugin  {
     $nextItem: JQuery
 
     startIndex: number
+
+    nextEl: string =  "#bb-nav-next"
+    prevEl: string = "#bb-nav-prev"
 
     constructor(options: BookBlockPluginSettings, element: JQuery) {
         this.options = options
@@ -206,21 +207,18 @@ export class BookBlock implements BookBlockPlugin  {
         const self = this
         const subIndex: number = self.current  // self.options.startPage - 1
         this.modulatedNextIndex = BookBlockUtil.mod(subIndex, this.itemsCount)
-        if ( this.options.nextEl !== "" ) {
-            $( this.options.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
-                console.log("next button clicked")
-                self._action( NEXT )
-                return false
-            } )
-        }
 
-        if ( this.options.prevEl !== "" ) {
-            $( this.options.prevEl ).on( "click.bookblock touchstart.bookblock", () => {
-                console.log("prev button clicked")
-                self._action( PREV )
-                return false
-            } )
-        }
+        $( this.nextEl ).on( "click.bookblock touchstart.bookblock", () => {
+            console.log("next button clicked")
+            self._action( NEXT )
+            return false
+        } )
+
+        $( this.prevEl ).on( "click.bookblock touchstart.bookblock", () => {
+            console.log("prev button clicked")
+            self._action( PREV )
+            return false
+        } )
 
         this.$el.hover(
             () => {
@@ -590,12 +588,12 @@ export class BookBlock implements BookBlockPlugin  {
         this.$el.removeClass( `bb-${this.options.orientation}` )
         this.$items.show()
 
-        if ( this.options.nextEl !== "" ) {
-            $( this.options.nextEl ).off( ".bookblock" )
+        if ( this.nextEl !== "" ) {
+            $( this.nextEl ).off( ".bookblock" )
         }
 
-        if ( this.options.prevEl !== "" ) {
-            $( this.options.prevEl ).off( ".bookblock" )
+        if ( this.prevEl !== "" ) {
+            $( this.prevEl ).off( ".bookblock" )
         }
 
         $window.off( "debouncedresize" )
@@ -766,10 +764,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             shadowFlip : 0.1,
 
             circular : false,
-
-            nextEl : "#bb-nav-next",
-
-            prevEl : "#bb-nav-prev",
 
             autoplay : false,
 

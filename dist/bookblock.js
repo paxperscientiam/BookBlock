@@ -10721,6 +10721,8 @@ Modernizr.addTest("csstransformspreserve3d", function () {
 //     }
 var BookBlock = /** @class */ (function () {
     function BookBlock(options, element) {
+        this.nextEl = "#bb-nav-next";
+        this.prevEl = "#bb-nav-prev";
         this.options = options;
         this.$el = $(element);
         // orientation class
@@ -10788,20 +10790,16 @@ var BookBlock = /** @class */ (function () {
         var self = this;
         var subIndex = self.current; // self.options.startPage - 1
         this.modulatedNextIndex = utils_1.BookBlockUtil.mod(subIndex, this.itemsCount);
-        if (this.options.nextEl !== "") {
-            $(this.options.nextEl).on("click.bookblock touchstart.bookblock", function () {
-                console.log("next button clicked");
-                self._action(constants_1.NEXT);
-                return false;
-            });
-        }
-        if (this.options.prevEl !== "") {
-            $(this.options.prevEl).on("click.bookblock touchstart.bookblock", function () {
-                console.log("prev button clicked");
-                self._action(constants_1.PREV);
-                return false;
-            });
-        }
+        $(this.nextEl).on("click.bookblock touchstart.bookblock", function () {
+            console.log("next button clicked");
+            self._action(constants_1.NEXT);
+            return false;
+        });
+        $(this.prevEl).on("click.bookblock touchstart.bookblock", function () {
+            console.log("prev button clicked");
+            self._action(constants_1.PREV);
+            return false;
+        });
         this.$el.hover(function () {
             //  Notify.diplay()
         }, function () {
@@ -11123,11 +11121,11 @@ var BookBlock = /** @class */ (function () {
         }
         this.$el.removeClass("bb-" + this.options.orientation);
         this.$items.show();
-        if (this.options.nextEl !== "") {
-            $(this.options.nextEl).off(".bookblock");
+        if (this.nextEl !== "") {
+            $(this.nextEl).off(".bookblock");
         }
-        if (this.options.prevEl !== "") {
-            $(this.options.prevEl).off(".bookblock");
+        if (this.prevEl !== "") {
+            $(this.prevEl).off(".bookblock");
         }
         $window.off("debouncedresize");
     };
@@ -11269,8 +11267,6 @@ $.fn.bookBlock = Object.assign(function (options) {
         shadowSides: 0.2,
         shadowFlip: 0.1,
         circular: false,
-        nextEl: "#bb-nav-next",
-        prevEl: "#bb-nav-prev",
         autoplay: false,
         interval: 3000,
         onEndFlip: function (old, page, isLimit) {
