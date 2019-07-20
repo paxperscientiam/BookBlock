@@ -21,7 +21,16 @@ const PROJECT_VERSION = `${process.env.PROJECT_VERSION}`
 // global
 const $window: JQuery<Window> = $(window)
 
-import { CssClasses, CssIds, NEXT, PREV } from "./constants"
+import {
+    CssClasses,
+    CssIds,
+    KEY_DOWN,
+    KEY_LEFT,
+    KEY_RIGHT,
+    KEY_UP,
+    NEXT,
+    PREV,
+} from "./constants"
 import { BookBlockUtil } from "./utils"
 
 import { Notify } from "./notify"
@@ -278,18 +287,13 @@ export class BookBlock implements BookBlockPlugin  {
         $( document ).on("keydown.bookblock", (e) => {
             if (this.isAnimating === false || typeof this.isAnimating === "undefined") {
                 const keyCode = e.which
-                const UP: number = 16
-                const RIGHT: number = 39
-                const LEFT: number = 37
-                const DOWN: number = 40
-
-                if ([UP, RIGHT].indexOf(keyCode) > -1) {
+                if ([KEY_UP, KEY_RIGHT].indexOf(keyCode) > -1) {
                     e.stopPropagation()
                     e.preventDefault()
                     self._action( NEXT )
                 }
 
-                if ([DOWN, LEFT].indexOf(keyCode) > -1) {
+                if ([KEY_DOWN, KEY_LEFT].indexOf(keyCode) > -1) {
                     e.stopPropagation()
                     e.preventDefault()
                     self._action( PREV)
@@ -642,29 +646,21 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         const $container = $(this)
 
         if (options.navigation.buttons) {
-            console.log("add buttons")
-            const $bbNav = $("<nav/>").addClass("bb-nav-container")
+            const $bbNav = $("<nav/>").addClass(CssClasses.NAV_CONTAINER)
                 .append($("<a/>")
-                        .attr("id", "bb-nav-first")
-                        .addClass("bb-nav bb-icon bb-icon-first"))
+                        .attr("id", CssIds.NAV_FIRST)
+                        .addClass(CssClasses.NAV_FIRST))
                 .append($("<a/>")
-                        .attr("id", "bb-nav-prev")
-                        .addClass("bb-nav bb-icon bb-icon-arrow-left"))
+                        .attr("id", CssIds.NAV_PREV)
+                        .addClass(CssClasses.NAV_PREV))
                 .append($("<a/>")
-                        .attr("id", "bb-nav-next")
-                        .addClass("bb-nav bb-icon bb-icon-arrow-right"))
+                        .attr("id", CssIds.NAV_NEXT)
+                        .addClass(CssClasses.NAV_NEXT))
                 .append($("<a/>")
-                        .attr("id", "bb-nav-last")
-                        .addClass("bb-nav bb-icon bb-icon-last"))
+                        .attr("id", CssIds.NAV_LAST)
+                        .addClass(CssClasses.NAV_LAST))
 
             $container.after($bbNav)
-            // <nav class="bb-nav-container">
-            //     <a id="bb-nav-first" href="#" class="bb-nav bb-icon bb-icon-first">
-            //     First page</a>
-            //     <a id="bb-nav-prev" href="#" class="bb-nav bb-icon bb-icon-arrow-left">Previous</a>
-            //     <a id="bb-nav-next" href="#" class="bb-nav bb-icon bb-icon-arrow-right">Next</a>
-            //     <a id="bb-nav-last" href="#" class="bb-nav bb-icon bb-icon-last">Last page</a>
-            //     </nav>
         }
 
         if (options.effects.paper) {
