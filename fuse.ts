@@ -74,6 +74,7 @@ import {
     BannerPlugin,
     CSSPlugin,
     CSSResourcePlugin,
+    EnvPlugin,
     FuseBox,
     PostCSSPlugin,
     QuantumPlugin,
@@ -129,6 +130,11 @@ class CTX {
 
             //            globals: {default : "*"},
             plugins: [
+                EnvPlugin({
+                    COMPILE_TIME: `${Date.now().toString()}`,
+                    PROJECT_NAME: "bookblock",
+                    PROJECT_VERSION: `${BUILD_VERSION}.${BUILD_NUMBER}`,
+                }),
                 WebIndexPlugin({
                     cssPath: "css",
                     template: "src/index.html",
@@ -166,6 +172,8 @@ ${bannerStatement(this.isProduction)}
                     },
                 }),
                 this.isProduction && QuantumPlugin({
+                    replaceProcessEnv: true,
+
                     ensureES5: true,
                     target: "browser",
 

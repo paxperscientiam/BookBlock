@@ -83,6 +83,10 @@ interface BookBlockPluginGlobalSettings {
      * Global options of the example plugin.
      */
     options: BookBlockPluginSettings
+
+    PROJECT_NAME: string
+    PROJECT_VERSION: string
+    COMPILE_TIME: string
 }
 
 // // tslint:disable-next-line
@@ -97,7 +101,7 @@ interface BookBlockPluginGlobalSettings {
 // }
 
 // tslint:disable-next-line
-interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
+interface BookBlockPlugin extends BookBlockPluginSettings {
     // these are private
     $el: JQuery
 
@@ -108,11 +112,9 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
 
     modulatedNextIndex: number
 
-    options: BookBlockPluginSettings
+    //  options: BookBlockPluginSettings
 
     dummyGlobal: boolean
-
-    name: string
 
     // settings
     dummy: boolean
@@ -134,6 +136,12 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
 
     history: boolean
 
+    PROJECT_NAME: string
+    PROJECT_VERSION: string
+    COMPILE_TIME: string
+
+    options: any
+
     // PUBLIC METHODS
     next(): void
     prev(): void
@@ -152,6 +160,7 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
     _layout(dir: boolean): any
     _startSlideshow(): void
     _stopSlideshow(): void
+
 }
 // tslint:disable-next-line
 interface JQuery {

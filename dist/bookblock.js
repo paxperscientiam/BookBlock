@@ -1,9 +1,9 @@
 /*! @paxperscientiam/bookblock
-Full version: 0.2.0.190719606 NOT FOR CONSUMER USE
+Full version: 0.2.0.190720486 NOT FOR CONSUMER USE
 
 Product version: 0.2.0
-Builder number: 190719606
-Build time: Fri Jul 19 2019 20:12 */
+Builder number: 190720486
+Build time: Sat Jul 20 2019 16:12 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
 // allowSyntheticDefaultImports
@@ -10611,6 +10611,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+var __process_env__ = {"COMPILE_TIME":"1563653542559","PROJECT_NAME":"bookblock","PROJECT_VERSION":"0.2.0.190720486"};
 FuseBox.pkg("default", {}, function(___scope___){
 ___scope___.file("index.js", function(exports, require, module, __filename, __dirname){
 
@@ -10639,7 +10640,7 @@ ___scope___.file("scss/bookblock/index.scss", function(exports, require, module,
 require("fuse-box-css")("default/scss/bookblock/index.scss", "/*!\r\n  Important comments included in optimized output.\r\n*/@font-face{font-family:arrows;src:url(\"data:application/vnd.ms-fontobject;charset=utf-8;base64,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\");src:url(\"data:application/vnd.ms-fontobject;charset=utf-8;base64,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\") format(\"embedded-opentype\"),url(\"data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAASMAAsAAAAABmgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAAAWgAAAGpwLpPskZGVE0AAAJwAAAAGgAAABxn0g/QR0RFRgAAAowAAAAdAAAAIAAxAARPUy8yAAACrAAAAEsAAABgMY/d7mNtYXAAAAL4AAAAPQAAAVLgF/LMaGVhZAAAAzgAAAAvAAAANv0zrr1oaGVhAAADaAAAAB4AAAAkBRz/5WhtdHgAAAOIAAAAEAAAABAHgAFEbWF4cAAAA5gAAAAGAAAABgAEUABuYW1lAAADoAAAAN0AAAF6DL0wDHBvc3QAAASAAAAADAAAACAAAwAAeJw1Tk0oBGEYfr8100xrGn8zjEyzJSmXbTKyDi7abJFy5SRuVn5aSVESyc+XE+vmQA6OiuOeJEmclHJBuShSamtnFY/v2+XyPu/7Pu/zPC8jRSHGmDaayUzPzxKLEKPu0IuEsYrQUbhRwQ3Fi5I9NsL5PxoanyhaYV51abXKJap2aavGJd1lB7WkSgedqqieXGqemxrv9f32MgQCUr7vl7P+EonYOttgm6RIYYSexTeVJtiGswsWb3m0OUhPLwFfRj9QuDz+L9kVsbMWeAxoCAJg8vpcBT6uToF8Lg18vq0JZc+m0NszRzpY01O3VhoOQaa1KMi+HKgmMVASiAP/rAvUOFRtg1yRSHUyopDcA16yyzH83D84mui3B4F3+VEhmZXUyl+RO9JzE0KdOfHA2lpfNem0XHYSVLpk7Jmgi84U2F3QYYMl9uPAwM0Nfq6GHdndqiYP88q3VbQ0s2hZ3N4xor/0/LT2eJxjYGBgZACCM7aLzoPos6fMGmA0AE0zBxYAAHicY2BkYGDgA2IJBhBgYmAEQmYgZgHzGAAEawA2AAAAeJxjYGZqYJzAwMrAwbiA8QADA0MkhGY0ZpBnWMrAwMTAyswABwIIJkNAmmsKg8MDpg8MTAn/HzBYMSUwKDQANcIVKAAhIwBvQwyDAHicY2BgYGaAYBkGRgYQ8AHyGMF8FgYDIM0BhEwgiQfMHxj+/wezmCAs+f8CzFBdYMDIxoDMHZEAAN/nCbEAAAB4nGNgZGBgAOLtUTns8fw2Xxm4mRqAIgxnT5kh0f8fMDUwJQC5HAxMIFEAM4kLGgB4nGNgZGBgSvj/gMGKqYGB4W8DkASKoAAWAIA2BQMAAAKAAAACgACAAoAAxAAAAAAAAFAAAAQAAHicbY4xasNAEEWfbFnG2KRL6iWQUkLaYDCugw/gwr2KRRiMFtY2volPkC7HyAFygtwlX6stUniHYR6zf+YPsOJOxvAyCp4ST5jzlnjKK+fEuTSfiWcs+U5cKH6lzPKFOqs4NfBEG58TT/mgTJxH35FnvPCVuFD/h5ag8NzkSxuCv6nucXRcOcVv9q67nlrBTsKeS6xBCofBUlGrbpX/l40dy0aHrJVWqoZ3LfH9ZedD54ytarM1o6nAbsp1aetGmodXHeQX1DjGK4y2Dc4cXDgffW+aqn48+AcC4zbfAAAAeJxjYGbACwAAfQAE\") format(\"woff\"),url(\"data:application/x-font-ttf;charset=utf-8;base64,AAEAAAANAIAAAwBQRkZUTWfSD9AAAAWgAAAAHEdERUYAMwAGAAAFgAAAACBPUy8yMW3dzQAAAVgAAABWY21hcOAZ89MAAAHIAAABUmdhc3D//wADAAAFeAAAAAhnbHlmZj5ZrgAAAywAAACIaGVhZP0zrr0AAADcAAAANmhoZWEFHP/nAAABFAAAACRobXR4CFUBRAAAAbAAAAAYbG9jYQBsADYAAAMcAAAADm1heHAASgAaAAABOAAAACBuYW1lDL0wDAAAA7QAAAF6cG9zdN3f5/QAAAUwAAAARgABAAAAAQAABSNsql8PPPUACwKAAAAAAM3KNoAAAAAAzco2gAAA/+ACgAJgAAAACAACAAAAAAAAAAEAAAJg/+AAOgKAAAD9gAKAAAEAAAAAAAAAAAAAAAAAAAAGAAEAAAAGABcAAgAAAAAAAgAAAAEAAQAAAEAAAAAAAAAAAQKAAZAABQAIAaABwAAAAFkBoAHAAAABMwAfAKUAAAIABQMAAAAAAAAAAAAAEAAAAAAAAAAAAAAAUGZFZABA4ALwAAJg/+AAOgJgACCAAAABAAAAAAAAAoAAAAAAAAAA1QAAAoAAgAKAAMQAAAAAAAAAAwAAAAMAAAAcAAEAAAAAAEwAAwABAAAAHAAEADAAAAAIAAgAAgAAAADgA/AA//8AAAAA4ALwAP//AAAgARAFAAEAAAAAAAAAAAAAAQYAAAEAAAAAAAAAAQIAAAACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgANgBEAAAAAgCAAGYCAAHaAA4AFgAAAScmBhURFBY/ATY1NCYnNiIVERQyNREBiOkNEhIN6QkFAnZgYAEukgkLEP7kEAsJkgYIBAcBriX+1iUlASoAAAABAMQAbAH8AdQAAgAAExElxAE4AdP+mrMAAAAAAQAA/+ACgAJgAAIAABEBIQKA/YACYP2AAAAAAAAADACWAAEAAAAAAAEABgAOAAEAAAAAAAIABwAlAAEAAAAAAAMAIgBzAAEAAAAAAAQABgCkAAEAAAAAAAUACwDDAAEAAAAAAAYABgDdAAMAAQQJAAEADAAAAAMAAQQJAAIADgAVAAMAAQQJAAMARAAtAAMAAQQJAAQADACWAAMAAQQJAAUAFgCrAAMAAQQJAAYADADPAGEAcgByAG8AdwBzAABhcnJvd3MAAFIAZQBnAHUAbABhAHIAAFJlZ3VsYXIAAEYAbwBuAHQARgBvAHIAZwBlACAAMgAuADAAIAA6ACAAYQByAHIAbwB3AHMAIAA6ACAAMgA4AC0ANQAtADIAMAAxADMAAEZvbnRGb3JnZSAyLjAgOiBhcnJvd3MgOiAyOC01LTIwMTMAAGEAcgByAG8AdwBzAABhcnJvd3MAAFYAZQByAHMAaQBvAG4AIAAxAC4AMAAAVmVyc2lvbiAxLjAAAGEAcgByAG8AdwBzAABhcnJvd3MAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAQACAQIBAwEEB3VuaUUwMDIHdW5pRTAwMwd1bmlGMDAwAAAAAAAB//8AAgABAAAADgAAABgAAAAAAAIAAQADAAUAAQAEAAAAAgAAAAAAAQAAAADMPaLPAAAAAM3KNoAAAAAAzco2gA==\") format(\"truetype\"),url(\"data:image/svg+xml;charset=utf8,%3C?xml version='1.0' standalone='no'?%3E %3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' %3E %3Csvg xmlns='http://www.w3.org/2000/svg'%3E %3Cmetadata%3E This is a custom SVG font generated by IcoMoon. %3Ciconset grid='20'%3E%3C/iconset%3E %3C/metadata%3E %3Cdefs%3E %3Cfont id='arrows' horiz-adv-x='640' %3E %3Cfont-face units-per-em='640' ascent='608' descent='-32' /%3E %3Cmissing-glyph horiz-adv-x='640' /%3E %3Cglyph unicode='&%23xe002;' d='M 392.096,302.144l-232.8,146.24C 142.080,459.648, 128,451.36, 128,429.92l0-283.872 c0-21.44, 14.080-29.696, 31.296-18.432l 232.8,146.208 c0,0, 8.416,5.92, 8.416,14.144S 392.096,302.144, 392.096,302.144z M 464,473.728c-28.416,0-48-8.736-48-37.152l0-297.152 c0-28.448, 19.584-37.184, 48-37.184s 48,8.736, 48,37.184L 512,436.576 C 512,464.992, 492.416,473.728, 464,473.728z' /%3E %3Cglyph unicode='&%23xe003;' d='M 196.212,467.2L 196.174,108.8L 507.826,288 z' /%3E %3Cglyph unicode='&%23x20;' horiz-adv-x='320' /%3E %3Cglyph class='hidden' unicode='&%23xf000;' d='M0,608L 640 -32L0 -32 z' horiz-adv-x='0' /%3E %3C/font%3E%3C/defs%3E%3C/svg%3E\") format(\"svg\");font-weight:400;font-style:normal}body{margin:0;overflow:hidden}.bb-bookblock{margin:0 auto;position:relative;z-index:100;perspective:1300px;-webkit-backface-visibility:hidden;backface-visibility:hidden}.bb-bookblock:after{content:\"\";position:absolute;border-right:1px solid rgba(0,0,0,.05);height:100%;width:100%;transform:translateX(-50%)}.bb-bookblock.bb-dropshadow-effect{-webkit-filter:drop-shadow(0 1.5em .5em #7d7d7d);filter:drop-shadow(0 1.5em .5em #7d7d7d)}.bb-page{position:absolute;transform-style:preserve-3d;transition-property:transform}.bb-page>div{transform-style:preserve-3d}.bb-content,.bb-page>div{position:absolute;height:100%;width:100%;top:0;left:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.bb-content{background:#fff}.bb-front{transform-style:preserve-3d;-webkit-filter:none;filter:none}.bb-horizontal .bb-page{width:100%;height:50%;top:50%;transform-origin:center top}.bb-horizontal .bb-back{transform:rotateX(-180deg)}.bb-horizontal .bb-front .bb-content{top:-100%}.bb-horizontal .bb-flip-initial,.bb-horizontal .bb-flip-next{transform:rotateX(180deg)}.bb-horizontal .bb-flip-prev{transform:rotateX(0deg)}.bb-horizontal .bb-flip-next-end{transform:rotateX(15deg)}.bb-horizontal .bb-flip-prev-end{transform:rotateX(165deg)}.bb-vertical .bb-front .bb-content{left:-100%}.bb-vertical .bb-page{width:50%;height:100%;left:50%;transform-origin:left center}.bb-vertical .bb-back,.bb-vertical .bb-flip-initial,.bb-vertical .bb-flip-next{transform:rotateY(-180deg)}.bb-vertical .bb-flip-prev{transform:rotateY(0deg)}.bb-vertical .bb-flip-next-end{transform:rotateY(-15deg)}.bb-vertical .bb-flip-prev-end{transform:rotateY(-165deg)}.bb-outer{overflow:hidden;z-index:999}.bb-inner,.bb-outer{position:absolute;height:100%;width:100%;top:0;left:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.bb-flipoverlay,.bb-overlay{background-color:rgba(0,0,0,.7);position:absolute;top:0;left:0;width:100%;height:100%;opacity:0}.bb-bookblock.bb-horizontal>div.bb-page:first-child,.bb-bookblock.bb-horizontal>div.bb-page:first-child .bb-back{transform:rotateX(180deg)}.bb-bookblock.bb-vertical>div.bb-page:first-child,.bb-bookblock.bb-vertical>div.bb-page:first-child .bb-back{transform:rotateY(180deg)}.bb-item{position:absolute;top:0;left:0;display:none;background:none}.bb-item,.bb-item img{width:100%;height:100%}.bb-bookblock img{opacity:0;transition:opacity 0s linear 0s,opacity .4s}.bb-bookblock img.bb-fadeIn{opacity:1}.bb-nav-container{width:100%;height:30px;margin:1em auto 0;position:relative;z-index:0;text-align:center}.bb-nav-container a{display:inline-block;width:30px;height:30px;text-align:center;border-radius:2px;background:#72b890;color:#fff;font-size:0;margin:2px}.bb-nav-container a:hover{opacity:.6}.bb-icon:before{display:block;font-family:arrows,sans-serif;font-size:20px;font-style:normal;font-variant:normal;font-weight:400;line-height:1;speak:none;text-transform:none}.bb-icon-first:before,.bb-icon-last:before{content:\"\\e002\"}.bb-icon-arrow-left:before,.bb-icon-arrow-right:before{content:\"\\e003\"}.bb-icon-arrow-left:before,.bb-icon-first:before{transform:rotate(180deg)}.bb-paper-effect{background:#fff;box-shadow:0 .063em .063em rgba(0,0,0,.15),0 .65em 0 -.313em #d5d5d5,0 .625em .063em -.25em rgba(0,0,0,.15),0 1.25em 0 -.625em #c8c8c8,0 1.25em .063em -.563em rgba(0,0,0,.15)}.brighten-10{-webkit-filter:brightness(110%);filter:brightness(110%)}.brighten-20{-webkit-filter:brightness(120%);filter:brightness(120%)}.brighten-40{-webkit-filter:brightness(140%);filter:brightness(140%)}.brighten-100{-webkit-filter:brightness(200%);filter:brightness(200%)}@-webkit-keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@-webkit-keyframes pulse{50%{background:#fff}}@keyframes pulse{50%{background:#fff}}.bb-loading{left:calc(50% - 1.5rem);top:calc(50% - 1.5rem);position:relative;border-radius:50%;width:3rem;height:3rem;border:.25rem solid hsla(0,0%,100%,.2);border-top-color:#fff;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;z-index:10000}.bb-loading.bb-not-loading{display:none}.bb-loading-pulse{position:relative;top:50%;left:50%;width:6px;height:24px;background:hsla(0,0%,100%,.2);-webkit-animation:pulse .75s infinite;animation:pulse .75s infinite;-webkit-animation-delay:.25s;animation-delay:.25s;z-index:10000}.bb-loading-pulse:after,.bb-loading-pulse:before{content:\"\";position:absolute;display:block;height:16px;width:6px;background:hsla(0,0%,100%,.2);top:50%;transform:translateY(-50%);-webkit-animation:pulse .75s infinite;animation:pulse .75s infinite}.bb-loading-pulse:before{left:-12px}.bb-loading-pulse:after{left:12px;-webkit-animation-delay:.5s;animation-delay:.5s}.bb-loading-pulse.bb-not-loading{display:none}.no-js .bb-bookblock,.no-js ul.bb-custom-grid li{width:auto;height:auto}.no-js .bb-item{display:block;position:relative}.bright{-webkit-filter:brightness(0);filter:brightness(0)}")
 });
 ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __filename, __dirname){
-
+/* fuse:injection: */ var process = require("process");
 "use strict";
 // tslint:disable:no-console
 // tslint:disable:max-line-length
@@ -10656,6 +10657,10 @@ var tslib_1 = require("tslib");
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+// @ts-ignore
+var COMPILE_TIME = "" + process.env.COMPILE_TIME;
+var PROJECT_NAME = "" + process.env.PROJECT_NAME;
+var PROJECT_VERSION = "" + process.env.PROJECT_VERSION;
 // global
 var $window = $(window);
 var constants_1 = require("./constants");
@@ -10722,12 +10727,14 @@ Modernizr.addTest("csstransformspreserve3d", function () {
 //     }
 var BookBlock = /** @class */ (function () {
     function BookBlock(options, element) {
+        this.PROJECT_NAME = PROJECT_NAME;
+        this.PROJECT_VERSION = PROJECT_VERSION;
+        // @ts-ignore
+        this.COMPILE_TIME = COMPILE_TIME;
         this.nextEl = "#bb-nav-next";
         this.prevEl = "#bb-nav-prev";
-        this.name = "bookblock";
         this.options = options;
         this.$el = $(element);
-        this.$el.addClass(this.name);
         // orientation class
         this.$el.addClass("bb-" + this.options.orientation);
         // items
@@ -11152,8 +11159,6 @@ $.fn.bookBlock = Object.assign(function (options) {
     // globally and on a per-call level.
     //   // Merge the global options with the options given as argument.
     options = tslib_1.__assign({}, $.fn.bookBlock.options, options);
-    // GLOBALS
-    // this.bookBlock.name
     var $pathArray = [];
     var $container = $(this);
     if (options.effects.paper) {
@@ -11199,54 +11204,6 @@ $.fn.bookBlock = Object.assign(function (options) {
     $container.data("bbsrcset", $pathArray);
     console.log("eqVal is " + eqVal);
     $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
-    // const setImage = ($img, options) => {
-    //     if (!$img.length) {
-    //         return true
-    //     }
-    //     const screenWidth: number = $window.width()
-    //     const screenHeight: number = $window.height()
-    //     const screenRatio = screenWidth / screenHeight as number
-    //     let cssHeight: number
-    //     let cssWidth: number
-    //     function setSizes(imgRatio: number) {
-    //         const gutterFactor: number = Math.abs(1 - options.gutter / 100)
-    //         const plusOrMinus = Math.random() < 0.5 ? -1 : 1
-    //         imgRatio += Number.EPSILON * plusOrMinus
-    //         // options.gutter: number
-    //         if (imgRatio > 1 && screenRatio > 1) {
-    //             // > 1 => width > height
-    //             cssHeight = screenHeight
-    //             cssWidth = screenHeight * imgRatio
-    //         } else if (imgRatio > 1 && screenRatio < 1) {
-    //             // < 1 => width < height
-    //             cssWidth = screenWidth
-    //             cssHeight = screenWidth / imgRatio
-    //         } else if (imgRatio < 1 && screenRatio > 1) {
-    //             cssHeight = screenHeight
-    //             cssWidth = screenHeight * imgRatio
-    //         } else if (imgRatio < 1 && screenRatio < 1) {
-    //             cssWidth = screenWidth
-    //             cssHeight = screenWidth / imgRatio
-    //         }
-    //         cssHeight *= gutterFactor
-    //         cssWidth *= gutterFactor
-    //         $container.css({
-    //             height: cssHeight,
-    //             width: cssWidth,
-    //         })
-    //         $img.css({
-    //             height: cssHeight,
-    //             width: cssWidth,
-    //         })
-    //     }
-    //     const tmpImage = new Image()
-    //     tmpImage.onload = () => {
-    //         const imgRatio = tmpImage.width / tmpImage.height
-    //         setSizes(imgRatio)
-    //         $img.addClass(CssClasses.FADEIN)
-    //     }
-    //     tmpImage.src = $img.eq(eqVal).attr("src")
-    // }
     $window.on("resize", function () {
         setImage_1.setImage($img, options, eqVal);
     });
@@ -11255,12 +11212,15 @@ $.fn.bookBlock = Object.assign(function (options) {
         setImage_1.setImage($img, options, eqVal);
     });
     this.each(function () {
-        $.data(_this, "bookblock", new BookBlock(options, _this));
+        $.data(_this, $.fn.bookBlock.PROJECT_NAME, new BookBlock(options, _this));
     });
     return this;
 }, 
 // Define the global default options.
 {
+    COMPILE_TIME: COMPILE_TIME,
+    PROJECT_NAME: PROJECT_NAME,
+    PROJECT_VERSION: PROJECT_VERSION,
     options: {
         // does nothing so _dummy
         _dummy: false,
@@ -12009,6 +11969,139 @@ FuseBox.pkg("modernizr", {}, function(___scope___){
 ___scope___.file("index.js", function(exports, require, module, __filename, __dirname){
 
 module.exports = Modernizr
+});
+return ___scope___.entry = "index.js";
+});
+FuseBox.pkg("process", {}, function(___scope___){
+___scope___.file("index.js", function(exports, require, module, __filename, __dirname){
+
+// From https://github.com/defunctzombie/node-process/blob/master/browser.js
+// shim for using process in browser
+if (FuseBox.isServer) {
+    if (typeof __process_env__ !== "undefined") {
+        Object.assign(global.process.env, __process_env__);
+    }
+    module.exports = global.process;
+}
+else {
+    // Object assign polyfill
+    if (typeof Object.assign != "function") {
+        Object.assign = function (target, varArgs) {
+            // .length of function is 2
+            "use strict";
+            if (target == null) {
+                // TypeError if undefined or null
+                throw new TypeError("Cannot convert undefined or null to object");
+            }
+            var to = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+                var nextSource = arguments[index];
+                if (nextSource != null) {
+                    // Skip over if undefined or null
+                    for (var nextKey in nextSource) {
+                        // Avoid bugs when hasOwnProperty is shadowed
+                        if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                            to[nextKey] = nextSource[nextKey];
+                        }
+                    }
+                }
+            }
+            return to;
+        };
+    }
+    var productionEnv = false; //require('@system-env').production;
+    var process = (module.exports = {});
+    var queue = [];
+    var draining = false;
+    var currentQueue;
+    var queueIndex = -1;
+    function cleanUpNextTick() {
+        draining = false;
+        if (currentQueue.length) {
+            queue = currentQueue.concat(queue);
+        }
+        else {
+            queueIndex = -1;
+        }
+        if (queue.length) {
+            drainQueue();
+        }
+    }
+    function drainQueue() {
+        if (draining) {
+            return;
+        }
+        var timeout = setTimeout(cleanUpNextTick);
+        draining = true;
+        var len = queue.length;
+        while (len) {
+            currentQueue = queue;
+            queue = [];
+            while (++queueIndex < len) {
+                if (currentQueue) {
+                    currentQueue[queueIndex].run();
+                }
+            }
+            queueIndex = -1;
+            len = queue.length;
+        }
+        currentQueue = null;
+        draining = false;
+        clearTimeout(timeout);
+    }
+    process.nextTick = function (fun) {
+        var args = new Array(arguments.length - 1);
+        if (arguments.length > 1) {
+            for (var i = 1; i < arguments.length; i++) {
+                args[i - 1] = arguments[i];
+            }
+        }
+        queue.push(new Item(fun, args));
+        if (queue.length === 1 && !draining) {
+            setTimeout(drainQueue, 0);
+        }
+    };
+    // v8 likes predictible objects
+    function Item(fun, array) {
+        this.fun = fun;
+        this.array = array;
+    }
+    Item.prototype.run = function () {
+        this.fun.apply(null, this.array);
+    };
+    process.title = "browser";
+    process.browser = true;
+    process.env = {
+        NODE_ENV: productionEnv ? "production" : "development"
+    };
+    if (typeof __process_env__ !== "undefined") {
+        Object.assign(process.env, __process_env__);
+    }
+    process.argv = [];
+    process.version = ""; // empty string to avoid regexp issues
+    process.versions = {};
+    function noop() { }
+    process.on = noop;
+    process.addListener = noop;
+    process.once = noop;
+    process.off = noop;
+    process.removeListener = noop;
+    process.removeAllListeners = noop;
+    process.emit = noop;
+    process.binding = function (name) {
+        throw new Error("process.binding is not supported");
+    };
+    process.cwd = function () {
+        return "/";
+    };
+    process.chdir = function (dir) {
+        throw new Error("process.chdir is not supported");
+    };
+    process.umask = function () {
+        return 0;
+    };
+}
+
 });
 return ___scope___.entry = "index.js";
 });
