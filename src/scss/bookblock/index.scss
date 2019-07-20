@@ -13,8 +13,6 @@
     font-style: normal;
 }
 
-$background-color_1: rgba(0, 0, 0, 0.7);
-
 body {
     margin: 0;
     overflow: hidden;
@@ -176,7 +174,7 @@ body {
 }
 
 .bb-overlay {
-    background-color: $background-color_1;
+    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
     left: 0;
@@ -186,7 +184,7 @@ body {
 }
 
 .bb-flipoverlay {
-    background-color: $background-color_1;
+    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
     left: 0;
@@ -301,11 +299,11 @@ body {
         /* The top layer shadow */
         0 0.063em 0.063em rgba(0, 0, 0, 0.15),
         /* The second layer */
-        0 0.65em 0 -0.313em #D5D5D5,
+        0 0.65em 0 -0.313em #d5d5d5,
         /* The second layer shadow */
         0 0.625em 0.063em -0.250em rgba(0, 0, 0, 0.15),
         /* The third layer */
-        0 1.25em 0 -0.625em #C8C8C8,
+        0 1.25em 0 -0.625em #c8c8c8,
         /* The third layer shadow */
         0 1.25em 0.063em -0.563em rgba(0, 0, 0, 0.15);
 }
