@@ -13,35 +13,73 @@ declare global  {
 
 // tslint:disable-next-line
 interface BookBlockPluginEffectsSettings {
+    // Add shadow around book
     bordershadow: boolean
+    // Additional paper effect
     paper: boolean
 }
 
 // tslint:disable-next-line
 interface BookBlockPluginSettings {
-    _dummy: boolean
+    // does nothing
+    _dummy: boolean // false
 
-    autoplay?: boolean
-    circular?: boolean
-    easing?: string
-    gutter?: number
-    height: string
-    history?: boolean
-    interval?: number
-    ltr?: boolean
-    nextEl?: string
+    // autoplay. If true it overwrites the circular option to true
+    autoplay?: boolean // false
+
+    // if we should show the first item after reaching the end
+    circular?: boolean // false
+
+    // easing for the flip transition
+    easing?: string // "ease-in-out"
+
+    // the space around the image in percent
+    gutter?: number // 0
+
+    // History API
+    history?: boolean // false
+
+    // time (ms) between page switch, if autoplay is true
+    interval?: number // 3000
+
+    // ltr (left to right) or rtl (right to left)
+    ltr?: boolean // true
+
+    // if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´
+    nextEl?: string // "#bb-nav-next"
+
+    // vertical or horizontal flip
     orientation?: string
-    prevEl?: string
-    shadowFlip?: number
-    shadowSides?: number
-    shadows?: boolean
-    speed?: number
-    startPage?: number
-    width: string
 
+    // if we want to specify a selector that triggers the prev() function
+    prevEl?: string // "#bb-nav-prev"
+
+    shadowFlip?: number
+
+    // opacity value for the "shadow" on both sides (when the flipping page is over it)
+    // value : 0.1 - 1
+    shadowSides?: number
+
+    // if set to true, both the flipping page and the sides will have an overlay to simulate shadows
+    shadows?: boolean
+
+    // speed for the flip transition in ms
+    speed?: number
+
+    // page to start on (1-based)
+    startPage?: number
+
+    // graphical flourishes
     effects: BookBlockPluginEffectsSettings
 
+    // callback after the flip transition
+    // old is the index of the previous item
+    // page is the current item´s index
+    // isLimit is true if the current page is the last one (or the first one)
     onEndFlip?: (a, b, c: boolean) => boolean
+
+    // callback before the flip transition
+    // page is the current item´s index
     onBeforeFlip?: (a) => boolean
 }
 
