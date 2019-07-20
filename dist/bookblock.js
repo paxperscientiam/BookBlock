@@ -10753,11 +10753,12 @@ var BookBlock = /** @class */ (function () {
         }
         else if ((this.options.startPage > 0) && (this.options.startPage <= this.itemsCount)) {
             this.current = (this.options.startPage - 1);
+            this.startIndex = this.current;
         }
         else {
             utils_1.BookBlockUtil.logError("startPage option is out of range");
+            this.startIndex = 0;
         }
-        this.startIndex = 0;
         console.log("this.startIndex is " + this.startIndex);
         this.$current = this.$items.eq(this.startIndex).show();
         // get width of this.$el
