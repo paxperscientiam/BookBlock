@@ -107,8 +107,8 @@ export class BookBlock implements BookBlockPlugin  {
     effects: BookBlockPluginEffectsSettings
 
     // optional functions
-    onEndFlip?: (a: number, b: number, c: boolean) => boolean
-    onBeforeFlip?: (a: number) => boolean
+    onEndFlip?: (a: number, b: number, c: boolean) => void
+    onBeforeFlip?: (a: number) => void
 
     options: BookBlockPluginSettings
 
@@ -279,7 +279,6 @@ export class BookBlock implements BookBlockPlugin  {
                 }
             }
         })
-
     }
 
     _action( dir: boolean, page?: number ) {
@@ -769,22 +768,16 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
             interval : 3000,
 
-            onEndFlip(old, page, isLimit: boolean) {
-                console.log(`Flipped from ${old}_0 to ${page}_0. Limit: ${isLimit}`)
-                return false
-            },
-
-            onBeforeFlip(page) {
-                console.log(`Will flip to page ${page}_0`)
-                return false
-            },
-
             effects: {
                 bordershadow: null,
                 paper: null,
             },
 
             history: false,
+
+            // METHODS
+            onBeforeFlip: $.noop,
+            onEndFlip: $.noop,
         },
     },
 )

@@ -70,11 +70,11 @@ interface BookBlockPluginSettings {
     // old is the index of the previous item
     // page is the current item´s index
     // isLimit is true if the current page is the last one (or the first one)
-    onEndFlip?: (a, b, c: boolean) => boolean
+    onEndFlip?: (old, page, isLimit: boolean) => void
 
     // callback before the flip transition
     // page is the current item´s index
-    onBeforeFlip?: (a) => boolean
+    onBeforeFlip?: (page) => void
 }
 
 // tslint:disable-next-line

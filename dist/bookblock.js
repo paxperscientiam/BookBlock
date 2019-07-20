@@ -11269,19 +11269,14 @@ $.fn.bookBlock = Object.assign(function (options) {
         circular: false,
         autoplay: false,
         interval: 3000,
-        onEndFlip: function (old, page, isLimit) {
-            console.log("Flipped from " + old + "_0 to " + page + "_0. Limit: " + isLimit);
-            return false;
-        },
-        onBeforeFlip: function (page) {
-            console.log("Will flip to page " + page + "_0");
-            return false;
-        },
         effects: {
             bordershadow: null,
             paper: null,
         },
         history: false,
+        // METHODS
+        onBeforeFlip: $.noop,
+        onEndFlip: $.noop,
     },
 });
 
