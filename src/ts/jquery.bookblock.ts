@@ -118,6 +118,8 @@ export class BookBlock implements BookBlockPlugin  {
     // @ts-ignore
     COMPILE_TIME: string = COMPILE_TIME
 
+    navigation: BookBlockPluginNavigationSettings
+
     // tslint:disable-next-line
     _dummy: boolean
 
@@ -639,6 +641,32 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         const $container = $(this)
 
+        if (options.navigation.buttons) {
+            console.log("add buttons")
+            const $bbNav = $("<nav/>").addClass("bb-nav-container")
+                .append($("<a/>")
+                        .attr("id", "bb-nav-first")
+                        .addClass("bb-nav bb-icon bb-icon-first"))
+                .append($("<a/>")
+                        .attr("id", "bb-nav-prev")
+                        .addClass("bb-nav bb-icon bb-icon-arrow-left"))
+                .append($("<a/>")
+                        .attr("id", "bb-nav-next")
+                        .addClass("bb-nav bb-icon bb-icon-arrow-right"))
+                .append($("<a/>")
+                        .attr("id", "bb-nav-last")
+                        .addClass("bb-nav bb-icon bb-icon-last"))
+
+            $container.after($bbNav)
+            // <nav class="bb-nav-container">
+            //     <a id="bb-nav-first" href="#" class="bb-nav bb-icon bb-icon-first">
+            //     First page</a>
+            //     <a id="bb-nav-prev" href="#" class="bb-nav bb-icon bb-icon-arrow-left">Previous</a>
+            //     <a id="bb-nav-next" href="#" class="bb-nav bb-icon bb-icon-arrow-right">Next</a>
+            //     <a id="bb-nav-last" href="#" class="bb-nav bb-icon bb-icon-last">Last page</a>
+            //     </nav>
+        }
+
         if (options.effects.paper) {
             $container.addClass(CssClasses.PAPER_EFFECT)
         }
@@ -740,6 +768,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             effects: {
                 bordershadow: null,
                 paper: null,
+            },
+
+            navigation: {
+                buttons: true,
             },
 
             history: false,

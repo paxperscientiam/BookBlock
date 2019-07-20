@@ -20,6 +20,11 @@ interface BookBlockPluginEffectsSettings {
 }
 
 // tslint:disable-next-line
+interface BookBlockPluginNavigationSettings {
+    buttons: boolean
+}
+
+// tslint:disable-next-line
 interface BookBlockPluginSettings {
     // does nothing
     _dummy: boolean // false
@@ -44,6 +49,8 @@ interface BookBlockPluginSettings {
 
     // ltr (left to right) or rtl (right to left)
     ltr?: boolean // true
+
+    navigation: BookBlockPluginNavigationSettings
 
     // vertical or horizontal flip
     orientation?: string
