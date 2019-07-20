@@ -608,13 +608,9 @@ export class BookBlock implements BookBlockPlugin  {
         this.$el.removeClass( `bb-${this.options.orientation}` )
         this.$items.show()
 
-        if ( this.nextEl !== "" ) {
-            $( this.nextEl ).off( ".bookblock" )
-        }
+        $( this.nextEl ).off( ".bookblock" )
 
-        if ( this.prevEl !== "" ) {
-            $( this.prevEl ).off( ".bookblock" )
-        }
+        $( this.prevEl ).off( ".bookblock" )
 
         $window.off( "debouncedresize" )
     }
