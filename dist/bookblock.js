@@ -10661,6 +10661,7 @@ var $window = $(window);
 var constants_1 = require("./constants");
 var utils_1 = require("./utils");
 var notify_1 = require("./notify");
+var setImage_1 = require("./setImage");
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", function () {
     var prop = Modernizr.prefixed("transformStyle");
@@ -10723,8 +10724,10 @@ var BookBlock = /** @class */ (function () {
     function BookBlock(options, element) {
         this.nextEl = "#bb-nav-next";
         this.prevEl = "#bb-nav-prev";
+        this.name = "bookblock";
         this.options = options;
         this.$el = $(element);
+        this.$el.addClass(this.name);
         // orientation class
         this.$el.addClass("bb-" + this.options.orientation);
         // items
@@ -11149,6 +11152,8 @@ $.fn.bookBlock = Object.assign(function (options) {
     // globally and on a per-call level.
     //   // Merge the global options with the options given as argument.
     options = tslib_1.__assign({}, $.fn.bookBlock.options, options);
+    // GLOBALS
+    // this.bookBlock.name
     var $pathArray = [];
     var $container = $(this);
     if (options.effects.paper) {
@@ -11194,59 +11199,61 @@ $.fn.bookBlock = Object.assign(function (options) {
     $container.data("bbsrcset", $pathArray);
     console.log("eqVal is " + eqVal);
     $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
-    var setImage = function () {
-        if (!$img.length) {
-            return true;
-        }
-        var screenWidth = $window.width();
-        var screenHeight = $window.height();
-        var screenRatio = screenWidth / screenHeight;
-        var cssHeight;
-        var cssWidth;
-        function setSizes(imgRatio) {
-            var gutterFactor = Math.abs(1 - options.gutter / 100);
-            var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-            imgRatio += Number.EPSILON * plusOrMinus;
-            // options.gutter: number
-            if (imgRatio > 1 && screenRatio > 1) {
-                // > 1 => width > height
-                cssHeight = screenHeight;
-                cssWidth = screenHeight * imgRatio;
-            }
-            else if (imgRatio > 1 && screenRatio < 1) {
-                // < 1 => width < height
-                cssWidth = screenWidth;
-                cssHeight = screenWidth / imgRatio;
-            }
-            else if (imgRatio < 1 && screenRatio > 1) {
-                cssHeight = screenHeight;
-                cssWidth = screenHeight * imgRatio;
-            }
-            else if (imgRatio < 1 && screenRatio < 1) {
-                cssWidth = screenWidth;
-                cssHeight = screenWidth / imgRatio;
-            }
-            cssHeight *= gutterFactor;
-            cssWidth *= gutterFactor;
-            $container.css({
-                height: cssHeight,
-                width: cssWidth,
-            });
-            $img.css({
-                height: cssHeight,
-                width: cssWidth,
-            });
-        }
-        var tmpImage = new Image();
-        tmpImage.onload = function () {
-            var imgRatio = tmpImage.width / tmpImage.height;
-            setSizes(imgRatio);
-            $img.addClass(constants_1.CssClasses.FADEIN);
-        };
-        tmpImage.src = $img.eq(eqVal).attr("src");
-    };
-    $window.on("resize", setImage);
-    $img.on("load", setImage);
+    // const setImage = ($img, options) => {
+    //     if (!$img.length) {
+    //         return true
+    //     }
+    //     const screenWidth: number = $window.width()
+    //     const screenHeight: number = $window.height()
+    //     const screenRatio = screenWidth / screenHeight as number
+    //     let cssHeight: number
+    //     let cssWidth: number
+    //     function setSizes(imgRatio: number) {
+    //         const gutterFactor: number = Math.abs(1 - options.gutter / 100)
+    //         const plusOrMinus = Math.random() < 0.5 ? -1 : 1
+    //         imgRatio += Number.EPSILON * plusOrMinus
+    //         // options.gutter: number
+    //         if (imgRatio > 1 && screenRatio > 1) {
+    //             // > 1 => width > height
+    //             cssHeight = screenHeight
+    //             cssWidth = screenHeight * imgRatio
+    //         } else if (imgRatio > 1 && screenRatio < 1) {
+    //             // < 1 => width < height
+    //             cssWidth = screenWidth
+    //             cssHeight = screenWidth / imgRatio
+    //         } else if (imgRatio < 1 && screenRatio > 1) {
+    //             cssHeight = screenHeight
+    //             cssWidth = screenHeight * imgRatio
+    //         } else if (imgRatio < 1 && screenRatio < 1) {
+    //             cssWidth = screenWidth
+    //             cssHeight = screenWidth / imgRatio
+    //         }
+    //         cssHeight *= gutterFactor
+    //         cssWidth *= gutterFactor
+    //         $container.css({
+    //             height: cssHeight,
+    //             width: cssWidth,
+    //         })
+    //         $img.css({
+    //             height: cssHeight,
+    //             width: cssWidth,
+    //         })
+    //     }
+    //     const tmpImage = new Image()
+    //     tmpImage.onload = () => {
+    //         const imgRatio = tmpImage.width / tmpImage.height
+    //         setSizes(imgRatio)
+    //         $img.addClass(CssClasses.FADEIN)
+    //     }
+    //     tmpImage.src = $img.eq(eqVal).attr("src")
+    // }
+    $window.on("resize", function () {
+        setImage_1.setImage($img, options, eqVal);
+    });
+    // @ts-ignore
+    $img.on("load", function () {
+        setImage_1.setImage($img, options, eqVal);
+    });
     this.each(function () {
         $.data(_this, "bookblock", new BookBlock(options, _this));
     });
@@ -11391,6 +11398,66 @@ var Notify = /** @class */ (function () {
     return Notify;
 }());
 exports.Notify = Notify;
+
+});
+___scope___.file("ts/setImage.js", function(exports, require, module, __filename, __dirname){
+
+"use strict";
+// tslint:disable:no-console
+Object.defineProperty(exports, "__esModule", { value: true });
+var constants_1 = require("./constants");
+function setImage($img, options, index) {
+    if (!$img.length) {
+        return true;
+    }
+    var screenWidth = $(window).width();
+    var screenHeight = $(window).height();
+    var screenRatio = screenWidth / screenHeight;
+    var cssHeight;
+    var cssWidth;
+    function setSizes(imgRatio) {
+        var gutterFactor = Math.abs(1 - options.gutter / 100);
+        var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        imgRatio += Number.EPSILON * plusOrMinus;
+        // options.gutter: number
+        if (imgRatio > 1 && screenRatio > 1) {
+            // > 1 => width > height
+            cssHeight = screenHeight;
+            cssWidth = screenHeight * imgRatio;
+        }
+        else if (imgRatio > 1 && screenRatio < 1) {
+            // < 1 => width < height
+            cssWidth = screenWidth;
+            cssHeight = screenWidth / imgRatio;
+        }
+        else if (imgRatio < 1 && screenRatio > 1) {
+            cssHeight = screenHeight;
+            cssWidth = screenHeight * imgRatio;
+        }
+        else if (imgRatio < 1 && screenRatio < 1) {
+            cssWidth = screenWidth;
+            cssHeight = screenWidth / imgRatio;
+        }
+        cssHeight *= gutterFactor;
+        cssWidth *= gutterFactor;
+        $("#bb-bookblock").css({
+            height: cssHeight,
+            width: cssWidth,
+        });
+        $img.css({
+            height: cssHeight,
+            width: cssWidth,
+        });
+    }
+    var tmpImage = new Image();
+    tmpImage.onload = function () {
+        var imgRatio = tmpImage.width / tmpImage.height;
+        setSizes(imgRatio);
+        $img.addClass(constants_1.CssClasses.FADEIN);
+    };
+    tmpImage.src = $img.eq(index).attr("src");
+}
+exports.setImage = setImage;
 
 });
 return ___scope___.entry = "index.js";

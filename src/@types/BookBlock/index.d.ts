@@ -112,6 +112,8 @@ interface BookBlockPlugin extends BookBlockPluginGlobalSettings {
 
     dummyGlobal: boolean
 
+    name: string
+
     // settings
     dummy: boolean
     circular: boolean

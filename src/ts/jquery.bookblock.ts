@@ -21,6 +21,8 @@ import { BookBlockUtil } from "./utils"
 
 import { Notify } from "./notify"
 
+import { setImage } from "./setImage"
+
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
     let prop = Modernizr.prefixed("transformStyle")
@@ -137,10 +139,13 @@ export class BookBlock implements BookBlockPlugin  {
     nextEl: string =  "#bb-nav-next"
     prevEl: string = "#bb-nav-prev"
 
+    name: string = "bookblock"
+
     constructor(options: BookBlockPluginSettings, element: JQuery) {
         this.options = options
 
         this.$el = $( element )
+        this.$el.addClass(this.name)
 
         // orientation class
         this.$el.addClass( `bb-${this.options.orientation}` )
@@ -620,6 +625,9 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
             ...options,
         }
 
+        // GLOBALS
+       // this.bookBlock.name
+
         const $pathArray: Array<{index: number, path: string}> = []
 
         const $container = $(this)
@@ -674,64 +682,68 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         console.log(`eqVal is ${eqVal}`)
         $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
 
-        const setImage = () => {
-            if (!$img.length) {
-                return true
-            }
-            const screenWidth: number = $window.width()
-            const screenHeight: number = $window.height()
-            const screenRatio = screenWidth / screenHeight as number
-            let cssHeight: number
-            let cssWidth: number
-            function setSizes(imgRatio: number) {
-                const gutterFactor: number = Math.abs(1 - options.gutter / 100)
-                const plusOrMinus = Math.random() < 0.5 ? -1 : 1
-                imgRatio += Number.EPSILON * plusOrMinus
+        // const setImage = ($img, options) => {
+        //     if (!$img.length) {
+        //         return true
+        //     }
+        //     const screenWidth: number = $window.width()
+        //     const screenHeight: number = $window.height()
+        //     const screenRatio = screenWidth / screenHeight as number
+        //     let cssHeight: number
+        //     let cssWidth: number
+        //     function setSizes(imgRatio: number) {
+        //         const gutterFactor: number = Math.abs(1 - options.gutter / 100)
+        //         const plusOrMinus = Math.random() < 0.5 ? -1 : 1
+        //         imgRatio += Number.EPSILON * plusOrMinus
 
-                // options.gutter: number
-                if (imgRatio > 1 && screenRatio > 1) {
-                    // > 1 => width > height
-                    cssHeight = screenHeight
-                    cssWidth = screenHeight * imgRatio
-                } else if (imgRatio > 1 && screenRatio < 1) {
-                    // < 1 => width < height
-                    cssWidth = screenWidth
-                    cssHeight = screenWidth / imgRatio
-                } else if (imgRatio < 1 && screenRatio > 1) {
-                    cssHeight = screenHeight
-                    cssWidth = screenHeight * imgRatio
-                } else if (imgRatio < 1 && screenRatio < 1) {
-                    cssWidth = screenWidth
-                    cssHeight = screenWidth / imgRatio
-                }
+        //         // options.gutter: number
+        //         if (imgRatio > 1 && screenRatio > 1) {
+        //             // > 1 => width > height
+        //             cssHeight = screenHeight
+        //             cssWidth = screenHeight * imgRatio
+        //         } else if (imgRatio > 1 && screenRatio < 1) {
+        //             // < 1 => width < height
+        //             cssWidth = screenWidth
+        //             cssHeight = screenWidth / imgRatio
+        //         } else if (imgRatio < 1 && screenRatio > 1) {
+        //             cssHeight = screenHeight
+        //             cssWidth = screenHeight * imgRatio
+        //         } else if (imgRatio < 1 && screenRatio < 1) {
+        //             cssWidth = screenWidth
+        //             cssHeight = screenWidth / imgRatio
+        //         }
 
-                cssHeight *= gutterFactor
-                cssWidth *= gutterFactor
+        //         cssHeight *= gutterFactor
+        //         cssWidth *= gutterFactor
 
-                $container.css({
-                    height: cssHeight,
-                    width: cssWidth,
-                })
-                $img.css({
-                    height: cssHeight,
-                    width: cssWidth,
-                })
-            }
+        //         $container.css({
+        //             height: cssHeight,
+        //             width: cssWidth,
+        //         })
+        //         $img.css({
+        //             height: cssHeight,
+        //             width: cssWidth,
+        //         })
+        //     }
 
-            const tmpImage = new Image()
-            tmpImage.onload = () => {
-                const imgRatio = tmpImage.width / tmpImage.height
-                setSizes(imgRatio)
-                $img.addClass(CssClasses.FADEIN)
-            }
+        //     const tmpImage = new Image()
+        //     tmpImage.onload = () => {
+        //         const imgRatio = tmpImage.width / tmpImage.height
+        //         setSizes(imgRatio)
+        //         $img.addClass(CssClasses.FADEIN)
+        //     }
 
-            tmpImage.src = $img.eq(eqVal).attr("src")
-        }
+        //     tmpImage.src = $img.eq(eqVal).attr("src")
+        // }
 
-        $window.on("resize", setImage)
+        $window.on("resize", () => {
+            setImage($img, options, eqVal)
+        })
 
-        $img.on("load", setImage)
-
+        // @ts-ignore
+        $img.on("load", () => {
+            setImage($img, options, eqVal)
+        })
         this.each(() => {
             $.data( this, "bookblock", new BookBlock( options, this ) )
         })
