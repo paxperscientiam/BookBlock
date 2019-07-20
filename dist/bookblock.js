@@ -11151,11 +11151,6 @@ $.fn.bookBlock = Object.assign(function (options) {
     //   // Merge the global options with the options given as argument.
     options = tslib_1.__assign({}, $.fn.bookBlock.options, options);
     var $pathArray = [];
-    // Check if required options are missing.
-    //  if (options.height == null || options.width == null) {
-    //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
-    //             return this
-    //         }
     var $container = $(this);
     if (options.effects.paper) {
         $container.addClass(constants_1.CssClasses.PAPER_EFFECT);
@@ -11307,11 +11302,6 @@ $.fn.bookBlock = Object.assign(function (options) {
             console.log("Will flip to page " + page + "_0");
             return false;
         },
-        // bb-block width in pixels
-        width: null,
-        // bb-block height in pixels
-        height: null,
-        //
         effects: {
             bordershadow: null,
             paper: null,

@@ -20,11 +20,14 @@ interface BookBlockPluginEffectsSettings {
 // tslint:disable-next-line
 interface BookBlockPluginSettings {
     _dummy: boolean
+
     autoplay?: boolean
     circular?: boolean
     easing?: string
-    interval?: number
     gutter?: number
+    height: string
+    history?: boolean
+    interval?: number
     ltr?: boolean
     nextEl?: string
     orientation?: string
@@ -35,8 +38,7 @@ interface BookBlockPluginSettings {
     speed?: number
     startPage?: number
     width: string
-    height: string
-    history?: boolean
+
     effects: BookBlockPluginEffectsSettings
 
     onEndFlip?: (a, b, c: boolean) => boolean

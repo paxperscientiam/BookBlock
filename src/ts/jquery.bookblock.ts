@@ -624,11 +624,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         const $pathArray: Array<{index: number, path: string}> = []
 
-        // Check if required options are missing.
-        //  if (options.height == null || options.width == null) {
-        //             console.error(`BookBlock options are missing required parameter "height" and "width"`, JSON.stringify(options))
-        //             return this
-        //         }
         const $container = $(this)
 
         if (options.effects.paper) {
@@ -811,13 +806,6 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
                 return false
             },
 
-            // bb-block width in pixels
-            width: null,
-
-            // bb-block height in pixels
-            height: null,
-
-            //
             effects: {
                 bordershadow: null,
                 paper: null,
