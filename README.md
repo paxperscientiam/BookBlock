@@ -55,43 +55,78 @@ Again, you can either use the prebuild `*-shims.js`, or import `jquerypp.custom.
 
 ### BookBlock Configuration Options
 
-```js
-// page to start on
-startPage : 1,
-// vertical or horizontal flip
-orientation : 'vertical',
-// ltr (left to right) or rtl (right to left)
-direction : 'ltr',
-// speed for the flip transition in ms
-speed : 1000,
-// easing for the flip transition
-easing : 'ease-in-out',
-// if set to true, both the flipping page and the sides will have an overlay to simulate shadows
-shadows : true,
-// opacity value for the "shadow" on both sides (when the flipping page is over it)
-// value : 0.1 - 1
-shadowSides : 0.2,
-// opacity value for the "shadow" on the flipping page (while it is flipping)
-// value : 0.1 - 1
-shadowFlip : 0.1,
-// if we should show the first item after reaching the end
-circular : false,
-// if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´
-nextEl : '',
-// if we want to specify a selector that triggers the prev() function
-prevEl : '',
-// autoplay. If true it overwrites the circular option to true
-autoplay : false,
-// time (ms) between page switch, if autoplay is true
-interval : 3000,
-// callback after the flip transition
-// old is the index of the previous item
-// page is the current item´s index
-// isLimit is true if the current page is the last one (or the first one)
-onEndFlip : function(old, page, isLimit) { return false; },
-// callback before the flip transition
-// page is the current item´s index
-onBeforeFlip : function(page) { return false; }
+```typescript
+// tslint:disable-next-line
+interface BookBlockPluginEffectsSettings {
+    // Add shadow around book
+    bordershadow: boolean
+    // Additional paper effect
+    paper: boolean
+}
+
+// tslint:disable-next-line
+interface BookBlockPluginSettings {
+    // does nothing
+    _dummy: boolean // false
+
+    // autoplay. If true it overwrites the circular option to true
+    autoplay?: boolean // false
+
+    // if we should show the first item after reaching the end
+    circular?: boolean // false
+
+    // easing for the flip transition
+    easing?: string // "ease-in-out"
+
+    // the space around the image in percent
+    gutter?: number // 0
+
+    // History API
+    history?: boolean // false
+
+    // time (ms) between page switch, if autoplay is true
+    interval?: number // 3000
+
+    // ltr (left to right) or rtl (right to left)
+    ltr?: boolean // true
+
+    // if we want to specify a selector that triggers the next() function. example: ´#bb-nav-next´
+    nextEl?: string // "#bb-nav-next"
+
+    // vertical or horizontal flip
+    orientation?: string
+
+    // if we want to specify a selector that triggers the prev() function
+    prevEl?: string // "#bb-nav-prev"
+
+    shadowFlip?: number
+
+    // opacity value for the "shadow" on both sides (when the flipping page is over it)
+    // value : 0.1 - 1
+    shadowSides?: number
+
+    // if set to true, both the flipping page and the sides will have an overlay to simulate shadow
+    shadows?: boolean
+
+    // speed for the flip transition in ms
+    speed?: number
+
+    // page to start on (1-based)
+    startPage?: number
+
+    // graphical flourishes
+    effects: BookBlockPluginEffectsSettings
+
+    // callback after the flip transition
+    // old is the index of the previous item
+    // page is the current item´s index
+    // isLimit is true if the current page is the last one (or the first one)
+    onEndFlip?: (a, b, c: boolean) => boolean
+
+    // callback before the flip transition
+    // page is the current item´s index
+    onBeforeFlip?: (a) => boolean
+}
 ```
 
 Usage examples
@@ -120,9 +155,11 @@ Usage examples
 </div>
 <script>
   $(function () {
-      const sexy = $( "#bb-bookblock" ).bookBlock({
-          circular: true,
-      })
+      const bookBlockOptions = {
+          circular: true
+          // etc
+      }
+      const sexy = $( "#bb-bookblock" ).bookBlock(bookBlockOptions)
   });
 </script>
 ```
