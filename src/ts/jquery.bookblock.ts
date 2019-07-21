@@ -35,7 +35,16 @@ import { BookBlockUtil } from "./utils"
 
 import { Notify } from "./notify"
 
-import { setFrameSize, setImage } from "./setImage"
+import {
+    setFrameSize,
+} from "./setImage"
+
+import {
+    getLeftSide,
+    getMiddleSide,
+    getNavigationPanel,
+    getRightSide,
+} from "./components"
 
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
@@ -479,27 +488,16 @@ export class BookBlock implements BookBlockPlugin  {
         switch (side) {
             case "left":
                 html = ( dir ? this.$current.html() : this.$nextItem.html() ) as string
-                $side = $("<div/>").addClass(CssClasses.PAGE)
-                    .append($("<div/>").addClass(CssClasses.BACK)
-                            .append($("<div/>").addClass(CssClasses.OUTER)
-                                    .append($("<div/>").addClass(CssClasses.CONTENT)
-                                            .append($("<div/>").addClass(CssClasses.INNER).append(html)))
-                                    .append($("<div/>").addClass(CssClasses.OVERLAY)))).css( "z-index", 102 )
+                $side = getLeftSide(html)
                 break
             case "middle":
                 html = ( dir ? this.$current.html() : this.$nextItem.html())
                 const html2 = ( dir ? this.$nextItem.html() : this.$current.html() )
-                $side = $(`<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">${html}</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:${this.elWidth}px"><div class="bb-inner">${html2}</div></div><div class="bb-flipoverlay"></div></div></div></div>`).css( "z-index", 103 )
+                $side = getMiddleSide(html, html2)
                 break
             case "right":
                 html = ( dir ? this.$nextItem.html() : this.$current.html() )
-
-                $side = $("<div/>").addClass(CssClasses.PAGE)
-                    .append($("<div/>").addClass(CssClasses.FRONT)
-                            .append($("<div/>").addClass(CssClasses.OUTER)
-                                    .append($("<div/>").addClass(CssClasses.CONTENT)
-                                            .append($("<div/>").addClass(CssClasses.INNER).append(html)))
-                                    .append($("<div/>").addClass(CssClasses.OVERLAY)))).css( "z-index", 101 )
+                $side = getRightSide(html)
                 break
         }
 
@@ -624,6 +622,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         if ($.data( this, "bookblock") != null) {
             return this
         }
+
         // Here's a best practice for overriding 'defaults'
         // with specified options. Note how, rather than a
         // regular defaults object being passed as the second
@@ -642,20 +641,7 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         const $container = $(this)
 
         if (options.navigation.buttons) {
-            const $bbNav = $("<nav/>").addClass(CssClasses.NAV_CONTAINER)
-                .append($("<a/>")
-                        .attr("id", CssIds.NAV_FIRST)
-                        .addClass(CssClasses.NAV_FIRST))
-                .append($("<a/>")
-                        .attr("id", CssIds.NAV_PREV)
-                        .addClass(CssClasses.NAV_PREV))
-                .append($("<a/>")
-                        .attr("id", CssIds.NAV_NEXT)
-                        .addClass(CssClasses.NAV_NEXT))
-                .append($("<a/>")
-                        .attr("id", CssIds.NAV_LAST)
-                        .addClass(CssClasses.NAV_LAST))
-
+            const $bbNav = getNavigationPanel()
             $container.after($bbNav)
         }
 
@@ -706,18 +692,41 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         // attach image paths
         $container.data("bbsrcset", $pathArray)
-        console.log(`eqVal is ${eqVal}`)
-        $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
 
-        setFrameSize()
+        console.log(`eqVal is ${eqVal}`)
+
+        $img.on("load", () => {
+            $img.addClass(CssClasses.FADEIN)
+        })
+
+        const $indexedImage = $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
+
+        let imgRatio = $container.data("bbratio")
+        if (imgRatio != null) {
+            imgRatio = Function(`"use strict";return (${imgRatio})`)()
+            setFrameSize($container, imgRatio, options)
+            setFrameSize($img, imgRatio, options)
+        } else {
+            const tmpImage = new Image()
+            tmpImage.addEventListener("load", function() {
+                $img.addClass(CssClasses.FADEIN)
+                imgRatio = this.naturalWidth / this.naturalHeight
+                setFrameSize($container, imgRatio, options)
+            })
+            tmpImage.src = $indexedImage.attr("src")
+        }
+
+        console.log(`img ration is ${imgRatio}`)
 
         $window.on("resize", () => {
-          //  setImage($img, options, eqVal)
+            //            setImage($img, options, eqVal, imgRatio)
+            //          setImage($img, options, eqVal, null)
         })
 
         // @ts-ignore
         $img.on("load", () => {
-            setImage($img, options, eqVal)
+            //            setImage($img, options, eqVal, imgRatio)
+            //            setImage($img, options, eqVal, null)
         })
         this.each(() => {
             $.data( this, $.fn.bookBlock.PROJECT_NAME, new BookBlock( options, this ) )

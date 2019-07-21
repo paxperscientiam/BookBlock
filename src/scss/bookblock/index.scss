@@ -19,6 +19,11 @@ body {
 }
 
 .bb-bookblock {
+    // praise https://codepen.io/juicypixels/pen/gPravL
+    background-image:
+        linear-gradient(to top right, #c9c8c800 calc(50% - 1px), #aaaaaa, #c9c8c800 calc(50% + 1px)),
+        linear-gradient(to left top, #c9c8c800 calc(50% - 1px), #aaaaaa,#c9c8c800 calc(50% + 1px));
+    background-color: #c9c8c8;
     margin: 0 auto;
     position: relative;
     z-index: 100;
