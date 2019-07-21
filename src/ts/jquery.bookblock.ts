@@ -35,7 +35,7 @@ import { BookBlockUtil } from "./utils"
 
 import { Notify } from "./notify"
 
-import { setImage } from "./setImage"
+import { setFrameSize, setImage } from "./setImage"
 
 // https://gist.github.com/edankwan/4389601
 Modernizr.addTest("csstransformspreserve3d", () => {
@@ -709,8 +709,10 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
         console.log(`eqVal is ${eqVal}`)
         $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
 
+        setFrameSize()
+
         $window.on("resize", () => {
-            setImage($img, options, eqVal)
+          //  setImage($img, options, eqVal)
         })
 
         // @ts-ignore

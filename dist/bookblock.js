@@ -6,6 +6,8 @@ Builder number: 190720593
 Build time: Sat Jul 20 2019 19:46 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
+// allowSyntheticDefaultImports
+FuseBox.sdep = true;
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-csstransforms3d-csstransitions-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */
@@ -11210,8 +11212,9 @@ $.fn.bookBlock = Object.assign(function (options) {
     $container.data("bbsrcset", $pathArray);
     console.log("eqVal is " + eqVal);
     $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
+    setImage_1.setFrameSize();
     $window.on("resize", function () {
-        setImage_1.setImage($img, options, eqVal);
+        //  setImage($img, options, eqVal)
     });
     // @ts-ignore
     $img.on("load", function () {
@@ -11440,6 +11443,9 @@ function setImage($img, options, index) {
     tmpImage.src = $img.eq(index).attr("src");
 }
 exports.setImage = setImage;
+function setFrameSize() {
+}
+exports.setFrameSize = setFrameSize;
 
 });
 return ___scope___.entry = "index.js";

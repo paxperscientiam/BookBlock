@@ -55,3 +55,7 @@ export function setImage($img: JQuery<HTMLImageElement>, options, index: number)
 
     tmpImage.src = $img.eq(index).attr("src")
 }
+
+export function setFrameSize() {
+
+}
