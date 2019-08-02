@@ -1,3 +1,5 @@
+// tslint:disable:max-line-length
+// tslint:disable:no-console
 // credit to https://codeburst.io/javascript-promises-explained-with-simple-real-life-analogies-dd6908092138
 // http://ccoenraets.github.io/es6-tutorial-data/promisify/
 // https://gist.github.com/santisbon/a7c221780b528bd3ebb8
@@ -42,6 +44,6 @@ export function embedImage(url: string) {
                         })
 }
 
-export function addSrcToImageElement() {
+// export function addSrcToImageElement() {
 
-}
+// }
