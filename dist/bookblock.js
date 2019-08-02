@@ -1,13 +1,11 @@
 /*! @paxperscientiam/bookblock
-Full version: 0.2.1.190720593 NOT FOR CONSUMER USE
+Full version: 0.2.1.190801629 NOT FOR CONSUMER USE
 
 Product version: 0.2.1
-Builder number: 190720593
-Build time: Sat Jul 20 2019 19:46 */
+Builder number: 190801629
+Build time: Thu Aug 01 2019 20:58 */
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
 FuseBox.target = "browser";
-// allowSyntheticDefaultImports
-FuseBox.sdep = true;
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-csstransforms3d-csstransitions-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */
@@ -10611,7 +10609,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-var __process_env__ = {"COMPILE_TIME":"1563666452066","PROJECT_NAME":"bookblock","PROJECT_VERSION":"0.2.1.190720593"};
+var __process_env__ = {"COMPILE_TIME":"1564707507143","PROJECT_NAME":"bookblock","PROJECT_VERSION":"0.2.1.190801629"};
 FuseBox.pkg("default", {}, function(___scope___){
 ___scope___.file("index.js", function(exports, require, module, __filename, __dirname){
 
@@ -10644,8 +10642,6 @@ ___scope___.file("ts/jquery.bookblock.js", function(exports, require, module, __
 "use strict";
 // tslint:disable:no-console
 // tslint:disable:max-line-length
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
 /*!
  * @paxperscientiam/bookblock
  * jquery.bookblock.js v2.0.1
@@ -10657,6 +10653,8 @@ var tslib_1 = require("tslib");
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 // @ts-ignore
 var COMPILE_TIME = "" + process.env.COMPILE_TIME;
 var PROJECT_NAME = "" + process.env.PROJECT_NAME;
@@ -10664,6 +10662,7 @@ var PROJECT_VERSION = "" + process.env.PROJECT_VERSION;
 // global
 var $window = $(window);
 var constants_1 = require("./constants");
+var imageHandlers_1 = require("./imageHandlers");
 var utils_1 = require("./utils");
 var notify_1 = require("./notify");
 var setImage_1 = require("./setImage");
@@ -11057,13 +11056,15 @@ var BookBlock = /** @class */ (function () {
             if (_this.modulatedNextIndex != null) {
                 path = _this.$el.data().bbsrcset[_this.modulatedNextIndex].path;
                 $img = _this.$el.find("img").eq(_this.modulatedNextIndex);
-                $img.on("load", function (e) {
+                imageHandlers_1.loadImage(path).then(function (result) {
                     $spinner.addClass(constants_1.CssClasses.NOT_LOADING);
-                    $(e.target).fadeIn();
-                    console.log("image should be loaded atp");
+                    var imageURL = window.URL.createObjectURL(result);
+                    $img.addClass(constants_1.CssClasses.FADEIN);
+                    $img.attr("src", imageURL);
                     resolve();
+                }, function (Error) {
+                    reject(Error);
                 });
-                $img.attr("src", path);
             }
         });
     };
@@ -11190,25 +11191,20 @@ $.fn.bookBlock = Object.assign(function (options) {
     // attach image paths
     $container.data("bbsrcset", $pathArray);
     console.log("eqVal is " + eqVal);
-    $img.on("load", function () {
-        $img.addClass(constants_1.CssClasses.FADEIN);
-    });
-    var $indexedImage = $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"));
+    var indexedImagePath = $img.eq(eqVal).data("bbsrc");
     var imgRatio = $container.data("bbratio");
     if (imgRatio != null) {
         imgRatio = Function("\"use strict\";return (" + imgRatio + ")")();
         setImage_1.setFrameSize($container, imgRatio, options);
         setImage_1.setFrameSize($img, imgRatio, options);
     }
-    else {
-        var tmpImage = new Image();
-        tmpImage.addEventListener("load", function () {
-            $img.addClass(constants_1.CssClasses.FADEIN);
-            imgRatio = this.naturalWidth / this.naturalHeight;
-            setImage_1.setFrameSize($container, imgRatio, options);
-        });
-        tmpImage.src = $indexedImage.attr("src");
-    }
+    imageHandlers_1.loadImage(indexedImagePath).then(function (result) {
+        var imageURL = window.URL.createObjectURL(result);
+        $img.addClass(constants_1.CssClasses.FADEIN);
+        $img.eq(eqVal).attr("src", imageURL);
+    }, function (Error) {
+        console.log(Error);
+    });
     console.log("img ration is " + imgRatio);
     $window.on("resize", function () {
         //            setImage($img, options, eqVal, imgRatio)
@@ -11304,6 +11300,55 @@ exports.KEY_UP = 16;
 exports.KEY_RIGHT = 39;
 exports.KEY_LEFT = 37;
 exports.KEY_DOWN = 40;
+
+});
+___scope___.file("ts/imageHandlers.js", function(exports, require, module, __filename, __dirname){
+
+"use strict";
+// credit to https://codeburst.io/javascript-promises-explained-with-simple-real-life-analogies-dd6908092138
+// http://ccoenraets.github.io/es6-tutorial-data/promisify/
+// https://gist.github.com/santisbon/a7c221780b528bd3ebb8
+Object.defineProperty(exports, "__esModule", { value: true });
+function loadImage(url) {
+    return new Promise(function (resolve, reject) {
+        // Open a new XHR
+        var request = new XMLHttpRequest();
+        request.open("GET", url);
+        request.responseType = "blob";
+        // When the request loads, check whether it was successful
+        request.onload = function () {
+            if (request.status === 200) {
+                // If successful, resolve the promise
+                resolve(request.response);
+            }
+            else {
+                // Otherwise, reject the promise
+                reject(new Error(request.status + " An error occurred while loading image. Error: " + request.statusText));
+            }
+        };
+        request.onerror = function () {
+            // Also deal with the case when the entire request fails to begin with
+            // This is probably a network error, so reject the promise with an appropriate message
+            reject(new Error("There was a network error."));
+        };
+        request.send();
+    });
+}
+exports.loadImage = loadImage;
+function embedImage(url) {
+    loadImage(url).then(function (result) {
+        var img = new Image();
+        var imageURL = window.URL.createObjectURL(result);
+        img.src = imageURL;
+        document.querySelector("body").appendChild(img);
+    }, function (err) {
+        console.log(err);
+    });
+}
+exports.embedImage = embedImage;
+function addSrcToImageElement() {
+}
+exports.addSrcToImageElement = addSrcToImageElement;
 
 });
 ___scope___.file("ts/utils.js", function(exports, require, module, __filename, __dirname){

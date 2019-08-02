@@ -1,6 +1,5 @@
 // tslint:disable:no-console
 // tslint:disable:max-line-length
-
 /*!
  * @paxperscientiam/bookblock
  * jquery.bookblock.js v2.0.1
@@ -31,6 +30,11 @@ import {
     NEXT,
     PREV,
 } from "./constants"
+
+import {
+    loadImage,
+} from "./imageHandlers"
+
 import { BookBlockUtil } from "./utils"
 
 import { Notify } from "./notify"
@@ -538,15 +542,15 @@ export class BookBlock implements BookBlockPlugin  {
             if (this.modulatedNextIndex != null) {
                 path = this.$el.data().bbsrcset[this.modulatedNextIndex].path
                 $img = this.$el.find("img").eq(this.modulatedNextIndex) as JQuery<HTMLImageElement>
-                $img.on("load", (e) => {
+                loadImage(path).then((result: Blob) => {
                     $spinner.addClass(CssClasses.NOT_LOADING)
-                    $(e.target).fadeIn()
-                    console.log("image should be loaded atp")
+                    const imageURL = window.URL.createObjectURL(result)
+                    $img.addClass(CssClasses.FADEIN)
+                    $img.attr("src", imageURL)
                     resolve()
-
+                }, (Error) => {
+                    reject(Error)
                 })
-
-                $img.attr("src", path)
             }
         })
     }
@@ -695,26 +699,22 @@ $.fn.bookBlock = Object.assign<any, BookBlockPluginGlobalSettings>(
 
         console.log(`eqVal is ${eqVal}`)
 
-        $img.on("load", () => {
-            $img.addClass(CssClasses.FADEIN)
-        })
-
-        const $indexedImage = $img.eq(eqVal).attr("src", $img.eq(eqVal).data("bbsrc"))
+        const indexedImagePath = $img.eq(eqVal).data("bbsrc")
 
         let imgRatio = $container.data("bbratio")
         if (imgRatio != null) {
             imgRatio = Function(`"use strict";return (${imgRatio})`)()
             setFrameSize($container, imgRatio, options)
             setFrameSize($img, imgRatio, options)
-        } else {
-            const tmpImage = new Image()
-            tmpImage.addEventListener("load", function() {
-                $img.addClass(CssClasses.FADEIN)
-                imgRatio = this.naturalWidth / this.naturalHeight
-                setFrameSize($container, imgRatio, options)
-            })
-            tmpImage.src = $indexedImage.attr("src")
         }
+
+        loadImage(indexedImagePath).then((result: Blob) => {
+            const imageURL = window.URL.createObjectURL(result)
+            $img.addClass(CssClasses.FADEIN)
+            $img.eq(eqVal).attr("src", imageURL)
+        }, (Error) => {
+            console.log(Error)
+        })
 
         console.log(`img ration is ${imgRatio}`)
 
