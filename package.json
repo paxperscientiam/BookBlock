@@ -44,7 +44,7 @@
     "fuse-box-typechecker": "^2.12.0",
     "generate-gitignore": "^0.2.6",
     "minimist": "^1.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "postcss": "^7.0.17",
     "postcss-banner": "^3.0.1",
     "postcss-modules": "^1.4.1",
