@@ -47,7 +47,7 @@
     "node-sass": "^4.12.0",
     "postcss": "^7.0.17",
     "postcss-banner": "^3.0.1",
-    "postcss-modules": "^1.4.1",
+    "postcss-modules": "^6.0.0",
     "postcss-unprefix": "^2.1.4",
     "serve-handler": "^6.0.2",
     "source-map": "^0.7.3",
